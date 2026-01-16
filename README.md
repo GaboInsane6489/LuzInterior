@@ -1,116 +1,278 @@
+✨ MI LUZ INTERIOR
+
 <div align="center">
-  <!-- Proyecto Logo / Title -->
-  <br />
-  <h1>✨ LUZ INTERIOR ✨</h1>
-  <h3>Plataforma de Bienestar Mental & Soporte Profesional</h3>
-  
-  <p>
-    <i>Un ecosistema digital diseñado para acompañar el proceso de sanación con arquitectura moderna y diseño empático.</i>
-  </p>
 
-  <br />
+Sistema operativo para la reconstrucción personal
+Acción. Disciplina. Progreso medible. Comunidad.
 
-  <!-- Tech Stack Badges -->
-  <img src="https://img.shields.io/badge/React_19-20232a?style=for-the-badge&logo=react&logoColor=61DAFB" />
-  <img src="https://img.shields.io/badge/Vite_7-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
+<br /> <i> No vendemos motivación. Construimos sistemas para salir del pozo. </i>
 
-<br /> <br />
+<br /><br />
+
+<img src="https://img.shields.io/badge/React_19-20232a?style=for-the-badge&logo=react&logoColor=61DAFB" /> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" /> <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" /> <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
+
+<br /><br />
 
 </div>
+🌑 → 🌕 ¿Qué es Mi Luz Interior?
 
----
+Mi Luz Interior es una plataforma de desarrollo personal gamificada, diseñada para personas que no están bien y quieren reconstruirse a través de:
 
-<div align="center">
+estructura diaria
 
-## 🏗️ Arquitectura & Stack
+progreso visible
 
-Este proyecto no es solo una landing page; es una aplicación **SPA (Single Page Application)** construida con las últimas tecnologías del ecosistema JavaScript (2026), priorizando la performance (Core Web Vitals) y la accesibilidad (a11y).
+disciplina sostenida
 
-<table border="0" width="90%">
-  <tr>
-    <td width="50%" align="center" valign="top">
-        <h3>⚡ Frontend Core</h3>
-        <ul align="left">
-            <li><strong>React 19</strong>: Uso de Server Components y nuevas APIs de React.</li>
-            <li><strong>Vite 7</strong>: Build tool de última generación para HMR instantáneo.</li>
-            <li><strong>React Router 7</strong>: Manejo de rutas y layouts anidados.</li>
-        </ul>
-    </td>
-    <td width="50%" align="center" valign="top">
-        <h3>🎨 UI & Styling</h3>
-        <ul align="left">
-            <li><strong>Tailwind CSS 4</strong>: Motor de estilos utility-first sin barreras.</li>
-            <li><strong>Diseño Semántico</strong>: Estructura HTML5 optimizada para SEO.</li>
-            <li><strong>Responsive Design</strong>: Adaptabilidad fluida (Mobile-First).</li>
-        </ul>
-    </td>
-  </tr>
-</table>
+validación del esfuerzo real
 
-</div>
+comunidad bien diseñada
 
----
+No es autoayuda tradicional.
+No es contenido motivacional vacío.
 
-<div align="center">
+Es un sistema.
 
-## 🚀 Instalación y Despliegue
+🎯 El Problema que Atacamos (Sin Romanticismo)
 
-Diseñado para una experiencia de desarrollo ("DX") impecable.
+La depresión moderna no se soluciona con frases bonitas.
 
-```bash
-# 1. Clonar el repositorio
+El problema real suele ser:
+
+Falta de estructura
+
+Falta de progreso visible
+
+Aislamiento social
+
+Dopamina barata
+
+Cuerpo descuidado → mente deteriorada
+
+Ninguna validación del esfuerzo real
+
+👉 Este proyecto existe para atacar esas causas, no los síntomas.
+
+🧠 Filosofía del Producto
+
+Principios no negociables:
+
+Acción > Emoción
+No importa cómo te sientes. Importa lo que hiciste hoy.
+
+El cuerpo primero
+Ejercicio, higiene, sueño y alimentación preceden a la claridad mental.
+
+Progreso visible o abandono
+Todo debe ser medible. Si no se ve, se abandona.
+
+Comunidad silenciosa pero firme
+No es un culto ni un foro caótico.
+Es gente haciendo lo que toca.
+
+🏗️ Arquitectura General
+
+Este proyecto no es una landing page.
+Es una SPA escalable, diseñada desde el inicio para crecer durante años.
+
+Frontend
+
+React 19 — Componentes modernos y arquitectura modular
+
+Vite — DX rápida y builds optimizados
+
+React Router — Rutas y layouts desacoplados
+
+Tailwind CSS — Estilos consistentes y performantes
+
+Backend / Infraestructura
+
+Supabase
+
+Auth (OAuth)
+
+PostgreSQL
+
+Row Level Security (RLS)
+
+Realtime
+
+Storage + CDN
+
+Regla de oro:
+El frontend es inseguro. La base de datos se protege a sí misma.
+
+📄 Ver:
+/docs/architecture/01--business--and-technical-vision.md
+
+🧩 Dominios Funcionales (Core del Sistema)
+
+La plataforma se estructura por dominios de vida, no por páginas.
+
+🧠 Mentalidad
+
+Journaling guiado
+
+Retos de enfoque
+
+Lectura aplicada
+
+Protocolos anti-rumiación
+
+🏋️ Cuerpo
+
+Retos de gimnasio
+
+Seguimiento de constancia
+
+Higiene, postura y descanso
+
+🧍 Imagen Personal (LookMaxxing)
+
+Rutinas de grooming
+
+Estilo básico
+
+Progreso visual (opt-in)
+
+🎯 Disciplina
+
+Retos diarios
+
+Rachas
+
+XP por consistencia
+
+Penalización simbólica por abandono
+
+💻 Desarrollo Profesional (fase futura)
+
+Integración con GitHub
+
+Retos técnicos
+
+Logros profesionales públicos
+
+🎮 Gamificación (Diseñada con Intención)
+
+Esto no es un juego.
+Es un marco psicológico de refuerzo positivo.
+
+XP → esfuerzo acumulado
+
+Nivel → identidad actual
+
+Logros → prueba social
+
+Rachas → disciplina sostenida
+
+Ejemplos:
+
+🥇 30 días entrenando sin excusas
+
+🧘 21 días de meditación
+
+📚 5 lecturas completadas
+
+💻 Primer proyecto deployado
+
+Todo queda en el perfil.
+Todo es opcionalmente público.
+
+🚀 Instalación Local
+
+# Clonar el repositorio
+
 git clone https://github.com/GaboInsane6489/LuzInterior.git
 
-# 2. Entrar al directorio
+# Entrar al proyecto
+
 cd luz-interior
 
-# 3. Instalar dependencias (pnpm recomendado)
+# Instalar dependencias
+
 pnpm install
 
-# 4. Iniciar servidor de desarrollo
+# Iniciar entorno de desarrollo
+
 pnpm dev
-```
 
-> La aplicación estará disponible en `http://localhost:5173`
+La app estará disponible en:
+http://localhost:5173
 
-</div>
+🔐 Seguridad
 
----
+Autenticación OAuth (Supabase Auth)
 
-<div align="center">
+JWT gestionado por cliente Supabase
 
-## 💎 Filosofía de Código
+Row Level Security (RLS) como capa principal
 
-</div>
+Políticas explícitas por tabla
 
-<table border="0" width="100%">
-  <tr>
-    <td width="33%" align="center">
-      <strong>✨ Clean Code</strong><br/>
-      Componentes pequeños, reutilizables y con responsabilidad única.
-    </td>
-    <td width="33%" align="center">
-      <strong>♿ Accesibilidad</strong><br/>
-      Contraste WCAG AAA y navegación por teclado nativa.
-    </td>
-    <td width="33%" align="center">
-      <strong>📈 Performance</strong><br/>
-      Carga diferida y optimización de assets.
-    </td>
-  </tr>
-</table>
+La lógica crítica vive en la base de datos, no en el frontend.
 
-<br />
+🧭 Roadmap (Resumen)
+🟢 MVP
 
-<div align="center">
-  <p>
-    Desarrollado con ❤️ por <strong>Gabriel González</strong><br/>
-    Senior Full Stack Developer
-  </p>
-  
-  <a href="https://linkedin.com/in/tu-perfil">
-    <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin" />
-  </a>
-</div>
+Auth
+
+Perfil
+
+XP y niveles
+
+Retos diarios
+
+Logros básicos
+
+Dashboard personal (Dojo)
+
+🟡 Medio Plazo
+
+Notificaciones
+
+Comunidad
+
+Validación social
+
+Rachas avanzadas
+
+Integraciones externas
+
+🔴 Largo Plazo
+
+IA personal
+
+Mentorías
+
+App móvil
+
+Ecosistema profesional
+
+Marca consolidada
+
+🤝 Contribuir
+
+Este proyecto no busca cantidad, busca criterio.
+
+Si eres dev y conectas con la visión:
+
+Lee primero /docs/architecture
+
+Respeta la filosofía
+
+Prioriza claridad sobre complejidad
+
+Más detalles próximamente en CONTRIBUTING.md.
+
+👤 Autor
+
+Gabriel González
+Full Stack Developer
+Fundador de Mi Luz Interior
+
+<a href="https://linkedin.com/in/tu-perfil"> <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin" /> </a>
+🧠 Cierre
+
+Mi Luz Interior no es una app.
+Es un sistema para personas que están rotas y quieren reconstruirse.
