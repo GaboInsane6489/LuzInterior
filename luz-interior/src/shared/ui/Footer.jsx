@@ -1,5 +1,25 @@
 import React from "react";
-import { Sparkles, Instagram, Linkedin, Github } from "lucide-react";
+import { Sparkles, Instagram, Linkedin, Github, Twitter } from "lucide-react";
+import { SOCIAL_LINKS } from "../../config/constants";
+
+const SocialItems = [
+  {
+    Icon: Instagram,
+    href: SOCIAL_LINKS.Instagram,
+  },
+  {
+    Icon: Linkedin,
+    href: SOCIAL_LINKS.LinkedIn,
+  },
+  {
+    Icon: Github,
+    href: SOCIAL_LINKS.GitHub,
+  },
+  {
+    Icon: Twitter,
+    href: SOCIAL_LINKS.Twitter,
+  },
+];
 
 export default function Footer() {
   return (
@@ -21,14 +41,16 @@ export default function Footer() {
 
           {/* Redes Sociales */}
           <div className="flex gap-4 pt-2 justify-center md:justify-start">
-            {[Instagram, Linkedin, Github].map((Icon, i) => (
+            {SocialItems.map((item, i) => (
               <a
                 key={i}
-                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={item.href}
                 className="w-10 h-10 border border-white/20 flex items-center justify-center rounded-full hover:bg-white hover:text-black hover:-translate-y-1 transition-all duration-300"
                 aria-label="Social Link"
               >
-                <Icon className="w-4 h-4" />
+                <item.Icon className="w-4 h-4" />
               </a>
             ))}
           </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowUpRight, BookOpen, Brain, Coffee } from "lucide-react";
-import WellLivedLife from "../articles/well-lived-life.mdx";
+import WellLivedLife from "../../../articles/well-lived-life.mdx";
 
 export default function PersonalDevelopment() {
   return (

@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { Sparkles, Menu, X, User } from "lucide-react";
 import { useState, useEffect } from "react";
+import { NAV_LINKS } from "../../config/constants";
+import { useAuth } from "../../features/auth/hooks/useAuth";
 
 const Navbar = () => {
+  const { user, loading, login, logout } = useAuth();
+
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -39,13 +43,13 @@ const Navbar = () => {
 
         {/* MENÚ DESKTOP */}
         <div className="hidden md:flex gap-10 items-center">
-          {["Inicio", "Filosofía", "Recursos"].map((item) => (
+          {NAV_LINKS.map((link) => (
             <Link
-              key={item}
-              to="/"
+              key={link.label}
+              to={link.href}
               className="text-sm font-medium tracking-widest hover:text-amber-300 transition-colors relative group"
             >
-              {item}
+              {link.label}
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-amber-300 transition-all duration-300 ease-out group-hover:w-full"></span>
             </Link>
           ))}
@@ -57,6 +61,30 @@ const Navbar = () => {
             Contacto
           </Link>
         </div>
+
+        {/* 3. Lógica de Auth en Desktop */}
+        {loading ? (
+          <div className="w-8 h-8 rounded-full bg-white/10 animate-pulse">
+            <span className="animate-pulse">Cargando...</span>
+          </div>
+        ) : user ? (
+          <div className="flex items-center gap-4">
+            <img
+              src={user.user_metadata.avatar_url}
+              alt={user.user_metadata.full_name}
+              className="w-8 h-8 rounded-full border border-amber-300"
+            />
+            <button onClick={logout}>Salir</button>
+          </div>
+        ) : (
+          <button
+            onClick={login}
+            className="flex items-center gap-2 border border-amber-300/50 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-amber-300 hover:text-black transition-all duration-300"
+          >
+            <User className="w-4 h-4" />
+            Login
+          </button>
+        )}
 
         {/* BOTÓN MENÚ MÓVIL */}
         <button
@@ -76,15 +104,15 @@ const Navbar = () => {
               : "opacity-0 invisible -translate-y-full"
           }`}
         >
-          {["Inicio", "Filosofía", "Recursos"].map((item, index) => (
+          {NAV_LINKS.map((link, index) => (
             <Link
-              key={item}
-              to="/"
+              key={link.label}
+              to={link.href}
               onClick={() => setIsOpen(false)}
               className="text-3xl font-light text-white tracking-widest hover:text-amber-300 transition-colors"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {item}
+              {link.label}
             </Link>
           ))}
           <Link

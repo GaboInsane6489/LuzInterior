@@ -1,11 +1,11 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const Landing = React.lazy(() => import("./pages/Landing"));
-const About = React.lazy(() => import("./pages/About"));
-const Contact = React.lazy(() => import("./pages/Contact"));
+const Landing = React.lazy(() => import("../features/landing/LandingPage"));
+const About = React.lazy(() => import("../features/landing/pages/About"));
+const Contact = React.lazy(() => import("../features/landing/pages/Contact"));
 
-import Layout from "./Layouts/Layout";
+import Layout from "../shared/ui/Layout";
 
 const router = createBrowserRouter([
   {
