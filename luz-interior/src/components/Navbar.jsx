@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Sparkles, Menu, X } from "lucide-react";
+import { Sparkles, Menu, X, User } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
@@ -31,7 +31,7 @@ const Navbar = () => {
           className="flex items-center gap-2 group relative z-50"
           onClick={() => setIsOpen(false)}
         >
-          <Sparkles className="w-5 h-5 text-amber-300 transition-transform duration-700 group-hover:rotate-180" />
+          <Sparkles className="w-7 h-7 text-amber-300 transition-transform duration-700 group-hover:rotate-180" />
           <span className="text-xl font-bold tracking-widest uppercase">
             Luz Interior
           </span>

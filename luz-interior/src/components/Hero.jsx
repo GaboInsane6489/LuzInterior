@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
-import disciplineClimb from "../assets/discipline_climb.png";
 
 export default function Hero() {
   return (
@@ -10,12 +9,12 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         {/* Parallax effect sutil: scale-110 */}
         <img
-          src={disciplineClimb}
+          src="/images/Winter.webp"
           alt="Paisaje de montaña evocando superación"
           className="w-full h-full object-cover opacity-60 animate-slow-zoom"
         />
         {/* Overlay Gradiente: Crucial para leer texto blanco sobre imagen */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/50"></div>
       </div>
 
       {/* 2. CONTENT LAYER */}

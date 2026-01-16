@@ -2,6 +2,8 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import Hero from "../components/Hero";
 import DepressionSection from "../components/DepressionSection";
+import PersonalDevelopment from "../components/PersonalDevelopment";
+import LooksMaxxing from "../components/LooksMaxxing";
 
 const Landing = () => {
   return (
@@ -17,6 +19,8 @@ const Landing = () => {
       <main>
         <Hero />
         <DepressionSection />
+        <PersonalDevelopment />
+        <LooksMaxxing />
       </main>
     </>
   );

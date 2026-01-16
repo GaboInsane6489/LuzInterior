@@ -1,7 +1,7 @@
 import React from "react";
 import { Leaf, Mic, Users, ArrowUpRight } from "lucide-react";
 // Imagen remota de alta calidad (Unsplash)
-const REMOTE_IMAGE = "https://wallpapercave.com/wp/wp4979803.png";
+const REMOTE_IMAGE = "/images/aestheticPaisaje.webp";
 export default function DepressionSection() {
   return (
     <section className="relative w-full bg-white text-black py-24 lg:py-40">
@@ -10,7 +10,7 @@ export default function DepressionSection() {
           {/* VISUAL: Minimalismo Geométrico */}
           <div className="relative group order-2 lg:order-1">
             <div className="absolute top-0 right-0 w-full h-full border-[1.5px] border-black transform translate-x-4 translate-y-4 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2"></div>
-            <div className="relative w-full aspect-[3/4] overflow-hidden grayscale border-[1.5px] border-black bg-gray-50">
+            <div className="relative w-full aspect-[3/4] overflow-hidden border-[1.5px] border-black">
               <img
                 src={REMOTE_IMAGE}
                 alt="Retrato minimalista simbolizando introspección"

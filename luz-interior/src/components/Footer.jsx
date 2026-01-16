@@ -49,7 +49,7 @@ export default function Footer() {
               <li key={item}>
                 <a
                   href="#"
-                  className="hover:text-red-700 transition-colors inline-block hover:translate-x-1 duration-200"
+                  className="hover:text-amber-400 transition-colors inline-block hover:translate-x-1 duration-200"
                 >
                   {item}
                 </a>
@@ -68,7 +68,7 @@ export default function Footer() {
               <li key={item}>
                 <a
                   href="#"
-                  className="hover:text-purple-500 transition-colors inline-block hover:translate-x-1 duration-200"
+                  className="hover:text-amber-400 transition-colors inline-block hover:translate-x-1 duration-200"
                 >
                   {item}
                 </a>
@@ -80,7 +80,7 @@ export default function Footer() {
 
       {/* COPYRIGHT */}
       <div className="border-t border-white/10 pt-8 text-center">
-        <p className="text-gray-500 text-xs tracking-widest">
+        <p className="text-gray-400 text-xs tracking-widest">
           © {new Date().getFullYear()} Luz Interior. Desarrollado por Gabriel
           González / Senior Full Stack Developer.
         </p>
