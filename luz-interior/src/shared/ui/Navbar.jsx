@@ -68,13 +68,26 @@ const Navbar = () => {
             <span className="animate-pulse">Cargando...</span>
           </div>
         ) : user ? (
-          <div className="flex items-center gap-4">
-            <img
-              src={user.user_metadata.avatar_url}
-              alt={user.user_metadata.full_name}
-              className="w-8 h-8 rounded-full border border-amber-300"
-            />
-            <button onClick={logout}>Salir</button>
+          <div className="flex items-center gap-6">
+            <Link
+              to="/dojo"
+              className="flex items-center gap-3 group hover:opacity-80 transition-all"
+            >
+              <img
+                src={user.user_metadata.avatar_url}
+                alt={user.user_metadata.full_name}
+                className="w-10 h-10 rounded-full border-2 border-amber-300 group-hover:scale-110 transition-transform"
+              />
+              <span className="hidden lg:block text-xs font-bold uppercase tracking-widest">
+                Mi Dojo
+              </span>
+            </Link>
+            <button
+              onClick={logout}
+              className="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
+            >
+              Salir
+            </button>
           </div>
         ) : (
           <button

@@ -1,7 +1,9 @@
 import React from "react";
 import { Leaf, Mic, Users, ArrowUpRight } from "lucide-react";
+
 // Imagen remota de alta calidad (Unsplash)
 const REMOTE_IMAGE = "/images/aestheticPaisaje.webp";
+
 export default function DepressionSection() {
   return (
     <section className="relative w-full bg-white text-black py-24 lg:py-40">

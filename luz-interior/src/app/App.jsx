@@ -4,8 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const Landing = React.lazy(() => import("../features/landing/LandingPage"));
 const About = React.lazy(() => import("../features/landing/pages/About"));
 const Contact = React.lazy(() => import("../features/landing/pages/Contact"));
+const Dojo = React.lazy(() => import("../features/dojo/pages/DojoDashboard"));
 
 import Layout from "../shared/ui/Layout";
+import ProtectedRoute from "../shared/ui/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,16 @@ const router = createBrowserRouter([
           <React.Suspense fallback={<div>Loading...</div>}>
             <Contact />
           </React.Suspense>
+        ),
+      },
+      {
+        path: "dojo",
+        element: (
+          <ProtectedRoute>
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <Dojo />
+            </React.Suspense>
+          </ProtectedRoute>
         ),
       },
     ],

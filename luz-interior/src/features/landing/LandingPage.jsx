@@ -5,6 +5,7 @@ import DepressionSection from "./components/DepressionSection";
 import PersonalDevelopment from "./components/PersonalDevelopment";
 import LooksMaxxing from "./components/LooksMaxxing";
 import { SEO_DATA } from "../../config/constants";
+import DojoHero from "./components/DojoHero";
 
 const Landing = () => {
   return (
@@ -23,6 +24,7 @@ const Landing = () => {
         <DepressionSection />
         <PersonalDevelopment />
         <LooksMaxxing />
+        <DojoHero />
       </main>
     </>
   );

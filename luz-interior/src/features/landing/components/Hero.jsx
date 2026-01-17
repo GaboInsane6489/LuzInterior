@@ -4,34 +4,34 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-screen min-h-[600px] overflow-hidden flex items-center justify-center bg-black">
+    <section className="relative w-full h-screen flex items-center justify-center bg-black overflow-hidden">
       {/* 1. BACKGROUND LAYER */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 opacity-70">
         {/* Parallax effect sutil: scale-110 */}
         <img
           src="/images/Winter.webp"
           alt="Paisaje de montaña evocando superación"
-          className="w-full h-full object-cover opacity-60 animate-slow-zoom"
+          className="w-full h-full object-cover opacity-70 animate-slow-zoom"
         />
         {/* Overlay Gradiente: Crucial para leer texto blanco sobre imagen */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
       </div>
 
       {/* 2. CONTENT LAYER */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center space-y-8">
         {/* Badge Animado */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mx-auto animate-fade-in-down">
-          <Sparkles className="w-3 h-3 text-amber-400" />
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-gray-200">
-            Mentalidad & Disciplina
+        <div className="inline-flex items-center gap-2 px-4 py-0.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mx-auto animate-fade-in-down">
+          <Sparkles className="w-4 h-4 text-amber-300" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-200">
+            Forja tu destino
           </span>
         </div>
 
         {/* Título Principal */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter leading-tight drop-shadow-2xl animate-fade-in-up">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tighter leading-tight drop-shadow-2xl animate-fade-in-up">
           Encuentra tu <br />
           {/* Gradiente Textual */}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 font-italic">
             Luz Interior
           </span>
         </h1>
