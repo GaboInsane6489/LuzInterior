@@ -4,8 +4,8 @@ import Hero from "./components/Hero";
 import DepressionSection from "./components/DepressionSection";
 import PersonalDevelopment from "./components/PersonalDevelopment";
 import LooksMaxxing from "./components/LooksMaxxing";
-import { SEO_DATA } from "../../config/constants";
 import DojoHero from "./components/DojoHero";
+import { SEO_DATA } from "../../config/constants";
 
 const Landing = () => {
   return (
