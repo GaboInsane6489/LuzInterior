@@ -84,6 +84,7 @@ alter table public.challenge_logs enable row level security;
 -- Políticas de Profiles
 create policy "Los perfiles son públicos" on public.profiles for select using (true);
 create policy "Solo el usuario puede editar su propio perfil" on public.profiles for update using (auth.uid() = id);
+create policy "Usuarios pueden insertar su propio perfil" on public.profiles for insert with check (auth.uid() = id);
 
 -- Políticas de Challenges (Lectura para todos, escritura solo admin)
 create policy "Los retos son públicos" on public.challenges for select using (true);

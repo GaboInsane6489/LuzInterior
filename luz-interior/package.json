@@ -12,7 +12,9 @@
   "dependencies": {
     "@mdx-js/react": "^3.1.1",
     "@supabase/supabase-js": "^2.90.1",
+    "framer-motion": "^12.27.0",
     "lucide-react": "^0.562.0",
+    "prop-types": "^15.8.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-helmet-async": "^2.0.5",

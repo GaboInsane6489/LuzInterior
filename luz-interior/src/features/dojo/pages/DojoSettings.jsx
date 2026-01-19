@@ -1,0 +1,394 @@
+import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useAuth } from "../../auth/hooks/useAuth";
+import { useDojoData } from "../hooks/useDojoData";
+import { useProfileEditor } from "../hooks/useProfileEditor";
+import { storageService } from "../services/storage.service";
+import XPProgressBar from "../components/XPProgressBar";
+import {
+  User,
+  Mail,
+  Shield,
+  Loader2,
+  Edit2,
+  Check,
+  X,
+  Upload,
+  Instagram,
+  Twitter,
+  Linkedin,
+  Github,
+} from "lucide-react";
+
+export default function DojoSettings() {
+  const { user } = useAuth();
+  const { profile, loading: dataLoading, refreshData } = useDojoData();
+  const {
+    profile: editedProfile,
+    editingField,
+    loading: saving,
+    error,
+    success,
+    updateField,
+    saveField,
+    cancelEdit,
+    startEdit,
+  } = useProfileEditor(profile);
+
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
+
+  if (dataLoading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-amber-300 animate-spin" />
+      </div>
+    );
+  }
+
+  const handleAvatarUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploadingAvatar(true);
+      const url = await storageService.uploadAvatar(file, user.id);
+      await saveField("custom_avatar_url", url);
+      await refreshData();
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
+  const handleCoverUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploadingCover(true);
+      const url = await storageService.uploadCoverPhoto(file, user.id);
+      await saveField("cover_photo_url", url);
+      await refreshData();
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setUploadingCover(false);
+    }
+  };
+
+  const renderEditableField = (
+    field,
+    label,
+    value,
+    type = "text",
+    maxLength,
+  ) => {
+    const isEditing = editingField === field;
+
+    return (
+      <div className="space-y-2">
+        <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold block">
+          {label}
+        </label>
+        {isEditing ? (
+          <div className="space-y-2">
+            {type === "textarea" ? (
+              <textarea
+                value={editedProfile[field] || ""}
+                onChange={(e) => updateField(field, e.target.value)}
+                maxLength={maxLength}
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-300 focus:outline-none resize-none"
+              />
+            ) : (
+              <input
+                type={type}
+                value={editedProfile[field] || ""}
+                onChange={(e) => updateField(field, e.target.value)}
+                maxLength={maxLength}
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-amber-300 focus:outline-none"
+              />
+            )}
+            {maxLength && (
+              <p className="text-xs text-gray-500 text-right">
+                {(editedProfile[field] || "").length} / {maxLength}
+              </p>
+            )}
+            <div className="flex gap-2">
+              <button
+                onClick={() => saveField(field, editedProfile[field])}
+                disabled={saving}
+                className="flex items-center gap-2 px-4 py-2 bg-amber-300 text-black rounded-lg hover:bg-amber-400 transition-all disabled:opacity-50"
+              >
+                {saving ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Check className="w-4 h-4" />
+                )}
+                Guardar
+              </button>
+              <button
+                onClick={() => cancelEdit(field)}
+                disabled={saving}
+                className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all"
+              >
+                <X className="w-4 h-4" />
+                Cancelar
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between group">
+            <p className="text-white">{value || "No especificado"}</p>
+            <button
+              onClick={() => startEdit(field)}
+              className="opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-white/5 rounded-lg"
+            >
+              <Edit2 className="w-4 h-4 text-amber-300" />
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <Helmet>
+        <title>Configuración | El Dojo</title>
+      </Helmet>
+
+      <section className="space-y-10">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-white/5 pb-6">
+          <div className="space-y-2">
+            <h3 className="text-3xl font-serif">Configuración</h3>
+            <p className="text-gray-500 text-sm">
+              Gestiona tu perfil y preferencias.
+            </p>
+          </div>
+        </div>
+
+        {/* Mensajes de feedback */}
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm">
+            {error}
+          </div>
+        )}
+        {success && (
+          <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 text-green-400 text-sm">
+            {success}
+          </div>
+        )}
+
+        {/* Progreso XP */}
+        <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem]">
+          <XPProgressBar profile={profile} variant="full" />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Imágenes de Perfil */}
+          <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem] space-y-6">
+            <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+              <div className="w-12 h-12 bg-amber-300/10 rounded-2xl flex items-center justify-center">
+                <Upload className="w-6 h-6 text-amber-300" />
+              </div>
+              <h4 className="text-xl font-serif">Imágenes de Perfil</h4>
+            </div>
+
+            {/* Avatar */}
+            <div className="space-y-3">
+              <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold block">
+                Avatar
+              </label>
+              <div className="flex items-center gap-4">
+                <img
+                  src={
+                    profile?.custom_avatar_url ||
+                    user?.user_metadata?.avatar_url
+                  }
+                  className="w-20 h-20 rounded-2xl border border-white/10"
+                  alt="Avatar"
+                />
+                <label className="cursor-pointer px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all flex items-center gap-2">
+                  {uploadingAvatar ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Upload className="w-4 h-4" />
+                  )}
+                  Cambiar Avatar
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleAvatarUpload}
+                    className="hidden"
+                    disabled={uploadingAvatar}
+                  />
+                </label>
+              </div>
+              <p className="text-xs text-gray-500">
+                JPG, PNG o WEBP. Máximo 5MB.
+              </p>
+            </div>
+
+            {/* Cover Photo */}
+            <div className="space-y-3">
+              <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold block">
+                Foto de Portada
+              </label>
+              {profile?.cover_photo_url && (
+                <img
+                  src={profile.cover_photo_url}
+                  className="w-full h-32 object-cover rounded-xl border border-white/10"
+                  alt="Cover"
+                />
+              )}
+              <label className="cursor-pointer px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all flex items-center gap-2 w-fit">
+                {uploadingCover ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Upload className="w-4 h-4" />
+                )}
+                {profile?.cover_photo_url ? "Cambiar Portada" : "Subir Portada"}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleCoverUpload}
+                  className="hidden"
+                  disabled={uploadingCover}
+                />
+              </label>
+              <p className="text-xs text-gray-500">
+                JPG, PNG o WEBP. Máximo 10MB. Ratio 16:9 recomendado.
+              </p>
+            </div>
+          </div>
+
+          {/* Información Personal */}
+          <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem] space-y-6">
+            <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+              <div className="w-12 h-12 bg-amber-300/10 rounded-2xl flex items-center justify-center">
+                <User className="w-6 h-6 text-amber-300" />
+              </div>
+              <h4 className="text-xl font-serif">Información Personal</h4>
+            </div>
+
+            {renderEditableField(
+              "full_name",
+              "Nombre Completo",
+              profile?.full_name,
+            )}
+            {renderEditableField(
+              "username",
+              "Nombre de Usuario",
+              profile?.username,
+            )}
+            {renderEditableField("age", "Edad", profile?.age, "number")}
+            {renderEditableField(
+              "bio",
+              "Biografía",
+              profile?.bio,
+              "textarea",
+              500,
+            )}
+          </div>
+
+          {/* Redes Sociales */}
+          <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem] space-y-6">
+            <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+              <div className="w-12 h-12 bg-amber-300/10 rounded-2xl flex items-center justify-center">
+                <Instagram className="w-6 h-6 text-amber-300" />
+              </div>
+              <h4 className="text-xl font-serif">Redes Sociales</h4>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Instagram className="w-5 h-5 text-pink-500" />
+                {renderEditableField(
+                  "social_instagram",
+                  "Instagram",
+                  profile?.social_instagram,
+                  "url",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <Twitter className="w-5 h-5 text-blue-400" />
+                {renderEditableField(
+                  "social_twitter",
+                  "Twitter",
+                  profile?.social_twitter,
+                  "url",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <Linkedin className="w-5 h-5 text-blue-600" />
+                {renderEditableField(
+                  "social_linkedin",
+                  "LinkedIn",
+                  profile?.social_linkedin,
+                  "url",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <Github className="w-5 h-5 text-gray-400" />
+                {renderEditableField(
+                  "social_github",
+                  "GitHub",
+                  profile?.social_github,
+                  "url",
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Información de Cuenta */}
+          <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem] space-y-6">
+            <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+              <div className="w-12 h-12 bg-amber-300/10 rounded-2xl flex items-center justify-center">
+                <Shield className="w-6 h-6 text-amber-300" />
+              </div>
+              <h4 className="text-xl font-serif">Seguridad</h4>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold block mb-2">
+                  Correo Electrónico
+                </label>
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-gray-500" />
+                  <p className="text-white">{user?.email}</p>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold block mb-2">
+                  Proveedor de Autenticación
+                </label>
+                <p className="text-white capitalize">
+                  {user?.app_metadata?.provider || "Google"}
+                </p>
+              </div>
+
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold block mb-2">
+                  Cuenta Creada
+                </label>
+                <p className="text-white">
+                  {new Date(user?.created_at).toLocaleDateString("es-ES", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
