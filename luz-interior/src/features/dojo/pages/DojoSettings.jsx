@@ -158,6 +158,10 @@ export default function DojoSettings() {
     <>
       <Helmet>
         <title>Configuración | El Dojo</title>
+        <meta
+          name="description"
+          content="Personaliza tu perfil, redes sociales y preferencias de cuenta."
+        />
       </Helmet>
 
       <section className="space-y-10">
@@ -184,13 +188,13 @@ export default function DojoSettings() {
         )}
 
         {/* Progreso XP */}
-        <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem]">
+        <div className="bg-zinc-900/40 backdrop-blur-md p-8 border border-white/5 rounded-[2.5rem]">
           <XPProgressBar profile={profile} variant="full" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Imágenes de Perfil */}
-          <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem] space-y-6">
+          <div className="bg-zinc-900/40 backdrop-blur-md p-8 border border-white/5 rounded-[2.5rem] space-y-6">
             <div className="flex items-center gap-4 border-b border-white/5 pb-6">
               <div className="w-12 h-12 bg-amber-300/10 rounded-2xl flex items-center justify-center">
                 <Upload className="w-6 h-6 text-amber-300" />
@@ -267,7 +271,7 @@ export default function DojoSettings() {
           </div>
 
           {/* Información Personal */}
-          <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem] space-y-6">
+          <div className="bg-zinc-900/40 backdrop-blur-md p-8 border border-white/5 rounded-[2.5rem] space-y-6">
             <div className="flex items-center gap-4 border-b border-white/5 pb-6">
               <div className="w-12 h-12 bg-amber-300/10 rounded-2xl flex items-center justify-center">
                 <User className="w-6 h-6 text-amber-300" />
@@ -296,7 +300,7 @@ export default function DojoSettings() {
           </div>
 
           {/* Redes Sociales */}
-          <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem] space-y-6">
+          <div className="bg-zinc-900/40 backdrop-blur-md p-8 border border-white/5 rounded-[2.5rem] space-y-6">
             <div className="flex items-center gap-4 border-b border-white/5 pb-6">
               <div className="w-12 h-12 bg-amber-300/10 rounded-2xl flex items-center justify-center">
                 <Instagram className="w-6 h-6 text-amber-300" />
@@ -345,7 +349,7 @@ export default function DojoSettings() {
           </div>
 
           {/* Información de Cuenta */}
-          <div className="bg-zinc-950 p-8 border border-white/5 rounded-[2.5rem] space-y-6">
+          <div className="bg-zinc-900/40 backdrop-blur-md p-8 border border-white/5 rounded-[2.5rem] space-y-6">
             <div className="flex items-center gap-4 border-b border-white/5 pb-6">
               <div className="w-12 h-12 bg-amber-300/10 rounded-2xl flex items-center justify-center">
                 <Shield className="w-6 h-6 text-amber-300" />

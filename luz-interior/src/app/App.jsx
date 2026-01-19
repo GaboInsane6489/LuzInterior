@@ -13,9 +13,7 @@ const Contact = React.lazy(() => import("../features/landing/pages/Contact"));
 const DojoLayout = React.lazy(
   () => import("../features/dojo/layout/DojoLayout"),
 );
-const DojoDashboard = React.lazy(
-  () => import("../features/dojo/pages/DojoDashboard"),
-);
+const DojoMain = React.lazy(() => import("../features/dojo/pages/DojoMain"));
 const DojoAchievements = React.lazy(
   () => import("../features/dojo/pages/DojoAchievements"),
 );
@@ -26,18 +24,22 @@ const DojoSettings = React.lazy(
   () => import("../features/dojo/pages/DojoSettings"),
 );
 
+// Shared and features imports
 import Layout from "../shared/ui/Layout";
 import ProtectedRoute from "../shared/ui/ProtectedRoute";
+import DojoLoader from "../features/dojo/components/DojoLoader";
+import GlobalErrorBoundary from "../shared/ui/GlobalErrorBoundary";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <GlobalErrorBoundary />,
     children: [
       {
         index: true,
         element: (
-          <React.Suspense fallback={<div>Loading...</div>}>
+          <React.Suspense fallback={<DojoLoader />}>
             <Landing />
           </React.Suspense>
         ),
@@ -45,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: (
-          <React.Suspense fallback={<div>Loading...</div>}>
+          <React.Suspense fallback={<DojoLoader />}>
             <About />
           </React.Suspense>
         ),
@@ -53,7 +55,7 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: (
-          <React.Suspense fallback={<div>Loading...</div>}>
+          <React.Suspense fallback={<DojoLoader />}>
             <Contact />
           </React.Suspense>
         ),
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
         path: "dojo",
         element: (
           <ProtectedRoute>
-            <React.Suspense fallback={<div>Loading...</div>}>
+            <React.Suspense fallback={<DojoLoader />}>
               <DojoLayout />
             </React.Suspense>
           </ProtectedRoute>
@@ -75,15 +77,15 @@ const router = createBrowserRouter([
           {
             path: "dashboard",
             element: (
-              <React.Suspense fallback={<div>Loading...</div>}>
-                <DojoDashboard />
+              <React.Suspense fallback={<DojoLoader />}>
+                <DojoMain />
               </React.Suspense>
             ),
           },
           {
             path: "achievements",
             element: (
-              <React.Suspense fallback={<div>Loading...</div>}>
+              <React.Suspense fallback={<DojoLoader />}>
                 <DojoAchievements />
               </React.Suspense>
             ),
@@ -91,7 +93,7 @@ const router = createBrowserRouter([
           {
             path: "library",
             element: (
-              <React.Suspense fallback={<div>Loading...</div>}>
+              <React.Suspense fallback={<DojoLoader />}>
                 <DojoLibrary />
               </React.Suspense>
             ),
@@ -99,7 +101,7 @@ const router = createBrowserRouter([
           {
             path: "settings",
             element: (
-              <React.Suspense fallback={<div>Loading...</div>}>
+              <React.Suspense fallback={<DojoLoader />}>
                 <DojoSettings />
               </React.Suspense>
             ),

@@ -3,6 +3,7 @@ import { Outlet, NavLink } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { useDojoData } from "../hooks/useDojoData";
 import XPProgressBar from "../components/XPProgressBar";
+import VideoBackground from "../components/VideoBackground";
 import { LayoutDashboard, Award, Book, Settings } from "lucide-react";
 
 export default function DojoLayout() {
@@ -18,10 +19,10 @@ export default function DojoLayout() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-amber-300 selection:text-black">
+    <div className="min-h-screen text-white selection:bg-amber-300 selection:text-black">
       <div className="flex flex-col md:flex-row">
         {/* Sidebar de Navegación Lateral (Desktop) */}
-        <aside className="sticky top-20 h-[calc(100vh-5rem)] w-20 bg-zinc-950 border-r border-white/5 flex-col items-center py-10 gap-10 z-40 hidden md:flex shrink-0">
+        <aside className="sticky top-20 h-[calc(100vh-5rem)] w-20 bg-zinc-950/40 backdrop-blur-md border-r border-white/5 flex-col items-center py-10 gap-10 z-40 hidden md:flex shrink-0">
           <div className="w-12 h-12 bg-amber-300 text-black flex items-center justify-center rounded-2xl font-serif text-2xl font-bold shadow-[0_0_20px_rgba(245,158,11,0.3)]">
             L
           </div>
@@ -44,7 +45,7 @@ export default function DojoLayout() {
         </aside>
 
         {/* Bottom Navigation (Mobile) */}
-        <nav className="fixed bottom-0 left-0 right-0 bg-zinc-950 border-t border-white/5 z-50 md:hidden">
+        <nav className="fixed bottom-0 left-0 right-0 bg-zinc-950/60 backdrop-blur-lg border-t border-white/5 z-50 md:hidden">
           <div className="flex justify-around items-center py-3 px-2">
             {navItems.map((item) => (
               <NavLink
@@ -68,7 +69,17 @@ export default function DojoLayout() {
         </nav>
 
         {/* Contenido Principal */}
-        <main className="flex-1 bg-[url('/images/lionelMessiInspiracion.webp')] bg-cover bg-center bg-no-repeat pb-20 md:pb-0">
+        <main className="flex-1 relative pb-20 md:pb-0">
+          {/* 
+            IMPLEMENTACIÓN DE VIDEO BG:
+            Usamos el video que subiste. Nota: fallen-knight.mp4 pesa 77MB.
+            En producción deberíamos reducirlo a <5MB.
+          */}
+          <VideoBackground
+            src="/videos/fallen-knight.mp4"
+            overlayOpacity={0.3}
+          />
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-12 lg:py-20 space-y-12 md:space-y-16 lg:space-y-24">
             {/* Header Compartido */}
             <header className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 lg:gap-10">
