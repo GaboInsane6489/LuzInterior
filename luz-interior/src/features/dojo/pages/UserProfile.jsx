@@ -8,7 +8,7 @@ import {
   Youtube,
   TikTok,
   Facebook,
-  LinkedIn,
+  Linkedin,
   X,
   MapPin,
   Mail,
