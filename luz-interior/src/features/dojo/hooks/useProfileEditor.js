@@ -37,7 +37,7 @@ export const useProfileEditor = (initialProfile) => {
   /**
    * Guarda un campo específico en la base de datos
    */
-  const saveField = async (field, value) => {
+  const saveField = async (field, value, onSuccess) => {
     setLoading(true);
     setError(null);
     setSuccess(null);
@@ -59,8 +59,11 @@ export const useProfileEditor = (initialProfile) => {
 
       if (updateError) throw updateError;
 
-      setSuccess(`${field} actualizado correctamente.`);
+      setSuccess("Cambios guardados correctamente.");
       setEditingField(null);
+
+      // Si hay un callback de éxito (ej. refrescar datos globales), lo ejecutamos
+      if (onSuccess) await onSuccess();
 
       // Limpiar mensaje de éxito después de 3 segundos
       setTimeout(() => setSuccess(null), 3000);
