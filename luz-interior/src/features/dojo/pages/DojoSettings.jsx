@@ -18,6 +18,7 @@ import {
   Twitter,
   Linkedin,
   Github,
+  ArrowUpRight,
 } from "lucide-react";
 
 export default function DojoSettings() {

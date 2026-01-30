@@ -4,7 +4,13 @@ import { useAuth } from "../../auth/hooks/useAuth";
 import { useDojoData } from "../hooks/useDojoData";
 import XPProgressBar from "../components/XPProgressBar";
 import VideoBackground from "../components/VideoBackground";
-import { LayoutDashboard, Award, Book, Settings } from "lucide-react";
+import {
+  LayoutDashboard,
+  Award,
+  Book,
+  Settings,
+  CircleUser,
+} from "lucide-react";
 
 export default function DojoLayout() {
   const { user } = useAuth();
@@ -12,6 +18,7 @@ export default function DojoLayout() {
   const firstName = user?.user_metadata?.full_name?.split(" ")[0];
 
   const navItems = [
+    { to: "/dojo/profile", icon: CircleUser, label: "Perfil" },
     { to: "/dojo/dashboard", icon: LayoutDashboard, label: "Dashboard" },
     { to: "/dojo/achievements", icon: Award, label: "Logros" },
     { to: "/dojo/library", icon: Book, label: "Biblioteca" },

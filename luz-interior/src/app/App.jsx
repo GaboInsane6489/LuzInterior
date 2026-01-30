@@ -23,6 +23,9 @@ const DojoLibrary = React.lazy(
 const DojoSettings = React.lazy(
   () => import("../features/dojo/pages/DojoSettings"),
 );
+const UserProfile = React.lazy(
+  () => import("../features/dojo/pages/UserProfile"),
+);
 
 // Shared and features imports
 import Layout from "../shared/ui/Layout";
@@ -103,6 +106,14 @@ const router = createBrowserRouter([
             element: (
               <React.Suspense fallback={<DojoLoader />}>
                 <DojoSettings />
+              </React.Suspense>
+            ),
+          },
+          {
+            path: "profile/:username?",
+            element: (
+              <React.Suspense fallback={<DojoLoader />}>
+                <UserProfile />
               </React.Suspense>
             ),
           },
