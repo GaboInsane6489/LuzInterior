@@ -5,10 +5,8 @@ import { useDojoData } from "../hooks/useDojoData";
 import {
   Instagram,
   Twitter,
-  Youtube,
-  TikTok,
-  Facebook,
   Linkedin,
+  Github,
   X,
   MapPin,
   Mail,
