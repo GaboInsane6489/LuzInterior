@@ -1,210 +1,221 @@
-✨ MI LUZ INTERIOR
+<div align="center">
+
+# 🌕 MI LUZ INTERIOR
+
+### Sistema operativo para la reconstrucción personal
+
+**Acción · Disciplina · Progreso medible · Comunidad**
+
+<i>No vendemos motivación. Construimos sistemas para salir del pozo.</i>
+
+<br /><br />
+
+<img src="https://img.shields.io/badge/React_19-20232a?style=for-the-badge&logo=react&logoColor=61DAFB" />
+<img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
+<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+<img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
+
+</div>
+
+---
 
 <div align="center">
 
-Sistema operativo para la reconstrucción personal
-Acción. Disciplina. Progreso medible. Comunidad.
-
-<br /> <i> No vendemos motivación. Construimos sistemas para salir del pozo. </i>
-
-<br /><br />
-
-<img src="https://img.shields.io/badge/React_19-20232a?style=for-the-badge&logo=react&logoColor=61DAFB" /> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" /> <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" /> <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
-
-<br /><br />
+## 🌑 → 🌕 ¿Qué es _Mi Luz Interior_?
 
 </div>
-🌑 → 🌕 ¿Qué es Mi Luz Interior?
 
-Mi Luz Interior es una plataforma de desarrollo personal gamificada, diseñada para personas que no están bien y quieren reconstruirse a través de:
+**Mi Luz Interior** es una plataforma de desarrollo personal gamificada, diseñada para personas que **no están bien** y necesitan reconstruirse mediante un sistema claro, medible y sostenido en el tiempo.
 
-estructura diaria
-
-progreso visible
-
-disciplina sostenida
-
-validación del esfuerzo real
-
-comunidad bien diseñada
-
-No es autoayuda tradicional.
+No es autoayuda tradicional.  
 No es contenido motivacional vacío.
 
-Es un sistema.
+Es **infraestructura personal**.
 
-🎯 El Problema que Atacamos (Sin Romanticismo)
+El sistema se apoya en cinco pilares:
 
-La depresión moderna no se soluciona con frases bonitas.
+- **Estructura diaria**
+- **Progreso visible**
+- **Disciplina sostenida**
+- **Validación del esfuerzo real**
+- **Comunidad diseñada con intención**
 
-El problema real suele ser:
+---
 
-Falta de estructura
+<div align="center">
 
-Falta de progreso visible
+## 🎯 El problema que atacamos (sin romanticismo)
 
-Aislamiento social
+</div>
 
-Dopamina barata
+La crisis personal moderna rara vez se debe a falta de información.  
+Se debe a **falta de estructura y refuerzo**.
 
-Cuerpo descuidado → mente deteriorada
+Los patrones más comunes:
 
-Ninguna validación del esfuerzo real
+- Ausencia de rutinas claras
+- Progreso invisible → abandono
+- Aislamiento social
+- Dopamina barata y estímulos vacíos
+- Cuerpo descuidado → mente deteriorada
+- Ninguna validación del esfuerzo real
 
-👉 Este proyecto existe para atacar esas causas, no los síntomas.
+👉 _Mi Luz Interior_ existe para atacar **las causas**, no para maquillar los síntomas.
 
-🧠 Filosofía del Producto
+---
 
-Principios no negociables:
+<div align="center">
 
-Acción > Emoción
+## 🧠 Filosofía del producto
+
+</div>
+
+Principios no negociables sobre los que se construye todo el sistema:
+
+**Acción > Emoción**  
 No importa cómo te sientes. Importa lo que hiciste hoy.
 
-El cuerpo primero
+**El cuerpo primero**  
 Ejercicio, higiene, sueño y alimentación preceden a la claridad mental.
 
-Progreso visible o abandono
-Todo debe ser medible. Si no se ve, se abandona.
+**Progreso visible o abandono**  
+Todo debe ser medible. Si no se ve, no se sostiene.
 
-Comunidad silenciosa pero firme
-No es un culto ni un foro caótico.
+**Comunidad silenciosa pero firme**  
+No es un culto ni un foro caótico.  
 Es gente haciendo lo que toca.
 
-🏗️ Arquitectura General
+---
 
-Este proyecto no es una landing page.
-Es una SPA escalable, diseñada desde el inicio para crecer durante años.
+<div align="center">
 
-Frontend
+## 🏗️ Arquitectura general
 
-React 19 — Componentes modernos y arquitectura modular
+</div>
 
-Vite — DX rápida y builds optimizados
+Esto **no es una landing page**.  
+Es una **Single Page Application escalable**, diseñada desde el inicio para evolucionar durante años.
 
-React Router — Rutas y layouts desacoplados
+### Frontend
 
-Tailwind CSS — Estilos consistentes y performantes
+- **React 19** — Componentes modernos y arquitectura modular
+- **Vite** — DX rápida y builds optimizados
+- **React Router** — Rutas y layouts desacoplados
+- **Tailwind CSS** — Estilos consistentes, mantenibles y performantes
 
-Backend / Infraestructura
+### Backend / Infraestructura
 
-Supabase
+- **Supabase**
+  - Auth (OAuth)
+  - PostgreSQL
+  - Row Level Security (RLS)
+  - Realtime
+  - Storage + CDN
 
-Auth (OAuth)
+**Regla de oro:**
 
-PostgreSQL
+> El frontend es inseguro. La base de datos se protege a sí misma.
 
-Row Level Security (RLS)
+📄 Ver arquitectura completa:  
+`/docs/architecture/01--business--and-technical-vision.md`
 
-Realtime
+---
 
-Storage + CDN
+<div align="center">
 
-Regla de oro:
-El frontend es inseguro. La base de datos se protege a sí misma.
+## 🧩 Dominios funcionales (core del sistema)
 
-📄 Ver:
-/docs/architecture/01--business--and-technical-vision.md
+</div>
 
-🧩 Dominios Funcionales (Core del Sistema)
+La plataforma se organiza por **dominios de vida**, no por páginas.
 
-La plataforma se estructura por dominios de vida, no por páginas.
+### 🧠 Mentalidad
 
-🧠 Mentalidad
+- Journaling guiado
+- Retos de enfoque
+- Lectura aplicada
+- Protocolos anti-rumiación
 
-Journaling guiado
+### 🏋️ Cuerpo
 
-Retos de enfoque
+- Retos de entrenamiento
+- Seguimiento de constancia
+- Higiene, postura y descanso
 
-Lectura aplicada
+### 🧍 Imagen personal (LookMaxxing)
 
-Protocolos anti-rumiación
+- Rutinas de grooming
+- Estilo básico
+- Progreso visual (opt-in)
 
-🏋️ Cuerpo
+### 🎯 Disciplina
 
-Retos de gimnasio
+- Retos diarios
+- Rachas
+- XP por consistencia
+- Penalización simbólica por abandono
 
-Seguimiento de constancia
+### 💻 Desarrollo profesional _(fase futura)_
 
-Higiene, postura y descanso
+- Integración con GitHub
+- Retos técnicos
+- Logros profesionales públicos
 
-🧍 Imagen Personal (LookMaxxing)
+---
 
-Rutinas de grooming
+<div align="center">
 
-Estilo básico
+## 🎮 Gamificación (diseñada con intención)
 
-Progreso visual (opt-in)
+</div>
 
-🎯 Disciplina
+Esto no es un juego.  
+Es un **marco psicológico de refuerzo positivo**.
 
-Retos diarios
+- **XP** → esfuerzo acumulado
+- **Nivel** → identidad actual
+- **Logros** → prueba social
+- **Rachas** → disciplina sostenida
 
-Rachas
+Ejemplos reales:
 
-XP por consistencia
+- 🥇 30 días entrenando sin excusas
+- 🧘 21 días de meditación
+- 📚 5 lecturas completadas
+- 💻 Primer proyecto deployado
 
-Penalización simbólica por abandono
+Todo queda en el perfil.  
+Todo es **opcionalmente público**.
 
-💻 Desarrollo Profesional (fase futura)
+---
 
-Integración con GitHub
+<div align="center">
 
-Retos técnicos
+## 🚀 Instalación local
 
-Logros profesionales públicos
+</div>
 
-🎮 Gamificación (Diseñada con Intención)
-
-Esto no es un juego.
-Es un marco psicológico de refuerzo positivo.
-
-XP → esfuerzo acumulado
-
-Nivel → identidad actual
-
-Logros → prueba social
-
-Rachas → disciplina sostenida
-
-Ejemplos:
-
-🥇 30 días entrenando sin excusas
-
-🧘 21 días de meditación
-
-📚 5 lecturas completadas
-
-💻 Primer proyecto deployado
-
-Todo queda en el perfil.
-Todo es opcionalmente público.
-
-🚀 Instalación Local
-
+````bash
 # Clonar el repositorio
-
 git clone https://github.com/GaboInsane6489/LuzInterior.git
 
 # Entrar al proyecto
-
 cd luz-interior
 
 # Instalar dependencias
-
 pnpm install
 
 # Iniciar entorno de desarrollo
-
 pnpm dev
-
-La app estará disponible en:
+La aplicación estará disponible en:
 http://localhost:5173
 
+<div align="center">
 🔐 Seguridad
-
+</div>
 Autenticación OAuth (Supabase Auth)
 
-JWT gestionado por cliente Supabase
+JWT gestionado por el cliente Supabase
 
 Row Level Security (RLS) como capa principal
 
@@ -212,9 +223,10 @@ Políticas explícitas por tabla
 
 La lógica crítica vive en la base de datos, no en el frontend.
 
-🧭 Roadmap (Resumen)
+<div align="center">
+🧭 Roadmap (resumen)
+</div>
 🟢 MVP
-
 Auth
 
 Perfil
@@ -227,8 +239,7 @@ Logros básicos
 
 Dashboard personal (Dojo)
 
-🟡 Medio Plazo
-
+🟡 Medio plazo
 Notificaciones
 
 Comunidad
@@ -239,8 +250,7 @@ Rachas avanzadas
 
 Integraciones externas
 
-🔴 Largo Plazo
-
+🔴 Largo plazo
 IA personal
 
 Mentorías
@@ -251,28 +261,32 @@ Ecosistema profesional
 
 Marca consolidada
 
+<div align="center">
 🤝 Contribuir
-
-Este proyecto no busca cantidad, busca criterio.
+</div>
+Este proyecto no busca cantidad.
+Busca criterio.
 
 Si eres dev y conectas con la visión:
 
 Lee primero /docs/architecture
 
-Respeta la filosofía
+Respeta la filosofía del sistema
 
 Prioriza claridad sobre complejidad
 
 Más detalles próximamente en CONTRIBUTING.md.
 
+<div align="center">
 👤 Autor
-
 Gabriel González
 Full Stack Developer
 Fundador de Mi Luz Interior
 
 <a href="https://linkedin.com/in/tu-perfil"> <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin" /> </a>
 🧠 Cierre
-
 Mi Luz Interior no es una app.
-Es un sistema para personas que están rotas y quieren reconstruirse.
+Es un sistema para personas rotas que decidieron reconstruirse.
+
+</div> ```
+````
