@@ -2,18 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { useDojoData } from "../hooks/useDojoData";
-import {
-  Instagram,
-  Twitter,
-  Linkedin,
-  Github,
-  X,
-  MapPin,
-  Mail,
-  Phone,
-  Calendar,
-  Award,
-} from "lucide-react";
+import { ACHIEVEMENTS_CONFIG } from "../data/achievements.config";
+import { MapPin, Calendar, Award, Lock } from "lucide-react";
 
 export default function UserProfile() {
   const { user } = useAuth();
@@ -93,17 +83,35 @@ export default function UserProfile() {
             </h4>
             <Award className="w-5 h-5 text-amber-300" />
           </div>
-          <div className="grid grid-cols-5 gap-4">
-            {/* Placeholders hasta que subas tus PNGs optimizados */}
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div
-                key={i}
-                className="aspect-square bg-white/5 rounded-2xl border border-white/5 flex items-center justify-center group/medal hover:bg-amber-300/10 transition-all cursor-help"
-                title="Logro por Desbloquear"
-              >
-                <Award className="w-6 h-6 text-white/10 group-hover/medal:text-amber-300/40 transition-colors" />
-              </div>
-            ))}
+          <div className="grid grid-cols-4 md:grid-cols-5 gap-4">
+            {ACHIEVEMENTS_CONFIG.map((achievement) => {
+              const isUnlocked = achievement.condition({
+                level: profile?.level || 1,
+                streak: profile?.streak_best || 0,
+                xp: profile?.xp || 0,
+              });
+
+              return (
+                <div
+                  key={achievement.id}
+                  className={`aspect-square bg-white/5 rounded-2xl border ${isUnlocked ? "border-amber-300/30 bg-amber-300/5 cursor-pointer" : "border-white/5 grayscale opacity-40 cursor-not-allowed"} flex items-center justify-center group/medal relative overflow-hidden transition-all duration-500`}
+                  title={`${achievement.title}: ${achievement.description}`}
+                >
+                  <img
+                    src={`/achievements/${achievement.img}`}
+                    alt={achievement.title}
+                    className={`w-full h-full object-cover transition-transform duration-500 ${isUnlocked ? "group-hover/medal:scale-110" : "scale-90"}`}
+                  />
+
+                  {/* Lock Overlay if locked */}
+                  {!isUnlocked && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+                      <Lock className="w-5 h-5 text-white/30" />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

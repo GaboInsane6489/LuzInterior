@@ -1,4 +1,6 @@
 import { supabase } from "../../../config/supabase";
+import { ACHIEVEMENTS_CONFIG } from "../data/achievements.config";
+
 export const dojoService = {
   async getProfile(userId, fullName, email) {
     const { data, error } = await supabase
@@ -47,6 +49,23 @@ export const dojoService = {
     return data;
   },
   /**
+   * Calcula el Título de Rango basado en el nivel actual
+   * Cada 5 niveles el título evoluciona.
+   */
+  getRankTitle(level) {
+    if (level < 5) return "Neófito";
+    if (level < 10) return "Iniciado";
+    if (level < 15) return "Aprendiz";
+    if (level < 20) return "Caminante";
+    if (level < 25) return "Guerrero";
+    if (level < 30) return "Veterano";
+    if (level < 35) return "Maestro";
+    if (level < 40) return "Gran Maestro";
+    if (level < 50) return "Iluminado";
+    return "Leyenda"; // 50+
+  },
+
+  /**
    * Registra el progreso diario de un reto y actualiza el perfil del usuario (XP y Racha)
    */
   async logDailyProgress(userId, challengeId, xpReward) {
@@ -64,7 +83,7 @@ export const dojoService = {
     // 2. Obtener datos actuales para calcular el nuevo XP y Racha
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
-      .select("xp, streak_current, streak_best")
+      .select("xp, streak_current, streak_best, level")
       .eq("id", userId)
       .single();
 
@@ -74,6 +93,9 @@ export const dojoService = {
     const newStreak = (profile.streak_current || 0) + 1;
     const newBestStreak = Math.max(newStreak, profile.streak_best || 0);
 
+    // Cálculo básico de nivel (ej. cada 100 XP subes de nivel, ajustable)
+    const newLevel = Math.floor(newXp / 100) + 1;
+
     // 3. Actualizar el perfil
     const { error: updateError } = await supabase
       .from("profiles")
@@ -81,13 +103,33 @@ export const dojoService = {
         xp: newXp,
         streak_current: newStreak,
         streak_best: newBestStreak,
+        level: newLevel,
         updated_at: new Date().toISOString(),
       })
       .eq("id", userId);
 
     if (updateError) throw updateError;
 
-    return { newXp, newStreak };
+    // 4. Verificar Logros Automáticamente
+    await this.checkAndAwardAchievements(userId, {
+      xp: newXp,
+      streak: newStreak,
+      level: newLevel,
+    });
+
+    return { newXp, newStreak, newLevel };
+  },
+
+  /**
+   * Verifica condiciones y otorga logros si corresponde
+   * Utiliza la configuración centralizada
+   */
+  async checkAndAwardAchievements(userId, stats) {
+    for (const ach of ACHIEVEMENTS_CONFIG) {
+      if (ach.condition(stats)) {
+        // Placeholder para lógica futura de DB
+      }
+    }
   },
 
   /**

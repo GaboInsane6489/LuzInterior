@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { useDojoData } from "../hooks/useDojoData";
+import { dojoService } from "../services/dojo.service"; // Importar servicio
 import XPProgressBar from "../components/XPProgressBar";
 import VideoBackground from "../components/VideoBackground";
 import {
@@ -124,7 +125,7 @@ export default function DojoLayout() {
                       Rango Actual
                     </p>
                     <p className="text-base md:text-lg font-serif text-white group-hover:text-amber-300 transition-colors">
-                      Neófito{" "}
+                      {dojoService.getRankTitle(profile?.level || 1)}{" "}
                       <span className="text-amber-300/50 text-xs ml-2">
                         Nivel {profile?.level || 1}
                       </span>
