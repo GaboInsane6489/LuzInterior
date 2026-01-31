@@ -93,8 +93,8 @@ export const dojoService = {
     const newStreak = (profile.streak_current || 0) + 1;
     const newBestStreak = Math.max(newStreak, profile.streak_best || 0);
 
-    // Cálculo básico de nivel (ej. cada 100 XP subes de nivel, ajustable)
-    const newLevel = Math.floor(newXp / 100) + 1;
+    // Cálculo básico de nivel (ej. cada 1000 XP subes de nivel, unificado con Frontend)
+    const newLevel = Math.floor(newXp / 1000) + 1;
 
     // 3. Actualizar el perfil
     const { error: updateError } = await supabase

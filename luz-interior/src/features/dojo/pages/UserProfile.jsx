@@ -84,7 +84,7 @@ export default function UserProfile() {
             <Award className="w-5 h-5 text-amber-300" />
           </div>
           <div className="grid grid-cols-4 md:grid-cols-5 gap-4">
-            {ACHIEVEMENTS_CONFIG.map((achievement) => {
+            {ACHIEVEMENTS_CONFIG.slice(0, 10).map((achievement) => {
               const isUnlocked = achievement.condition({
                 level: profile?.level || 1,
                 streak: profile?.streak_best || 0,

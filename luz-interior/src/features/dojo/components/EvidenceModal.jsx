@@ -80,7 +80,7 @@ export default function EvidenceModal({
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-zinc-950 border border-white/10 rounded-[2rem] max-w-2xl w-full p-8 space-y-6 animate-in fade-in duration-300">
+      <div className="bg-zinc-950 border border-white/10 rounded-[2rem] max-w-2xl w-full p-8 space-y-6 animate-in fade-in duration-300 max-h-[85vh] overflow-y-auto custom-scrollbar">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/5 pb-6">
           <div>

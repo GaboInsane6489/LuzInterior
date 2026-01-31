@@ -110,6 +110,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: "achievements",
+            element: (
+              <React.Suspense fallback={<DojoLoader />}>
+                <DojoAchievements />
+              </React.Suspense>
+            ),
+          },
+          {
             path: "profile/:username?",
             element: (
               <React.Suspense fallback={<DojoLoader />}>
