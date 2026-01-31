@@ -30,7 +30,7 @@ export default function DojoAchievements() {
     cuspide: {
       title: "La Cúspide",
       icon: Award,
-      color: "text-purple-400",
+      color: "text-red-400",
     },
   };
 
