@@ -36,6 +36,20 @@ export const dojoService = {
 
     return data;
   },
+
+  /**
+   * Obtiene un perfil público por nombre de usuario
+   */
+  async getProfileByUsername(username) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .ilike("username", username)
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
   /**
    * Obtiene los retos activos disponibles en el sistema
    */
@@ -162,5 +176,143 @@ export const dojoService = {
 
     if (error) throw error;
     return data;
+  },
+
+  // --- MÓDULO SOCIAL Y AMIGOS ---
+  /**
+   * Busca usuarios por nombre de usuario o nombre completo
+   * Excluye al usuario actual
+   */
+  async searchUsers(query, currentUserId) {
+    if (!query || query.length < 3) return [];
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, username, full_name, level, custom_avatar_url, role")
+      .neq("id", currentUserId) // No buscarse a uno mismo
+      .or(`username.ilike.%${query}%,full_name.ilike.%${query}%`)
+      .limit(10)
+      .order("level", { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  },
+
+  /**
+   * Obtiene usuarios destacados para la comunidad (Carrusel)
+   */
+  async getCommunityUsers() {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select(
+        "id, username, full_name, level, custom_avatar_url, role, xp, streak_current",
+      )
+      .order("level", { ascending: false })
+      .limit(20);
+
+    if (error) throw error;
+    return data || [];
+  },
+
+  /**
+   * Envía una solicitud de amistad
+   */
+
+  async sendFriendRequest(fromUserId, toUserId) {
+    // Verificar si ya existe una relación (cualquier estado)
+    const { data: existing } = await supabase
+      .from("friendships")
+      .select("*")
+      .or(
+        `and(user_id_1.eq.${fromUserId},user_id_2.eq.${toUserId}),and(user_id_1.eq.${toUserId},user_id_2.eq.${fromUserId})`,
+      )
+      .maybeSingle(); // Usar maybeSingle es más seguro
+
+    if (existing) {
+      if (existing.status === "pending")
+        throw new Error("Ya hay una solicitud pendiente.");
+      if (existing.status === "accepted") throw new Error("Ya son amigos.");
+      if (existing.status === "blocked")
+        throw new Error("No puedes enviar solicitud a este usuario.");
+    }
+
+    // Insertar nueva solicitud (user_id_1 siempre es el que envía)
+    const { error } = await supabase
+      .from("friendships")
+      .insert([
+        { user_id_1: fromUserId, user_id_2: toUserId, status: "pending" },
+      ]);
+    if (error) throw error;
+    return true;
+  },
+  /**
+   * Acepta una solicitud de amistad pendiente
+   */
+  async acceptFriendRequest(requestId) {
+    const { error } = await supabase
+      .from("friendships")
+      .update({ status: "accepted", updated_at: new Date().toISOString() })
+      .eq("id", requestId);
+    if (error) throw error;
+    return true;
+  },
+  /**
+   * Obtiene las solicitudes de amistad pendientes (Recibidas)
+   */
+  async getIncomingFriendRequests(userId) {
+    const { data, error } = await supabase
+      .from("friendships")
+      .select(
+        `
+        id,
+        created_at,
+        sender:profiles!friendships_user_id_1_fkey (id, username, full_name, custom_avatar_url, level)
+      `,
+      )
+      .eq("user_id_2", userId) // Yo soy el receptor (2)
+      .eq("status", "pending");
+    if (error) throw error;
+    return data;
+  },
+  /**
+   * Obtiene la lista de amigos confirmados
+   * Esta consulta es un poco más compleja porque puedo ser user_1 o user_2
+   */
+  async getFriends(userId) {
+    const { data, error } = await supabase
+      .from("friendships")
+      .select(
+        `
+        id,
+        user_1:profiles!friendships_user_id_1_fkey (id, username, full_name, custom_avatar_url, level, role),
+        user_2:profiles!friendships_user_id_2_fkey (id, username, full_name, custom_avatar_url, level, role)
+      `,
+      )
+      .or(`user_id_1.eq.${userId},user_id_2.eq.${userId}`)
+      .eq("status", "accepted");
+    if (error) throw error;
+    // Procesar para devolver una lista limpia de "el otro usuario"
+    return data.map((relation) => {
+      return relation.user_1.id === userId ? relation.user_2 : relation.user_1;
+    });
+  },
+  /**
+   * Verifica el estado de amistad con otro usuario específico
+   * Retorna: null (sin relación), 'pending_sent', 'pending_received', 'accepted'
+   */
+  async getFriendshipStatus(myUserId, otherUserId) {
+    const { data } = await supabase
+      .from("friendships")
+      .select("*")
+      .or(
+        `and(user_id_1.eq.${myUserId},user_id_2.eq.${otherUserId}),and(user_id_1.eq.${otherUserId},user_id_2.eq.${myUserId})`,
+      )
+      .maybeSingle();
+    if (!data) return null;
+    if (data.status === "accepted") return "accepted";
+    if (data.status === "pending") {
+      return data.user_id_1 === myUserId ? "pending_sent" : "pending_received";
+    }
+    return data.status; // blocked, etc.
   },
 };

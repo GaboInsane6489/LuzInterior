@@ -11,6 +11,7 @@ import {
   Book,
   Settings,
   CircleUser,
+  Users,
 } from "lucide-react";
 
 export default function DojoLayout() {
@@ -22,6 +23,7 @@ export default function DojoLayout() {
     { to: "/dojo/profile", icon: CircleUser, label: "Perfil" },
     { to: "/dojo/dashboard", icon: LayoutDashboard, label: "Dashboard" },
     { to: "/dojo/achievements", icon: Award, label: "Logros" },
+    { to: "/dojo/community", icon: Users, label: "Comunidad" },
     { to: "/dojo/library", icon: Book, label: "Biblioteca" },
     { to: "/dojo/settings", icon: Settings, label: "Ajustes" },
   ];
@@ -30,7 +32,7 @@ export default function DojoLayout() {
     <div className="min-h-screen text-white selection:bg-amber-300 selection:text-black">
       <div className="flex flex-col md:flex-row">
         {/* Sidebar de Navegación Lateral (Desktop) */}
-        <aside className="sticky top-20 h-[calc(100vh-5rem)] w-20 bg-zinc-950/40 backdrop-blur-md border-r border-white/5 flex-col items-center py-10 gap-10 z-40 hidden md:flex shrink-0">
+        <aside className="sticky top-20 h-[calc(100vh-5rem)] w-20 bg-zinc-950/40 backdrop-blur-md border-r border-white/5 flex-col items-center py-7 gap-6 z-40 hidden md:flex shrink-0">
           <div className="w-12 h-12 bg-amber-300 text-black flex items-center justify-center rounded-2xl font-serif text-2xl font-bold shadow-[0_0_20px_rgba(245,158,11,0.3)]">
             L
           </div>
@@ -80,12 +82,11 @@ export default function DojoLayout() {
         <main className="flex-1 relative pb-20 md:pb-0">
           {/* 
             IMPLEMENTACIÓN DE VIDEO BG:
-            Usamos el video que subiste. Nota: fallen-knight.mp4 pesa 77MB.
-            En producción deberíamos reducirlo a <5MB.
+            Nota: fallen-knight.mp4 pesa 7MB.
           */}
           <VideoBackground
-            src="/videos/fallen-knight.mp4"
-            overlayOpacity={0.3}
+            src="/videos/Fallen-Knight.mp4"
+            overlayOpacity={0.5}
           />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-12 lg:py-20 space-y-12 md:space-y-16 lg:space-y-24">

@@ -60,7 +60,7 @@ export default function PersonalDevelopment() {
             {/* Imagen de Fondo */}
             <div className="absolute inset-0">
               <img
-                src="/images/LuzAlFinalDelTunel.webp"
+                src="/images/astronaut-space-suit-snow.webp"
                 alt="Luz al final del túnel"
                 className="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
               />

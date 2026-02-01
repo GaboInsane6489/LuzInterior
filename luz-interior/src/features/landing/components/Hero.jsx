@@ -7,11 +7,14 @@ export default function Hero() {
     <section className="relative w-full h-screen flex items-center justify-center bg-black overflow-hidden">
       {/* 1. BACKGROUND LAYER */}
       <div className="absolute inset-0 z-0 opacity-70">
-        {/* Parallax effect sutil: scale-110 */}
-        <img
-          src="/images/Winter.webp"
-          alt="Paisaje de montaña evocando superación"
-          className="w-full h-full object-cover opacity-70 animate-slow-zoom"
+        {/* Video Background */}
+        <video
+          src="/videos/Dark-Queen-Knight-Moewalls-Com.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-80 animate-slow-zoom"
         />
         {/* Overlay Gradiente: Crucial para leer texto blanco sobre imagen */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>

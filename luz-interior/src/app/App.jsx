@@ -17,6 +17,10 @@ const DojoMain = React.lazy(() => import("../features/dojo/pages/DojoMain"));
 const DojoAchievements = React.lazy(
   () => import("../features/dojo/pages/DojoAchievements"),
 );
+const DojoCommunity = React.lazy(
+  () => import("../features/dojo/pages/DojoCommunity"),
+);
+
 const DojoLibrary = React.lazy(
   () => import("../features/dojo/pages/DojoLibrary"),
 );
@@ -110,10 +114,10 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "achievements",
+            path: "community",
             element: (
               <React.Suspense fallback={<DojoLoader />}>
-                <DojoAchievements />
+                <DojoCommunity />
               </React.Suspense>
             ),
           },

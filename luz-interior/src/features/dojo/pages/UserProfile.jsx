@@ -3,14 +3,62 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { useDojoData } from "../hooks/useDojoData";
 import { ACHIEVEMENTS_CONFIG } from "../data/achievements.config";
+import { dojoService } from "../services/dojo.service";
 import { MapPin, Calendar, Award, Lock } from "lucide-react";
 
 export default function UserProfile() {
   const { user } = useAuth();
   const { username } = useParams();
-  const { profile, loading } = useDojoData();
+  const { profile: myProfile, loading: myLoading } = useDojoData();
+  const [displayProfile, setDisplayProfile] = React.useState(null);
+  const [loadingProfile, setLoadingProfile] = React.useState(true);
+  const [friendshipStatus, setFriendshipStatus] = React.useState(null);
 
-  if (loading) {
+  React.useEffect(() => {
+    const fetchProfile = async () => {
+      setLoadingProfile(true);
+      try {
+        if (username && username !== myProfile?.username) {
+          // Ver perfil público
+          const data = await dojoService.getProfileByUsername(username);
+          setDisplayProfile(data);
+
+          // Verificar amistad
+          if (user) {
+            const status = await dojoService.getFriendshipStatus(
+              user.id,
+              data.id,
+            );
+            setFriendshipStatus(status);
+          }
+        } else {
+          // Ver mi propio perfil
+          setDisplayProfile(myProfile);
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      } finally {
+        setLoadingProfile(false);
+      }
+    };
+
+    if (!myLoading) {
+      fetchProfile();
+    }
+  }, [username, myProfile, myLoading, user]);
+
+  const handleConnect = async () => {
+    if (!displayProfile || !user) return;
+    try {
+      await dojoService.sendFriendRequest(user.id, displayProfile.id);
+      setFriendshipStatus("pending_sent");
+      alert("Solicitud enviada");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  if (loadingProfile || myLoading) {
     return (
       <div className="animate-pulse text-amber-300 text-center">
         Cargando Templo...
@@ -24,26 +72,56 @@ export default function UserProfile() {
       <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 pb-12 border-b border-white/5">
         <div className="relative group">
           <img
-            src={profile?.custom_avatar_url || user?.user_metadata?.avatar_url}
+            src={
+              displayProfile?.custom_avatar_url ||
+              user?.user_metadata?.avatar_url
+            }
             alt="Avatar"
             className="w-32 h-32 md:w-44 md:h-44 rounded-[2.5rem] border-2 border-amber-300/20 group-hover:border-amber-300 transition-all duration-500 object-cover shadow-2xl"
           />
           <div className="absolute -bottom-2 -right-2 bg-amber-300 text-black px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter">
-            Nivel {profile?.level || 1}
+            Nivel {displayProfile?.level || 1}
           </div>
         </div>
         <div className="flex-1 space-y-4 text-center md:text-left">
           <div className="space-y-1">
             <h2 className="text-4xl md:text-6xl font-serif">
-              {profile?.full_name}
+              {displayProfile?.full_name}
             </h2>
             <p className="text-sm text-amber-300/60 font-mono">
-              @{username || profile?.username}
+              @{displayProfile?.username}
             </p>
           </div>
           <p className="text-gray-400 max-w-xl leading-relaxed italic">
-            "{profile?.bio || "Este guerrero aún no ha escrito su leyenda."}"
+            "
+            {displayProfile?.bio ||
+              "Este guerrero aún no ha escrito su leyenda."}
+            "
           </p>
+
+          {/* Botón de Conectar (Solo si no es mi perfil) */}
+          {username && username !== myProfile?.username && (
+            <div className="mt-4">
+              {friendshipStatus === null && (
+                <button
+                  onClick={handleConnect}
+                  className="px-6 py-2 bg-amber-500 text-black font-bold rounded-full hover:bg-amber-400 transition-colors"
+                >
+                  Conectar
+                </button>
+              )}
+              {friendshipStatus === "pending_sent" && (
+                <span className="px-4 py-2 bg-zinc-800 text-amber-300 rounded-full border border-amber-500/30">
+                  Solicitud Pendiente
+                </span>
+              )}
+              {friendshipStatus === "accepted" && (
+                <span className="px-4 py-2 bg-green-900/30 text-green-400 rounded-full border border-green-500/30">
+                  Aliado
+                </span>
+              )}
+            </div>
+          )}
           <div className="flex flex-wrap justify-center md:justify-start gap-6 text-xs text-gray-500 font-bold uppercase tracking-widest">
             <span className="flex items-center gap-2">
               <MapPin className="w-3 h-3" /> Tierra de Ceniza
@@ -60,14 +138,16 @@ export default function UserProfile() {
         {/* Estadísticas Flash */}
         <div className="md:col-span-1 bg-zinc-900/40 backdrop-blur-md p-8 border border-white/5 rounded-[2.5rem] flex justify-around">
           <div className="text-center">
-            <p className="text-2xl font-serif text-white">{profile?.xp || 0}</p>
+            <p className="text-2xl font-serif text-white">
+              {displayProfile?.xp || 0}
+            </p>
             <p className="text-[8px] uppercase text-gray-500 tracking-widest">
               XP Total
             </p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-serif text-white">
-              {profile?.streak_current || 0}
+              {displayProfile?.streak_current || 0}
             </p>
             <p className="text-[8px] uppercase text-gray-500 tracking-widest">
               Racha
@@ -86,9 +166,9 @@ export default function UserProfile() {
           <div className="grid grid-cols-4 md:grid-cols-5 gap-4">
             {ACHIEVEMENTS_CONFIG.slice(0, 10).map((achievement) => {
               const isUnlocked = achievement.condition({
-                level: profile?.level || 1,
-                streak: profile?.streak_best || 0,
-                xp: profile?.xp || 0,
+                level: displayProfile?.level || 1,
+                streak: displayProfile?.streak_best || 0,
+                xp: displayProfile?.xp || 0,
               });
 
               return (
