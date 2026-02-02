@@ -122,8 +122,11 @@ export default function DojoCommunity() {
           </h3>
 
           {/* Carousel Container with Proper Overflow Control */}
-          <div className="relative -mx-4 sm:-mx-6 md:-mx-8">
-            <div className="overflow-x-auto scrollbar-hide">
+          <div className="w-full overflow-hidden">
+            <div
+              className="overflow-x-auto overflow-y-hidden scrollbar-hide overscroll-x-contain"
+              style={{ width: "100%", contain: "layout" }}
+            >
               <div className="flex gap-4 px-4 sm:px-6 md:px-8 pb-4">
                 {communityUsers.map((warrior) => (
                   <div

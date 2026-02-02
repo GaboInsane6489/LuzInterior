@@ -79,7 +79,7 @@ export default function DojoLayout() {
         </nav>
 
         {/* Contenido Principal */}
-        <main className="flex-1 relative pb-20 md:pb-0">
+        <main className="flex-1 relative pb-20 md:pb-0 overflow-x-hidden">
           {/* 
             IMPLEMENTACIÓN DE VIDEO BG:
             Nota: fallen-knight.mp4 pesa 7MB.
