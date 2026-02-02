@@ -85,7 +85,7 @@ export default function DojoLayout() {
             Nota: fallen-knight.mp4 pesa 7MB.
           */}
           <VideoBackground
-            src="/videos/Fallen-Knight.mp4"
+            src="/videos/fallen-knight.mp4"
             overlayOpacity={0.5}
           />
 

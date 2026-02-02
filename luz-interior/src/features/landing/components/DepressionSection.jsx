@@ -56,7 +56,7 @@ export default function DepressionSection() {
               ))}
             </ul>
             <div className="pt-8">
-              <button className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest hover:gap-5 transition-all group">
+              <button className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest hover:cursor-pointer hover:gap-5 transition-all group">
                 Explorar Método
                 <ArrowUpRight className="w-5 h-5" />
               </button>

@@ -4,8 +4,8 @@ import WellLivedLife from "../../../articles/well-lived-life.mdx";
 
 export default function PersonalDevelopment() {
   return (
-    <section className="pt-8 pb-24 px-6 lg:px-12 bg-gray-50 text-black">
-      <div className="max-w-7xl mx-auto space-y-12">
+    <section className="pt-8 pb-6 px-6 lg:px-12 bg-gray-50 text-black">
+      <div className="max-w-7xl mx-auto space-y-6">
         {/* HEADER DE SECCIÓN */}
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-black/10 pb-8">
           <div>

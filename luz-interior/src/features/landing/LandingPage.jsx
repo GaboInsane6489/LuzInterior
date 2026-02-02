@@ -22,9 +22,9 @@ const Landing = () => {
       <main>
         <Hero />
         <DepressionSection />
+        <DojoHero />
         <PersonalDevelopment />
         <LooksMaxxing />
-        <DojoHero />
       </main>
     </>
   );

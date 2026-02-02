@@ -8,9 +8,9 @@ import { ArrowUpRight, Sparkles, User, ExternalLink } from "lucide-react";
  */
 export default function LooksMaxxing() {
   return (
-    <section className="relative w-full bg-white text-black py-32 lg:py-56 overflow-hidden">
+    <section className="relative w-full bg-white text-black py-28 lg:py-48 overflow-hidden">
       {/* Elemento Decorativo: Texto de Fondo Gigante (Marca de Agua Modernista) */}
-      <div className="absolute top-20 -left-20 pointer-events-none select-none hidden 2xl:block">
+      <div className="absolute top-10 -left-20 pointer-events-none select-none hidden 2xl:block">
         <span className="text-[20rem] font-serif font-black text-black/[0.02] leading-none uppercase tracking-tighter">
           Estética
         </span>

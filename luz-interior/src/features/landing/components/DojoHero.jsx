@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
-import { Sparkles, ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import {
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+  ExternalLink,
+} from "lucide-react";
 
 /**
  * DojoHero - El Umbral a la Maestría Personal
@@ -12,7 +18,7 @@ export default function DojoHero() {
   const { user, login } = useAuth();
 
   return (
-    <section className="relative w-full bg-black py-32 lg:py-56 overflow-hidden border-t border-white/5">
+    <section className="relative w-full bg-black py-16 lg:py-24 overflow-hidden border-t border-white/5">
       {/* CAPA 1: ELEMENTOS DE FONDO (ATMÓSFERA) */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-amber-500/5 to-transparent pointer-events-none"></div>
       <div className="absolute -bottom-24 -left-24 w-[400px] h-[400px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none"></div>
@@ -135,7 +141,7 @@ export default function DojoHero() {
         </div>
 
         {/* FOOTER DE SECCIÓN: VALORES */}
-        <div className="mt-32 pt-16 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-12 text-center md:text-left">
+        <div className="mt-24 pt-4 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-12 text-center md:text-left">
           {[
             {
               icon: ShieldCheck,
@@ -159,7 +165,7 @@ export default function DojoHero() {
             },
           ].map((item, i) => (
             <div key={i} className="group cursor-default">
-              <item.icon className="w-5 h-5 text-gray-600 mb-4 group-hover:text-amber-300 transition-colors" />
+              <item.icon className="w-7 h-7 text-white mb-4 group-hover:text-amber-400 transition-colors duration-300" />
               <h5 className="text-white text-[10px] uppercase tracking-widest font-bold mb-1">
                 {item.label}
               </h5>
@@ -169,6 +175,98 @@ export default function DojoHero() {
             </div>
           ))}
         </div>
+
+        {/* PRESENTACIÓN DEL DOJO */}
+        <section className="relative py-16 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Imagen */}
+            <div className="relative group">
+              <img
+                src="/images/lone_samurai.webp"
+                alt="El Dojo"
+                className="w-full h-[420px] object-cover rounded-2xl border border-white/10 shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </div>
+
+            {/* Texto */}
+            <div className="space-y-6">
+              <span className="text-xs uppercase tracking-[0.3em] text-amber-400 font-bold">
+                El Dojo
+              </span>
+
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif leading-tight">
+                Un sistema para forjar
+                <br />
+                <span className="italic text-amber-300">
+                  disciplina, carácter y progreso real
+                </span>
+              </h2>
+
+              <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-xl">
+                El Dojo no es motivación pasajera. Es un entorno estructurado
+                donde cada acción cuenta, cada hábito suma experiencia y cada
+                día te acerca a una versión más fuerte de ti mismo.
+              </p>
+
+              <Link
+                to="/dojo"
+                className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-amber-500 text-black font-bold uppercase tracking-wider hover:bg-amber-400 transition-colors transition-transform hover:scale-[1.02]"
+              >
+                Entrar al Dojo
+              </Link>
+            </div>
+          </div>
+
+          {/* SISTEMA DE NIVELES */}
+          <section className="relative py-16 md:py-20 bg-zinc-900/60">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              {/* Texto */}
+              <div className="space-y-6">
+                <span className="text-xs uppercase tracking-[0.3em] text-amber-400 font-bold">
+                  Progreso Medible
+                </span>
+
+                <h2 className="text-3xl md:text-4xl font-serif">
+                  Sistema de niveles
+                  <br />
+                  <span className="italic text-amber-300">y trofeos</span>
+                </h2>
+
+                <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-xl">
+                  Cada hábito completado, cada reto superado y cada objetivo
+                  cumplido te otorgan experiencia real.
+                  <br />
+                  <br />
+                  Subes de nivel, desbloqueas rangos y construyes un historial
+                  visible de disciplina y constancia.
+                </p>
+
+                <Link
+                  to="/dojo/achievements"
+                  className="inline-flex items-center gap-3 text-amber-400 font-bold uppercase tracking-wider hover:text-amber-300 transition-colors"
+                >
+                  Explorar niveles y logros
+                  <ExternalLink className="w-5 h-5" />
+                </Link>
+              </div>
+
+              {/* Video */}
+              <div className="relative group">
+                <video
+                  src="/videos/Chinese-Traditional-House-Lanterns-Moewalls-Com.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-[380px] object-cover rounded-2xl border border-white/10 shadow-2xl transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              </div>
+            </div>
+          </section>
+        </section>
       </div>
     </section>
   );

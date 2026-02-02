@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { useDojoData } from "../hooks/useDojoData";
 import { dojoService } from "../services/dojo.service";
-import { Search, UserPlus, Users, Check, X, Shield } from "lucide-react";
+import {
+  Search,
+  UserPlus,
+  Users,
+  Check,
+  X,
+  Shield,
+  ShieldPlus,
+} from "lucide-react";
 
 export default function DojoCommunity() {
   const { user } = useAuth();
@@ -89,16 +97,16 @@ export default function DojoCommunity() {
         </p>
 
         {/* Video Hero Section */}
-        <div className="relative w-full h-[400px] rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl group">
+        <div className="relative w-full h-[600px] rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl group">
           <video
-            src="/videos/Sild-Tree-Monster-Hunter-Wilds-Moewalls-Com.mp4"
+            src="/videos/Knight-Templar-Sunset-Field-Moewalls-Com.mp4"
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/20"></div>
 
           <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
             <h2 className="text-3xl md:text-4xl font-serif text-white mb-2 drop-shadow-lg">
@@ -108,7 +116,25 @@ export default function DojoCommunity() {
               La bestia interior nunca duerme. Domínala junto a tus hermanos de
               armas. Nuevos retos cooperativos disponibles.
             </p>
-            <button className="px-6 md:px-8 py-2 md:py-3 bg-amber-500 text-black font-bold uppercase tracking-widest rounded-full hover:bg-amber-400 transition-colors shadow-lg shadow-amber-500/20 text-sm md:text-base">
+            <div className="flex items-center gap-2 justify-start">
+              <ShieldPlus className="w-6 h-6 text-amber-500" />
+              <p className="text-gray-200 max-w-xl text-base md:text-lg drop-shadow-md">
+                Mejoras en el desarrollo de la comunidad.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 justify-start">
+              <ShieldPlus className="w-6 h-6 text-amber-500" />
+              <p className="text-gray-200 max-w-xl text-base md:text-lg drop-shadow-md">
+                Nuevos desafíos cooperativos disponibles.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 justify-start">
+              <ShieldPlus className="w-6 h-6 text-amber-500" />
+              <p className="text-gray-200 max-w-xl text-base md:text-lg drop-shadow-md">
+                Implementación de nuevas funcionalidades.
+              </p>
+            </div>
+            <button className="px-6 md:px-8 py-2 md:py-3 mt-4 hover:cursor-pointer bg-amber-500 text-black font-bold uppercase tracking-widest rounded-full hover:bg-amber-400 transition-colors shadow-lg shadow-amber-500/20 text-sm md:text-base">
               Unirse a la Cacería
             </button>
           </div>
