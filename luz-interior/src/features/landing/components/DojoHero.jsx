@@ -244,10 +244,10 @@ export default function DojoHero() {
 
                 <Link
                   to="/dojo/achievements"
-                  className="inline-flex items-center gap-3 text-amber-400 font-bold uppercase tracking-wider hover:text-amber-300 transition-colors"
+                  className="inline-flex items-center gap-3 text-amber-400 font-bold uppercase tracking-wider hover:text-amber-300 transition-colors transition-transform scale-105 hover:scale-[1.02]"
                 >
                   Explorar niveles y logros
-                  <ExternalLink className="w-5 h-5" />
+                  <ExternalLink className="w-5 h-5 transition-transform duration-300 hover:scale-[1.1]" />
                 </Link>
               </div>
 

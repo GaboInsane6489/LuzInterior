@@ -115,9 +115,9 @@ export default function LooksMaxxing() {
               </div>
 
               <div className="relative group aspect-video overflow-hidden">
-                <div className="absolute inset-0 bg-amber-400/10 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-amber-600/10 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none cursor-pointer"></div>
                 <iframe
-                  className="w-full h-full border-0 relative z-0"
+                  className="w-full h-full border-0 relative z-0 rounded-lg font-light"
                   src="https://www.youtube-nocookie.com/embed/0Ub3KgX9LUI"
                   title="LooksMaxxing - La Belleza como Estrategia"
                   loading="lazy"
