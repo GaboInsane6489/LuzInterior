@@ -153,36 +153,50 @@ export default function DojoCommunity() {
               className="overflow-x-auto overflow-y-hidden scrollbar-hide overscroll-x-contain"
               style={{ width: "100%", contain: "layout" }}
             >
-              <div className="flex gap-4 px-4 sm:px-6 md:px-8 pb-4">
+              <div className="flex gap-4 px-4 sm:px-6 md:px-8 pb-4 mt-4">
                 {communityUsers.map((warrior) => (
                   <div
                     key={warrior.id}
-                    className="flex-none w-64 bg-zinc-900/60 border border-white/10 rounded-2xl p-4 flex flex-col items-center gap-3 hover:border-amber-500/50 transition-colors"
+                    className="flex-none w-72 md:w-80 group relative overflow-hidden rounded-xl border-2 border-zinc-800 bg-zinc-900 transition-all duration-300 hover:border-amber-500 hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:-translate-y-1"
                   >
-                    <div className="relative">
+                    {/* Background Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+
+                    {/* Avatar Image (Full Cover) */}
+                    <div className="h-80 w-full overflow-hidden">
                       <img
                         src={warrior.custom_avatar_url}
                         alt={warrior.username}
-                        className="w-20 h-20 rounded-full border-2 border-amber-500/20 object-cover"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-0 grayscale"
                       />
-                      <div className="absolute bottom-0 right-0 bg-zinc-800 text-xs px-2 py-0.5 rounded-full border border-zinc-600">
+                    </div>
+
+                    {/* Content Layer */}
+                    <div className="absolute bottom-0 left-0 w-full p-5 z-20">
+                      {/* Level Badge */}
+                      <div className="mb-2 inline-flex items-center gap-1.5 rounded bg-amber-500 px-2 py-0.5 text-xs font-black uppercase tracking-wider text-black">
+                        <Shield className="h-3 w-3 fill-black" />
                         Lvl {warrior.level}
                       </div>
+
+                      {/* Name & Handle */}
+                      <div className="space-y-1">
+                        <h4 className="font-serif text-2xl font-bold uppercase tracking-wide text-white drop-shadow-lg group-hover:text-amber-400 transition-colors">
+                          {warrior.full_name}
+                        </h4>
+                        <p className="font-mono text-xs text-zinc-400 uppercase tracking-widest group-hover:text-zinc-200">
+                          @{warrior.username}
+                        </p>
+                      </div>
+
+                      {/* Action Button (Hidden until hover) */}
+                      <a
+                        href={`/dojo/profile/${warrior.username}`}
+                        className="mt-4 block w-full translate-y-8 rounded border-l-4 border-amber-500 bg-zinc-800/80 p-2 text-center text-xs font-bold uppercase tracking-widest text-amber-500 opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-amber-500 hover:text-black group-hover:translate-y-0 group-hover:opacity-100"
+                      >
+                        Inspeccionar
+                      </a>
                     </div>
-                    <div className="text-center w-full">
-                      <h4 className="font-bold text-white truncate">
-                        {warrior.full_name}
-                      </h4>
-                      <p className="text-xs text-gray-400">
-                        @{warrior.username}
-                      </p>
-                    </div>
-                    <a
-                      href={`/dojo/profile/${warrior.username}`}
-                      className="w-full py-2 mt-2 text-center text-xs font-bold uppercase tracking-wider text-amber-400 hover:bg-amber-500/10 rounded-lg transition-colors"
-                    >
-                      Ver Perfil
-                    </a>
                   </div>
                 ))}
               </div>
@@ -309,6 +323,95 @@ export default function DojoCommunity() {
                   </div>
                 ))
               )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-zinc-900/40 border border-white/5 rounded-3xl p-8 backdrop-blur-md relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
+          <div className="space-y-6">
+            <h3 className="text-3xl font-serif text-white flex items-center gap-3">
+              <Shield className="w-8 h-8 text-amber-500" />
+              <span className="bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
+                Manifiesto de la Comunidad
+              </span>
+            </h3>
+
+            <div className="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                Este es un santuario para el crecimiento. Aquí, los guerreros
+                comparten sabiduría, no toxicidad. Forjamos alianzas basadas en
+                el respeto mutuo y la búsqueda incansable de la excelencia.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2 text-amber-100/80">
+                  <Check className="w-4 h-4 text-green-500" /> Apoyo
+                  incondicional entre hermanos de armas.
+                </li>
+                <li className="flex items-center gap-2 text-amber-100/80">
+                  <Check className="w-4 h-4 text-green-500" /> Respeto absoluto
+                  por el camino de cada guerrero.
+                </li>
+                <li className="flex items-center gap-2 text-amber-100/80">
+                  <Check className="w-4 h-4 text-green-500" /> Inspiración para
+                  alcanzar nuestra mejor versión.
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-6 border-t border-white/10">
+              <h4 className="text-sm uppercase tracking-widest text-gray-500 mb-4 font-bold">
+                Conecta con el Dojo
+              </h4>
+              <div className="flex gap-4">
+                <a
+                  href="#"
+                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
+                >
+                  <img
+                    src="/images/Facebook.png"
+                    alt="Facebook"
+                    className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100"
+                  />
+                </a>
+                <a
+                  href="#"
+                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
+                >
+                  <img
+                    src="/images/Instagram.png"
+                    alt="Instagram"
+                    className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100"
+                  />
+                </a>
+                <a
+                  href="#"
+                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
+                >
+                  <img
+                    src="/images/Twitter.png"
+                    alt="Twitter"
+                    className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative h-full min-h-[300px] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+            <img
+              src="/images/Redencion.webp"
+              alt="Redención"
+              className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+            <div className="absolute bottom-0 left-0 p-6">
+              <blockquote className="text-amber-100 italic border-l-2 border-amber-500 pl-4">
+                "La verdadera fuerza no reside en vencer a otros, sino en
+                conquistarse a uno mismo."
+              </blockquote>
             </div>
           </div>
         </div>
