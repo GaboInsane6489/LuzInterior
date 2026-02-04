@@ -2,10 +2,11 @@
 
 # 🌕 MI LUZ INTERIOR
 
-### Sistema operativo para la reconstrucción personal  
+### Sistema operativo para la reconstrucción personal
+
 **Acción · Disciplina · Progreso medible · Comunidad**
 
-<i>No vendemos motivación. Construimos sistemas para salir del pozo.</i>
+<i>No vendemos motivación. Construimos sistemas para salir del pozo y alcanzar el prime.</i>
 
 <br />
 
@@ -24,7 +25,7 @@
 
 <div align="center">
 
-## 🌑 → 🌕 ¿Qué es *Mi Luz Interior*?
+## 🌑 → 🌕 ¿Qué es _Mi Luz Interior_?
 
 <img width="90%" alt="Concept" src="https://github.com/user-attachments/assets/f08d4c09-e284-42e0-a0d0-408c3f3af68b" />
 
@@ -35,7 +36,7 @@
 **Mi Luz Interior** es una plataforma de desarrollo personal gamificada, diseñada para personas que **no están bien** y necesitan reconstruirse mediante un sistema claro, medible y sostenible en el tiempo.
 
 No es autoayuda tradicional.  
-No es contenido motivacional vacío.  
+No es contenido motivacional vacío.
 
 Es **infraestructura personal**.
 
@@ -68,16 +69,16 @@ Se debe a **falta de estructura y refuerzo**.
 
 Patrones comunes:
 
-- Ausencia de rutinas claras  
-- Progreso invisible → abandono  
-- Aislamiento social  
-- Dopamina barata y estímulos vacíos  
-- Cuerpo descuidado → mente deteriorada  
-- Ninguna validación del esfuerzo real  
+- Ausencia de rutinas claras
+- Progreso invisible → abandono
+- Aislamiento social
+- Dopamina barata y estímulos vacíos
+- Cuerpo descuidado → mente deteriorada
+- Ninguna validación del esfuerzo real
 
 <br />
 
-👉 *Mi Luz Interior* existe para atacar **las causas**, no para maquillar los síntomas.
+👉 _Mi Luz Interior_ existe para atacar **las causas**, no para maquillar los síntomas.
 
 </div>
 
@@ -133,10 +134,10 @@ Es una **Single Page Application escalable**, diseñada desde el inicio para evo
 
 ### Frontend
 
-- **React 19** — Componentes modernos y arquitectura modular  
-- **Vite** — DX rápida y builds optimizados  
-- **React Router** — Rutas y layouts desacoplados  
-- **Tailwind CSS** — Estilos consistentes y mantenibles  
+- **React 19** — Componentes modernos y arquitectura modular
+- **Vite** — DX rápida y builds optimizados
+- **React Router** — Rutas y layouts desacoplados
+- **Tailwind CSS** — Estilos consistentes y mantenibles
 
 </div>
 
@@ -155,7 +156,8 @@ Es una **Single Page Application escalable**, diseñada desde el inicio para evo
 
 <div align="center">
 
-**Regla de oro:**  
+**Regla de oro:**
+
 > El frontend es inseguro. La base de datos se protege a sí misma.
 
 📄 Arquitectura completa:  
@@ -174,18 +176,23 @@ Es una **Single Page Application escalable**, diseñada desde el inicio para evo
 <div align="center">
 
 ### 🧠 Mentalidad
+
 Journaling · Enfoque · Lectura aplicada · Anti-rumiación
 
 ### 🏋️ Cuerpo
+
 Entrenamiento · Constancia · Higiene · Descanso
 
 ### 🧍 Imagen personal
-Grooming · Estilo · Progreso visual *(opt-in)*
+
+Grooming · Estilo · Progreso visual _(opt-in)_
 
 ### 🎯 Disciplina
+
 Retos diarios · Rachas · XP · Penalización simbólica
 
-### 💻 Desarrollo profesional *(fase futura)*
+### 💻 Desarrollo profesional _(fase futura)_
+
 GitHub · Retos técnicos · Logros públicos
 
 </div>
@@ -207,10 +214,10 @@ Es un **marco psicológico de refuerzo positivo**.
 
 <br />
 
-- **XP** → esfuerzo acumulado  
-- **Nivel** → identidad actual  
-- **Logros** → prueba social  
-- **Rachas** → disciplina sostenida  
+- **XP** → esfuerzo acumulado
+- **Nivel** → identidad actual
+- **Logros** → prueba social
+- **Rachas** → disciplina sostenida
 
 <br />
 
@@ -219,7 +226,7 @@ Ejemplos reales:
 🥇 30 días entrenando  
 🧘 21 días de meditación  
 📚 5 lecturas completadas  
-💻 Primer proyecto deployado  
+💻 Primer proyecto deployado
 
 <br />
 
@@ -236,7 +243,7 @@ Todo es **opcionalmente público**.
 
 </div>
 
-```bash
+````bash
 git clone https://github.com/GaboInsane6489/LuzInterior.git
 cd luz-interior
 pnpm install
