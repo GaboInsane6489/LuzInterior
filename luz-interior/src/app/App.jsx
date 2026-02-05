@@ -8,6 +8,9 @@ import {
 const Landing = React.lazy(() => import("../features/landing/LandingPage"));
 const About = React.lazy(() => import("../features/landing/pages/About"));
 const Contact = React.lazy(() => import("../features/landing/pages/Contact"));
+const CodexPage = React.lazy(
+  () => import("../features/landing/pages/CodexPage"),
+);
 
 // Dojo imports
 const DojoLayout = React.lazy(
@@ -64,6 +67,14 @@ const router = createBrowserRouter([
         element: (
           <React.Suspense fallback={<DojoLoader />}>
             <Contact />
+          </React.Suspense>
+        ),
+      },
+      {
+        path: "codexpage",
+        element: (
+          <React.Suspense fallback={<DojoLoader />}>
+            <CodexPage />
           </React.Suspense>
         ),
       },

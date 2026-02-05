@@ -35,7 +35,11 @@ const Navbar = () => {
           className="flex items-center gap-2 group relative z-50"
           onClick={() => setIsOpen(false)}
         >
-          <Sparkles className="w-7 h-7 text-amber-300 transition-transform duration-700 group-hover:rotate-180" />
+          <img
+            src="/images/LogoDragonTrofeo.ico"
+            alt="Logo Dragon"
+            className="w-10 h-10 rounded-full border-2 border-amber-300 group-hover:scale-110 transition-transform duration-300"
+          />
           <span className="text-xl font-bold tracking-widest uppercase">
             Luz Interior
           </span>
@@ -55,10 +59,10 @@ const Navbar = () => {
           ))}
 
           <Link
-            to="/contact"
+            to="/CodexPage"
             className="border border-white/30 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
           >
-            Contacto
+            Codex
           </Link>
         </div>
 
@@ -129,11 +133,11 @@ const Navbar = () => {
             </Link>
           ))}
           <Link
-            to="/contact"
+            to="/CodexPage"
             onClick={() => setIsOpen(false)}
             className="mt-4 px-8 py-3 bg-white text-black font-bold uppercase tracking-widest rounded-full"
           >
-            Contacto
+            Codex
           </Link>
         </div>
       </div>
