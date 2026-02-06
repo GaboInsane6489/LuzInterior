@@ -27,6 +27,14 @@ export default function DojoCommunity() {
 
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  const sanitizeAvatarUrl = (url) => {
+    if (!url) return url;
+    if (url.includes("googleusercontent.com")) {
+      return url.replace(/=s\d+(-c)?/, "=s400-c");
+    }
+    return url;
+  };
   const [isSearching, setIsSearching] = useState(false);
 
   const [friends, setFriends] = useState([]);
@@ -173,7 +181,9 @@ export default function DojoCommunity() {
                     {/* Avatar Image (Full Cover) */}
                     <div className="h-80 w-full overflow-hidden">
                       <img
-                        src={warrior.custom_avatar_url || warrior.avatar_url}
+                        src={sanitizeAvatarUrl(
+                          warrior.custom_avatar_url || warrior.avatar_url,
+                        )}
                         alt={warrior.username}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-0 grayscale"
                       />
@@ -243,11 +253,11 @@ export default function DojoCommunity() {
                 >
                   <div className="flex items-center gap-4 min-w-0 flex-1">
                     <img
-                      src={
+                      src={sanitizeAvatarUrl(
                         resultUser.custom_avatar_url ||
-                        resultUser.avatar_url ||
-                        `https://api.dicebear.com/7.x/avataaars/svg?seed=${resultUser.username}`
-                      }
+                          resultUser.avatar_url ||
+                          `https://api.dicebear.com/7.x/avataaars/svg?seed=${resultUser.username}`,
+                      )}
                       alt={resultUser.username}
                       className="w-10 h-10 rounded-lg bg-black flex-shrink-0"
                     />

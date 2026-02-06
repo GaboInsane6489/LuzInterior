@@ -20,6 +20,14 @@ export default function DojoLayout() {
   const { profile } = useDojoData();
   const firstName = user?.user_metadata?.full_name?.split(" ")[0];
 
+  const sanitizeAvatarUrl = (url) => {
+    if (!url) return url;
+    if (url.includes("googleusercontent.com")) {
+      return url.replace(/=s\d+(-c)?/, "=s400-c");
+    }
+    return url;
+  };
+
   const mainNavItems = [
     { to: "/dojo/profile", icon: CircleUser, label: "Perfil" },
     { to: "/dojo/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -146,12 +154,12 @@ export default function DojoLayout() {
                 <div className="flex items-center gap-4 md:gap-6 bg-zinc-900/40 p-4 md:p-5 pr-6 md:pr-8 border border-white/5 rounded-[1.5rem] md:rounded-[2rem] backdrop-blur-sm group hover:border-amber-300/20 transition-all">
                   <div className="relative">
                     <img
-                      src={
+                      src={sanitizeAvatarUrl(
                         profile?.custom_avatar_url ||
-                        profile?.avatar_url ||
-                        user?.user_metadata?.avatar_url
-                      }
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-[1rem] md:rounded-[1.25rem] border border-white/10"
+                          profile?.avatar_url ||
+                          user?.user_metadata?.avatar_url,
+                      )}
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-[1rem] md:rounded-[1.25rem] border border-white/10 object-cover"
                       alt="Avatar"
                     />
                     <div className="absolute -bottom-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-green-500 border-2 border-black rounded-full"></div>

@@ -19,6 +19,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  /**
+   * Limpia y mejora la calidad de la URL del avatar de Google
+   */
+  const sanitizeAvatarUrl = (url) => {
+    if (!url) return url;
+    if (url.includes("googleusercontent.com")) {
+      return url.replace(/=s\d+(-c)?/, "=s400-c");
+    }
+    return url;
+  };
+
   // Clases dinámicas para efecto "Glassmorphism" al hacer scroll
   const navClasses = `fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
     scrolled
@@ -85,11 +96,11 @@ const Navbar = () => {
               className="flex items-center gap-3 group hover:opacity-80 transition-all"
             >
               <img
-                src={
+                src={sanitizeAvatarUrl(
                   profile?.custom_avatar_url ||
-                  profile?.avatar_url ||
-                  user?.user_metadata?.avatar_url
-                }
+                    profile?.avatar_url ||
+                    user?.user_metadata?.avatar_url,
+                )}
                 alt={profile?.full_name || user?.user_metadata?.full_name}
                 className="w-10 h-10 rounded-full border-2 border-amber-300 group-hover:scale-110 transition-transform"
               />

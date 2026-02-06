@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { useDojoData } from "../hooks/useDojoData";
 import { ACHIEVEMENTS_CONFIG } from "../data/achievements.config";
@@ -7,6 +7,13 @@ import { dojoService } from "../services/dojo.service";
 import { MapPin, Calendar, Award, Lock } from "lucide-react";
 
 export default function UserProfile() {
+  const sanitizeAvatarUrl = (url) => {
+    if (!url) return url;
+    if (url.includes("googleusercontent.com")) {
+      return url.replace(/=s\d+(-c)?/, "=s400-c");
+    }
+    return url;
+  };
   const { user } = useAuth();
   const { username } = useParams();
   const { profile: myProfile, loading: myLoading } = useDojoData();
@@ -72,11 +79,11 @@ export default function UserProfile() {
       <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 pb-12 border-b border-white/5">
         <div className="relative group">
           <img
-            src={
+            src={sanitizeAvatarUrl(
               displayProfile?.custom_avatar_url ||
-              displayProfile?.avatar_url ||
-              user?.user_metadata?.avatar_url
-            }
+                displayProfile?.avatar_url ||
+                user?.user_metadata?.avatar_url,
+            )}
             alt="Avatar"
             className="w-32 h-32 md:w-44 md:h-44 rounded-[2.5rem] border-2 border-amber-300/20 group-hover:border-amber-300 transition-all duration-500 object-cover shadow-2xl"
           />

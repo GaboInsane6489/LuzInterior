@@ -9,6 +9,18 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const isInitialMount = useRef(true);
 
+  /**
+   * Limpia y mejora la calidad de la URL del avatar de Google
+   */
+  const sanitizeAvatarUrl = (url) => {
+    if (!url) return url;
+    // Si es de Google, forzamos alta resolución (cambiando =s96-c por =s400-c)
+    if (url.includes("googleusercontent.com")) {
+      return url.replace(/=s\d+(-c)?/, "=s400-c");
+    }
+    return url;
+  };
+
   const fetchProfileDirectly = useCallback(async (u) => {
     if (!u) {
       setProfile(null);
@@ -29,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         // Autocuración: Si no existe el perfil, lo creamos
         const email = u.email;
         const fullName = u.user_metadata?.full_name;
-        const avatarUrl = u.user_metadata?.avatar_url;
+        const avatarUrl = sanitizeAvatarUrl(u.user_metadata?.avatar_url);
 
         const username = email
           ? email.split("@")[0] + "_" + Math.floor(Math.random() * 1000)
@@ -57,7 +69,7 @@ export const AuthProvider = ({ children }) => {
 
       // Sincronización de metadatos (Avatar y Nombre)
       const fullName = u.user_metadata?.full_name;
-      const avatarUrl = u.user_metadata?.avatar_url;
+      const avatarUrl = sanitizeAvatarUrl(u.user_metadata?.avatar_url);
       const updates = {};
 
       if (fullName && fullName !== data.full_name) updates.full_name = fullName;

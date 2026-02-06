@@ -39,6 +39,17 @@ export default function DojoSettings() {
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
 
+  /**
+   * Limpia y mejora la calidad de la URL del avatar de Google
+   */
+  const sanitizeAvatarUrl = (url) => {
+    if (!url) return url;
+    if (url.includes("googleusercontent.com")) {
+      return url.replace(/=s\d+(-c)?/, "=s400-c");
+    }
+    return url;
+  };
+
   if (dataLoading) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center">
@@ -269,11 +280,11 @@ export default function DojoSettings() {
               </label>
               <div className="flex items-center gap-4 flex-wrap">
                 <img
-                  src={
+                  src={sanitizeAvatarUrl(
                     profile?.custom_avatar_url ||
-                    profile?.avatar_url ||
-                    user?.user_metadata?.avatar_url
-                  }
+                      profile?.avatar_url ||
+                      user?.user_metadata?.avatar_url,
+                  )}
                   className="w-20 h-20 rounded-2xl border border-white/10 object-cover"
                   alt="Avatar"
                 />
