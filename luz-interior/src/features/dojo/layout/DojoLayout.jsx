@@ -12,6 +12,7 @@ import {
   Settings,
   CircleUser,
   Users,
+  Bell,
 } from "lucide-react";
 
 export default function DojoLayout() {
@@ -19,31 +20,64 @@ export default function DojoLayout() {
   const { profile } = useDojoData();
   const firstName = user?.user_metadata?.full_name?.split(" ")[0];
 
-  const navItems = [
+  const mainNavItems = [
     { to: "/dojo/profile", icon: CircleUser, label: "Perfil" },
     { to: "/dojo/dashboard", icon: LayoutDashboard, label: "Dashboard" },
     { to: "/dojo/achievements", icon: Award, label: "Logros" },
     { to: "/dojo/community", icon: Users, label: "Comunidad" },
+    { to: "/dojo/notifications", icon: Bell, label: "Notificaciones" },
     { to: "/dojo/library", icon: Book, label: "Biblioteca" },
+  ];
+
+  const bottomNavItems = [
     { to: "/dojo/settings", icon: Settings, label: "Ajustes" },
   ];
+
+  const allNavItems = [...mainNavItems, ...bottomNavItems];
 
   return (
     <div className="min-h-screen text-white selection:bg-amber-300 selection:text-black">
       <div className="flex flex-col md:flex-row">
         {/* Sidebar de Navegación Lateral (Desktop) */}
-        <aside className="sticky top-20 h-[calc(100vh-5rem)] w-20 bg-zinc-950/40 backdrop-blur-md border-r border-white/5 flex-col items-center py-7 gap-6 z-40 hidden md:flex shrink-0">
-          <div className="w-12 h-12 bg-amber-300 text-black flex items-center justify-center rounded-2xl font-serif text-2xl font-bold shadow-[0_0_20px_rgba(245,158,11,0.3)]">
-            L
+        <aside className="sticky top-20 h-[calc(100vh-5rem)] w-20 bg-zinc-950/40 backdrop-blur-md border-r border-white/5 flex flex-col items-center py-7 z-40 hidden md:flex shrink-0 overflow-hidden">
+          {/* Logo container */}
+          <div className="mb-8 shrink-0">
+            <div className="w-12 h-12 bg-amber-300 text-black flex items-center justify-center rounded-2xl font-serif text-2xl font-bold shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:scale-105 transition-transform duration-300">
+              L
+            </div>
           </div>
-          <nav className="flex flex-col gap-10 text-gray-600 mt-10">
-            {navItems.map((item) => (
+
+          {/* Main Navigation - Scrollable area */}
+          <nav className="flex-1 w-full flex flex-col items-center gap-6 py-4 overflow-y-auto no-scrollbar scroll-smooth">
+            {mainNavItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `w-6 h-6 cursor-pointer transition-all hover:scale-110 ${
-                    isActive ? "text-amber-300" : "hover:text-amber-300"
+                  `w-6 h-6 cursor-pointer transition-all hover:scale-110 flex items-center justify-center ${
+                    isActive
+                      ? "text-amber-300"
+                      : "text-gray-600 hover:text-amber-300"
+                  }`
+                }
+                title={item.label}
+              >
+                <item.icon className="w-6 h-6" />
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* Bottom Navigation - Grouped Settings */}
+          <nav className="mt-auto pt-6 border-t border-white/5 w-full flex flex-col items-center gap-6 shrink-0">
+            {bottomNavItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `w-6 h-6 cursor-pointer transition-all hover:scale-110 flex items-center justify-center ${
+                    isActive
+                      ? "text-amber-300"
+                      : "text-gray-600 hover:text-amber-300"
                   }`
                 }
                 title={item.label}
@@ -57,7 +91,7 @@ export default function DojoLayout() {
         {/* Bottom Navigation (Mobile) */}
         <nav className="fixed bottom-0 left-0 right-0 bg-zinc-950/60 backdrop-blur-lg border-t border-white/5 z-50 md:hidden">
           <div className="flex justify-around items-center py-3 px-2">
-            {navItems.map((item) => (
+            {allNavItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
@@ -114,6 +148,7 @@ export default function DojoLayout() {
                     <img
                       src={
                         profile?.custom_avatar_url ||
+                        profile?.avatar_url ||
                         user?.user_metadata?.avatar_url
                       }
                       className="w-12 h-12 md:w-16 md:h-16 rounded-[1rem] md:rounded-[1.25rem] border border-white/10"

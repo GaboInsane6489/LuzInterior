@@ -2,12 +2,12 @@ import { supabase } from "../../../config/supabase";
 import { ACHIEVEMENTS_CONFIG } from "../data/achievements.config";
 
 export const dojoService = {
-  async getProfile(userId, fullName, email) {
+  async getProfile(userId, fullName, email, avatarUrl) {
     const { data, error } = await supabase
       .from("profiles")
       .select("*")
       .eq("id", userId)
-      .maybeSingle(); // maybeSingle no arroja error si no hay resultados, solo regresa null
+      .maybeSingle();
 
     if (error) throw error;
 
@@ -23,6 +23,7 @@ export const dojoService = {
             id: userId,
             full_name: fullName,
             username: username,
+            avatar_url: avatarUrl,
             level: 1,
             xp: 0,
           },
@@ -32,6 +33,23 @@ export const dojoService = {
 
       if (createError) throw createError;
       return newProfile;
+    }
+
+    // Sincronización básica: si el nombre o el avatar cambiaron en Google, actualizar profiles
+    // Solo actualizamos si los valores de Google son válidos y distintos a los actuales
+    const updates = {};
+    if (fullName && fullName !== data.full_name) updates.full_name = fullName;
+    if (avatarUrl && avatarUrl !== data.avatar_url)
+      updates.avatar_url = avatarUrl;
+
+    if (Object.keys(updates).length > 0) {
+      const { data: updatedProfile } = await supabase
+        .from("profiles")
+        .update({ ...updates, updated_at: new Date().toISOString() })
+        .eq("id", userId)
+        .select()
+        .single();
+      if (updatedProfile) return updatedProfile;
     }
 
     return data;
@@ -47,6 +65,21 @@ export const dojoService = {
       .ilike("username", username)
       .single();
 
+    if (error) throw error;
+    return data;
+  },
+  /**
+   * Obtiene usuarios destacados para el carrusel de la comunidad.
+   * Excluye al usuario actual si se proporciona su ID.
+   */
+  getCommunityUsers: async (currentUserId = null) => {
+    let query = supabase.from("profiles").select("*").limit(10);
+
+    if (currentUserId) {
+      query = query.neq("id", currentUserId);
+    }
+
+    const { data, error } = await query;
     if (error) throw error;
     return data;
   },
@@ -139,10 +172,49 @@ export const dojoService = {
    * Utiliza la configuración centralizada
    */
   async checkAndAwardAchievements(userId, stats) {
-    for (const ach of ACHIEVEMENTS_CONFIG) {
-      if (ach.condition(stats)) {
-        // Placeholder para lógica futura de DB
+    try {
+      // 1. Obtener todos los logros del catálogo
+      const { data: allAchievements } = await supabase
+        .from("achievements")
+        .select("*");
+      if (!allAchievements) return;
+
+      // 2. Obtener logros ya obtenidos por el usuario
+      const { data: unlocked } = await supabase
+        .from("user_achievements")
+        .select("achievement_id")
+        .eq("user_id", userId);
+
+      const unlockedIds = new Set(unlocked?.map((a) => a.achievement_id) || []);
+
+      for (const achConfig of ACHIEVEMENTS_CONFIG) {
+        if (achConfig.condition(stats)) {
+          // Buscar el logro correspondiente en la DB por icon_slug
+          const dbAch = allAchievements.find(
+            (a) => a.icon_slug === achConfig.id,
+          );
+
+          if (dbAch && !unlockedIds.has(dbAch.id)) {
+            // 3. Insertar en DB
+            const { error: insertError } = await supabase
+              .from("user_achievements")
+              .insert([{ user_id: userId, achievement_id: dbAch.id }]);
+
+            if (!insertError) {
+              // 4. Notificar
+              await this.createNotification(
+                userId,
+                "achievement",
+                "¡Nuevo Logro Desbloqueado!",
+                `Has forjado un nuevo trofeo: ${dbAch.title}.`,
+                dbAch.id,
+              );
+            }
+          }
+        }
       }
+    } catch (err) {
+      console.error("Error verificando logros:", err);
     }
   },
 
@@ -199,22 +271,6 @@ export const dojoService = {
   },
 
   /**
-   * Obtiene usuarios destacados para la comunidad (Carrusel)
-   */
-  async getCommunityUsers() {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select(
-        "id, username, full_name, level, custom_avatar_url, role, xp, streak_current",
-      )
-      .order("level", { ascending: false })
-      .limit(20);
-
-    if (error) throw error;
-    return data || [];
-  },
-
-  /**
    * Envía una solicitud de amistad
    */
 
@@ -243,17 +299,60 @@ export const dojoService = {
         { user_id_1: fromUserId, user_id_2: toUserId, status: "pending" },
       ]);
     if (error) throw error;
+
+    // Obtener nombre del remitente para la notificación
+    const { data: sender } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", fromUserId)
+      .single();
+
+    // Crear notificación para el receptor
+    await this.createNotification(
+      toUserId,
+      "friend_request",
+      "Nueva solicitud de amistad",
+      `${sender?.username || "Un guerrero"} quiere unirse a tu dojo.`,
+      fromUserId,
+    );
+
     return true;
   },
   /**
    * Acepta una solicitud de amistad pendiente
    */
   async acceptFriendRequest(requestId) {
+    // Obtener datos de la solicitud para saber a quién notificar
+    const { data: request } = await supabase
+      .from("friendships")
+      .select("user_id_1, user_id_2")
+      .eq("id", requestId)
+      .single();
+
     const { error } = await supabase
       .from("friendships")
       .update({ status: "accepted", updated_at: new Date().toISOString() })
       .eq("id", requestId);
     if (error) throw error;
+
+    if (request) {
+      // Obtener nombre del que acepta
+      const { data: acceptor } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", request.user_id_2)
+        .single();
+
+      // Notificar al que envió la solicitud original (user_id_1)
+      await this.createNotification(
+        request.user_id_1,
+        "friend_request",
+        "¡Solicitud aceptada!",
+        `${acceptor?.username || "Un guerrero"} ha aceptado tu alianza.`,
+        request.user_id_2,
+      );
+    }
+
     return true;
   },
   /**
@@ -314,5 +413,61 @@ export const dojoService = {
       return data.user_id_1 === myUserId ? "pending_sent" : "pending_received";
     }
     return data.status; // blocked, etc.
+  },
+
+  // --- MÓDULO DE NOTIFICACIONES ---
+  /**
+   * Obtiene las notificaciones del usuario
+   */
+  async getNotifications(userId) {
+    const { data, error } = await supabase
+      .from("notifications")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  /**
+   * Marca una notificación como leída
+   */
+  async markNotificationAsRead(id) {
+    const { error } = await supabase
+      .from("notifications")
+      .update({ read: true })
+      .eq("id", id);
+    if (error) throw error;
+    return true;
+  },
+
+  /**
+   * Elimina una notificación
+   */
+  async deleteNotification(id) {
+    const { error } = await supabase
+      .from("notifications")
+      .delete()
+      .eq("id", id);
+    if (error) throw error;
+    return true;
+  },
+
+  /**
+   * Crea una notificación para un usuario
+   */
+  async createNotification(userId, type, title, message, relatedId = null) {
+    const { error } = await supabase.from("notifications").insert([
+      {
+        user_id: userId,
+        type,
+        title,
+        message,
+        related_id: relatedId,
+      },
+    ]);
+    if (error) throw error;
+    return true;
   },
 };

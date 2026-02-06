@@ -8,13 +8,12 @@ export const APP_CONFIG = {
   Keywords: ["Mi Luz Interior", "Mi Luz Interior", "Mi Luz Interior"],
   Repository: "Mi Luz Interior",
   Homepage: "Mi Luz Interior",
-  URL_BASE: "https://miluzinterior.com",
+  URL_BASE: "https://luz-interior-three.vercel.app",
 };
 
 export const NAV_LINKS = [
   { href: "/", label: "Inicio" },
   { href: "/about", label: "Sobre Nosotros" },
-  { href: "/contact", label: "Contacto" },
 ];
 
 export const SOCIAL_LINKS = {
@@ -32,23 +31,23 @@ export const SEO_DATA = {
       "Sistema operativo para la reconstrucción personal. Acción, disciplina y progreso.",
     keywords: ["Mi Luz Interior", "Mi Luz Interior", "Mi Luz Interior"],
     author: "Mi Luz Interior",
-    url: "https://miluzinterior.com",
-    image: "https://miluzinterior.com/logo.png",
+    url: "https://luz-interior-three.vercel.app",
+    image: "https://luz-interior-three.vercel.app/logo.png",
   },
   about: {
     title: "Sobre Nosotros",
     description: "Sobre Nosotros",
     keywords: ["Sobre Nosotros", "Sobre Nosotros", "Sobre Nosotros"],
     author: "Mi Luz Interior",
-    url: "https://miluzinterior.com/about",
-    image: "https://miluzinterior.com/logo.png",
+    url: "https://luz-interior-three.vercel.app/about",
+    image: "https://luz-interior-three.vercel.app/logo.png",
   },
   contact: {
     title: "Contacto",
     description: "Contacto",
     keywords: ["Contacto", "Contacto", "Contacto"],
     author: "Mi Luz Interior",
-    url: "https://miluzinterior.com/contact",
-    image: "https://miluzinterior.com/logo.png",
+    url: "https://luz-interior-three.vercel.app/contact",
+    image: "https://luz-interior-three.vercel.app/logo.png",
   },
 };

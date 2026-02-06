@@ -12,6 +12,14 @@ import {
   ShieldPlus,
 } from "lucide-react";
 
+import {
+  FaDiscord,
+  FaInstagram,
+  FaLinkedin,
+  FaGithub,
+  FaTwitter,
+} from "react-icons/fa";
+
 export default function DojoCommunity() {
   const { user } = useAuth();
   // eslint-disable-next-line no-unused-vars
@@ -32,7 +40,7 @@ export default function DojoCommunity() {
       const [myFriends, myRequests, spotlightUsers] = await Promise.all([
         dojoService.getFriends(user.id),
         dojoService.getIncomingFriendRequests(user.id),
-        dojoService.getCommunityUsers(),
+        dojoService.getCommunityUsers(user.id),
       ]);
       setFriends(myFriends || []);
       setRequests(myRequests || []);
@@ -165,7 +173,7 @@ export default function DojoCommunity() {
                     {/* Avatar Image (Full Cover) */}
                     <div className="h-80 w-full overflow-hidden">
                       <img
-                        src={warrior.custom_avatar_url}
+                        src={warrior.custom_avatar_url || warrior.avatar_url}
                         alt={warrior.username}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-0 grayscale"
                       />
@@ -237,6 +245,7 @@ export default function DojoCommunity() {
                     <img
                       src={
                         resultUser.custom_avatar_url ||
+                        resultUser.avatar_url ||
                         `https://api.dicebear.com/7.x/avataaars/svg?seed=${resultUser.username}`
                       }
                       alt={resultUser.username}
@@ -370,31 +379,31 @@ export default function DojoCommunity() {
                   href="#"
                   className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
                 >
-                  <img
-                    src="/images/Facebook.png"
-                    alt="Facebook"
-                    className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100"
-                  />
+                  <FaDiscord className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
                 </a>
                 <a
                   href="#"
                   className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
                 >
-                  <img
-                    src="/images/Instagram.png"
-                    alt="Instagram"
-                    className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100"
-                  />
+                  <FaInstagram className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
                 </a>
                 <a
                   href="#"
                   className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
                 >
-                  <img
-                    src="/images/Twitter.png"
-                    alt="Twitter"
-                    className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100"
-                  />
+                  <FaLinkedin className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
+                </a>
+                <a
+                  href="#"
+                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
+                >
+                  <FaGithub className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
+                </a>
+                <a
+                  href="#"
+                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
+                >
+                  <FaTwitter className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
                 </a>
               </div>
             </div>

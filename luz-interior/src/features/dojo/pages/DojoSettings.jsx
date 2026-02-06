@@ -267,30 +267,46 @@ export default function DojoSettings() {
               <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold block">
                 Avatar
               </label>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 flex-wrap">
                 <img
                   src={
                     profile?.custom_avatar_url ||
+                    profile?.avatar_url ||
                     user?.user_metadata?.avatar_url
                   }
-                  className="w-20 h-20 rounded-2xl border border-white/10"
+                  className="w-20 h-20 rounded-2xl border border-white/10 object-cover"
                   alt="Avatar"
                 />
-                <label className="cursor-pointer px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all flex items-center gap-2">
-                  {uploadingAvatar ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <Upload className="w-4 h-4" />
+                <div className="flex flex-col gap-2">
+                  <label className="cursor-pointer px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all flex items-center gap-2 w-fit">
+                    {uploadingAvatar ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <Upload className="w-4 h-4" />
+                    )}
+                    Cambiar Avatar
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={handleAvatarUpload}
+                      className="hidden"
+                      disabled={uploadingAvatar}
+                    />
+                  </label>
+
+                  {profile?.custom_avatar_url && (
+                    <button
+                      onClick={() =>
+                        saveField("custom_avatar_url", null, refreshData)
+                      }
+                      disabled={saving}
+                      className="text-[10px] uppercase tracking-widest text-red-400 hover:text-red-300 transition-colors bg-red-400/5 px-4 py-1.5 rounded-lg border border-red-400/10 hover:bg-red-400/10 flex items-center gap-2"
+                    >
+                      <X className="w-3 h-3" />
+                      Restablecer foto de Google
+                    </button>
                   )}
-                  Cambiar Avatar
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    onChange={handleAvatarUpload}
-                    className="hidden"
-                    disabled={uploadingAvatar}
-                  />
-                </label>
+                </div>
               </div>
               <p className="text-xs text-gray-500">
                 JPG, PNG o WEBP. Máximo 5MB.

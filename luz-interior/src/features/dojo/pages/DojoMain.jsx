@@ -70,6 +70,15 @@ export default function DojoMain() {
         </script>
       </Helmet>
 
+      <div className="">
+        <div className="">
+          <h2 className="text-center text-amber-400 text-2xl font-bold">
+            El Dojo es un espacio donde puedes medir tu evolución personal y
+            profesional.
+          </h2>
+        </div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

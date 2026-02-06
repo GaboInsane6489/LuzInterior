@@ -5,7 +5,7 @@ import { NAV_LINKS } from "../../config/constants";
 import { useAuth } from "../../features/auth/hooks/useAuth";
 
 const Navbar = () => {
-  const { user, loading, login, logout } = useAuth();
+  const { user, profile, loading, login, logout } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -64,6 +64,13 @@ const Navbar = () => {
           >
             Codex
           </Link>
+
+          <Link
+            to="/contact"
+            className="bg-amber-300 text-black px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white transition-all duration-300"
+          >
+            Contacto
+          </Link>
         </div>
 
         {/* 3. Lógica de Auth en Desktop */}
@@ -78,8 +85,12 @@ const Navbar = () => {
               className="flex items-center gap-3 group hover:opacity-80 transition-all"
             >
               <img
-                src={user.user_metadata.avatar_url}
-                alt={user.user_metadata.full_name}
+                src={
+                  profile?.custom_avatar_url ||
+                  profile?.avatar_url ||
+                  user?.user_metadata?.avatar_url
+                }
+                alt={profile?.full_name || user?.user_metadata?.full_name}
                 className="w-10 h-10 rounded-full border-2 border-amber-300 group-hover:scale-110 transition-transform"
               />
               <span className="hidden lg:block text-xs font-bold uppercase tracking-widest">
@@ -135,9 +146,16 @@ const Navbar = () => {
           <Link
             to="/CodexPage"
             onClick={() => setIsOpen(false)}
-            className="mt-4 px-8 py-3 bg-white text-black font-bold uppercase tracking-widest rounded-full"
+            className="mt-4 px-8 py-3 border border-white/30 text-white font-bold uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all"
           >
             Codex
+          </Link>
+          <Link
+            to="/contact"
+            onClick={() => setIsOpen(false)}
+            className="px-8 py-3 bg-amber-300 text-black font-bold uppercase tracking-widest rounded-full hover:bg-white transition-all"
+          >
+            Contacto
           </Link>
         </div>
       </div>

@@ -33,6 +33,9 @@ const DojoSettings = React.lazy(
 const UserProfile = React.lazy(
   () => import("../features/dojo/pages/UserProfile"),
 );
+const NotificationsPage = React.lazy(
+  () => import("../features/dojo/pages/NotificationsPage"),
+);
 
 // Shared and features imports
 import Layout from "../shared/ui/Layout";
@@ -137,6 +140,14 @@ const router = createBrowserRouter([
             element: (
               <React.Suspense fallback={<DojoLoader />}>
                 <UserProfile />
+              </React.Suspense>
+            ),
+          },
+          {
+            path: "notifications",
+            element: (
+              <React.Suspense fallback={<DojoLoader />}>
+                <NotificationsPage />
               </React.Suspense>
             ),
           },

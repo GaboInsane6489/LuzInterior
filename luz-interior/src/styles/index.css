@@ -8,6 +8,16 @@
 
   /* Forzamos el esquema oscuro para que los scrollbars y el navegador se adapten */
   color-scheme: dark;
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .font-serif {

@@ -74,6 +74,7 @@ export default function UserProfile() {
           <img
             src={
               displayProfile?.custom_avatar_url ||
+              displayProfile?.avatar_url ||
               user?.user_metadata?.avatar_url
             }
             alt="Avatar"
