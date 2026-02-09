@@ -11,7 +11,7 @@ import {
 /**
  * CODEX
  * Registro oficial del sistema.
- * Cambios, decisiones y evolución documentada.
+ * Cambios, decisiones y evolución documentada del sistema.
  */
 export default function CodexPage() {
   return (
