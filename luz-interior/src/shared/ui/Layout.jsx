@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 const Layout = () => {
   return (
@@ -12,6 +13,7 @@ const Layout = () => {
       </main>
 
       <Footer />
+      <Analytics />
     </div>
   );
 };

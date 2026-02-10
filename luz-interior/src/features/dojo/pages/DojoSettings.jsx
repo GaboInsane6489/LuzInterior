@@ -5,6 +5,7 @@ import { useDojoData } from "../hooks/useDojoData";
 import { useProfileEditor } from "../hooks/useProfileEditor";
 import { storageService } from "../services/storage.service";
 import XPProgressBar from "../components/XPProgressBar";
+import { supabase } from "../../auth/supabase";
 import {
   User,
   Mail,
@@ -64,8 +65,29 @@ export default function DojoSettings() {
 
     try {
       setUploadingAvatar(true);
+
+      // 1️⃣ Subida inmediata (como ya haces)
       const url = await storageService.uploadAvatar(file, user.id);
+
+      // 2️⃣ Llamada a Edge Function (NUEVO)
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      await fetch("/functions/v1/process-avatar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.access_token}`,
+        },
+        body: JSON.stringify({
+          userId: user.id,
+        }),
+      });
+
+      // 3️⃣ Guardas la URL (la misma, pero ahora optimizada)
       await saveField("custom_avatar_url", url);
+
       await refreshData();
     } catch (err) {
       alert(err.message);
