@@ -41,6 +41,9 @@ export default function DojoSettings() {
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
 
+  // Estado local para actualización optimista (feedback inmediato)
+  const [optimisticProfile, setOptimisticProfile] = useState({});
+
   /**
    * Limpia y mejora la calidad de la URL del avatar de Google
    */
@@ -67,31 +70,35 @@ export default function DojoSettings() {
     try {
       setUploadingAvatar(true);
 
-      // 1️⃣ Subida inmediata (como ya haces)
+      // 1. Subir imagen
       const url = await storageService.uploadAvatar(file, user.id);
 
-      // 2️⃣ Llamada a Edge Function (NUEVO)
+      // 2. Actualización Optimista (Visual inmediata)
+      setOptimisticProfile((prev) => ({ ...prev, custom_avatar_url: url }));
+
+      // 3. Guardar en DB en segundo plano
+      await saveField("custom_avatar_url", url);
+
+      // 4. Procesamiento adicional (Edge Function) - No bloqueante para la UI
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
-      await fetch("/functions/v1/process-avatar", {
+      // No esperamos a que termine esto para mostrar la imagen
+      fetch("/functions/v1/process-avatar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session?.access_token}`,
         },
-        body: JSON.stringify({
-          userId: user.id,
-        }),
-      });
-
-      // 3️⃣ Guardas la URL (la misma, pero ahora optimizada)
-      await saveField("custom_avatar_url", url);
+        body: JSON.stringify({ userId: user.id }),
+      }).catch(console.error); // Log error silently
 
       await refreshData();
     } catch (err) {
       alert(err.message);
+      // Revertir optimista si falla
+      setOptimisticProfile((prev) => ({ ...prev, custom_avatar_url: null }));
     } finally {
       setUploadingAvatar(false);
     }
@@ -103,11 +110,19 @@ export default function DojoSettings() {
 
     try {
       setUploadingCover(true);
+
+      // 1. Subir
       const url = await storageService.uploadCoverPhoto(file, user.id);
+
+      // 2. Optimista
+      setOptimisticProfile((prev) => ({ ...prev, cover_photo_url: url }));
+
+      // 3. Guardar
       await saveField("cover_photo_url", url);
       await refreshData();
     } catch (err) {
       alert(err.message);
+      setOptimisticProfile((prev) => ({ ...prev, cover_photo_url: null }));
     } finally {
       setUploadingCover(false);
     }
@@ -304,7 +319,8 @@ export default function DojoSettings() {
               <div className="flex items-center gap-4 flex-wrap">
                 <img
                   src={sanitizeAvatarUrl(
-                    profile?.custom_avatar_url ||
+                    optimisticProfile.custom_avatar_url ||
+                      profile?.custom_avatar_url ||
                       profile?.avatar_url ||
                       user?.user_metadata?.avatar_url,
                   )}
@@ -367,9 +383,12 @@ export default function DojoSettings() {
               <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold block">
                 Foto de Portada
               </label>
-              {profile?.cover_photo_url && (
+              {(optimisticProfile.cover_photo_url ||
+                profile?.cover_photo_url) && (
                 <img
-                  src={profile.cover_photo_url}
+                  src={
+                    optimisticProfile.cover_photo_url || profile.cover_photo_url
+                  }
                   className="w-full h-32 object-cover rounded-xl border border-white/10"
                   alt="Cover"
                 />
