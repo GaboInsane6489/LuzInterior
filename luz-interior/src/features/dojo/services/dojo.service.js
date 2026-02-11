@@ -113,6 +113,28 @@ export const dojoService = {
   },
 
   /**
+   * Obtiene la actividad reciente del usuario (últimos 5 retos completados)
+   */
+  async getUserRecentActivity(userId) {
+    const { data, error } = await supabase
+      .from("challenge_logs")
+      .select(
+        `
+        id,
+        logged_at,
+        xp_earned,
+        challenges ( title, category )
+      `,
+      )
+      .eq("user_id", userId)
+      .order("logged_at", { ascending: false })
+      .limit(5);
+
+    if (error) throw error;
+    return data;
+  },
+
+  /**
    * Registra el progreso diario de un reto y actualiza el perfil del usuario (XP y Racha)
    */
   async logDailyProgress(userId, challengeId, xpReward) {
