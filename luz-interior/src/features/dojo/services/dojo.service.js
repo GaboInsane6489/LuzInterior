@@ -127,7 +127,31 @@ export const dojoService = {
     }
     if (logError) throw logError;
 
-    // 2. Obtener datos actuales para calcular el nuevo XP y Racha
+    // 2. Calcular Racha basada en logs
+    const today = new Date().toISOString().split("T")[0];
+    const yesterday = new Date(Date.now() - 86400000)
+      .toISOString()
+      .split("T")[0];
+
+    // Verificar si ya hubo actividad HOY (excluyendo el insert actual si fuera posible, pero mejor contamos total)
+    const { count: logsToday } = await supabase
+      .from("challenge_logs")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .gte("created_at", today); // Logs de hoy
+
+    // Verificar si hubo actividad AYER
+    // Nota: Podríamos optimizar esto guardando last_activity_at en profile,
+    // pero consultar logs es más "source-of-truth".
+    // Para simplificar query, buscamos logs creados entre ayer y hoy.
+    const { count: logsYesterday } = await supabase
+      .from("challenge_logs")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .gte("created_at", yesterday)
+      .lt("created_at", today);
+
+    // 3. Obtener perfil actual
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select("xp, streak_current, streak_best, level")
@@ -136,14 +160,30 @@ export const dojoService = {
 
     if (profileError) throw profileError;
 
+    let newStreak = profile.streak_current || 0;
+
+    // Lógica de Racha
+    if (logsToday > 1) {
+      // Ya había actividad hoy, no aumentamos racha (ya se contó con el primer log)
+      // newStreak se mantiene igual
+    } else {
+      // Es la primera actividad de hoy
+      if (logsYesterday > 0) {
+        // Hubo actividad ayer -> Racha continúa
+        newStreak += 1;
+      } else {
+        // No hubo actividad ayer -> Racha se reinicia (o empieza)
+        newStreak = 1;
+      }
+    }
+
     const newXp = (profile.xp || 0) + xpReward;
-    const newStreak = (profile.streak_current || 0) + 1;
     const newBestStreak = Math.max(newStreak, profile.streak_best || 0);
 
     // Cálculo básico de nivel (ej. cada 1000 XP subes de nivel, unificado con Frontend)
     const newLevel = Math.floor(newXp / 1000) + 1;
 
-    // 3. Actualizar el perfil
+    // 4. Actualizar el perfil
     const { error: updateError } = await supabase
       .from("profiles")
       .update({
@@ -263,6 +303,14 @@ export const dojoService = {
       `Has ganado +${amount} XP: ${reason}`,
     );
 
+    // 4. Verificar Logros (XP, Nivel)
+    // Pasamos streak del perfil actual ya que este método no afecta racha directamente
+    await this.checkAndAwardAchievements(userId, {
+      xp: newXp,
+      streak: profile.streak_current || 0,
+      level: newLevel,
+    });
+
     // 4. Notificar si hubo subida de nivel
     if (newLevel > (profile.level || 1)) {
       await this.createNotification(
@@ -274,6 +322,47 @@ export const dojoService = {
     }
 
     return newXp;
+  },
+
+  /**
+   * Envía Honor a un aliado (XP para ambos)
+   */
+  async sendHonor(senderId, receiverId) {
+    // 1. Verificar límite diario
+    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+    const { data: existing } = await supabase
+      .from("notifications")
+      .select("*")
+      .eq("type", "honor_received")
+      .eq("related_id", senderId) // El related_id será quien envió
+      .eq("user_id", receiverId) // El user_id es quien recibió
+      .gte("created_at", today); // Desde hoy
+
+    if (existing && existing.length > 0) {
+      throw new Error("Ya has enviado honor a este aliado hoy.");
+    }
+
+    // 2. Dar XP a ambos
+    const xpAmount = 20;
+    await this.awardExplorationXp(senderId, xpAmount, "Honor Enviado");
+    await this.awardExplorationXp(receiverId, xpAmount, "Honor Recibido");
+
+    // 3. Notificar al receptor
+    const { data: sender } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", senderId)
+      .single();
+
+    await this.createNotification(
+      receiverId,
+      "honor_received",
+      "¡Honor Recibido!",
+      `${sender?.username || "Un aliado"} te ha enviado fuerza.`,
+      senderId,
+    );
+
+    return true;
   },
 
   /**
@@ -482,8 +571,8 @@ export const dojoService = {
       .select(
         `
         id,
-        user_1:profiles!friendships_user_id_1_fkey (id, username, full_name, custom_avatar_url, level, role),
-        user_2:profiles!friendships_user_id_2_fkey (id, username, full_name, custom_avatar_url, level, role)
+        user_1:profiles!friendships_user_id_1_fkey (id, username, full_name, custom_avatar_url, avatar_url, cover_photo_url, level, role),
+        user_2:profiles!friendships_user_id_2_fkey (id, username, full_name, custom_avatar_url, avatar_url, cover_photo_url, level, role)
       `,
       )
       .or(`user_id_1.eq.${userId},user_id_2.eq.${userId}`)

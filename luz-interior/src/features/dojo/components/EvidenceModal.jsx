@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
-import { X, Upload, Loader2, Image, Video } from "lucide-react";
+import { X, Upload, Loader2, Image, Video, Shield, Lock } from "lucide-react";
 
 export default function EvidenceModal({
   isOpen,
@@ -8,6 +8,7 @@ export default function EvidenceModal({
   onSubmit,
   challengeTitle,
   requireEvidence = true,
+  currentLevel = 1,
 }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -103,35 +104,71 @@ export default function EvidenceModal({
           </div>
         )}
 
-        {/* Upload Area */}
+        {/* Honor System Section - Visible for everyone but locked if level < 25 */}
         <div className="space-y-4">
-          {!requireEvidence && !selectedFile && (
-            <div className="bg-amber-900/10 border border-amber-500/20 rounded-xl p-6 text-center space-y-2">
-              <Shield className="w-8 h-8 text-amber-500 mx-auto" />
-              <h4 className="text-amber-200 font-bold">
-                Sistema de Honor Activo
+          {!selectedFile && (
+            <div
+              className={`border rounded-xl p-6 text-center space-y-2 transition-colors ${
+                currentLevel >= 25
+                  ? "bg-amber-900/10 border-amber-500/20"
+                  : "bg-zinc-900/50 border-white/5 opacity-70 grayscale"
+              }`}
+            >
+              <div className="flex justify-center mb-2">
+                {currentLevel >= 25 ? (
+                  <Shield className="w-8 h-8 text-amber-500" />
+                ) : (
+                  <div className="relative">
+                    <Shield className="w-8 h-8 text-gray-600" />
+                    <div className="absolute -bottom-1 -right-1 bg-black rounded-full p-0.5 border border-gray-600">
+                      <Lock className="w-3 h-3 text-gray-400" />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <h4
+                className={`font-bold ${currentLevel >= 25 ? "text-amber-200" : "text-gray-500"}`}
+              >
+                {currentLevel >= 25
+                  ? "Sistema de Honor Activo"
+                  : "Sistema de Honor Bloqueado"}
               </h4>
+
               <p className="text-sm text-gray-400">
-                Tu palabra es tu vínculo. No se requiere evidencia para este
-                nivel.
-                <br />
-                <span className="text-xs text-gray-500">
-                  (Puedes subir una opcionalmente si lo deseas)
-                </span>
+                {currentLevel >= 25 ? (
+                  <>
+                    Tu palabra es tu vínculo. No se requiere evidencia para este
+                    nivel.
+                    <br />
+                    <span className="text-xs text-gray-500">
+                      (Puedes subir una opcionalmente si lo deseas)
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    El sistema de honor está reservado para guerreros veteranos.
+                    <br />
+                    <span className="text-xs text-amber-500/70 font-bold mt-1 inline-block">
+                      Se desbloquea en Nivel 25
+                    </span>
+                  </>
+                )}
               </p>
             </div>
           )}
 
+          {/* Upload Area */}
           {!selectedFile ? (
             <div
               onClick={() => fileInputRef.current?.click()}
               className={`border-2 border-dashed ${
-                requireEvidence ? "border-amber-500/30" : "border-white/10"
+                requireEvidence ? "border-white/10" : "border-amber-500/30"
               } rounded-xl p-8 text-center cursor-pointer hover:border-amber-300/30 hover:bg-white/5 transition-all`}
             >
               <Upload className="w-8 h-8 text-gray-500 mx-auto mb-4" />
               <p className="text-white font-medium mb-2">
-                Haz clic para seleccionar un archivo
+                Haz clic para subir evidencia
               </p>
               <p className="text-sm text-gray-500">
                 Imágenes (JPG, PNG, WEBP) hasta 5MB
@@ -214,6 +251,8 @@ export default function EvidenceModal({
                 <Loader2 className="w-5 h-5 animate-spin" />
                 Subiendo...
               </>
+            ) : requireEvidence && !selectedFile ? (
+              <span className="opacity-50">Adjuntar Evidencia Requerida</span>
             ) : (
               "Confirmar Check-in"
             )}
@@ -229,4 +268,5 @@ EvidenceModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   challengeTitle: PropTypes.string.isRequired,
+  currentLevel: PropTypes.number,
 };
