@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { dojoService } from "../services/dojo.service";
-import { Bell, Check, Trash2, Shield, UserPlus, Award } from "lucide-react";
+import { ACHIEVEMENTS_CONFIG } from "../data/achievements.config";
+import {
+  Bell,
+  Check,
+  Trash2,
+  Shield,
+  UserPlus,
+  Award,
+  Zap,
+  Trophy,
+} from "lucide-react";
 
 export default function NotificationsPage() {
   const { user } = useAuth();
@@ -46,17 +56,61 @@ export default function NotificationsPage() {
     }
   };
 
-  const getIcon = (type) => {
-    switch (type) {
-      case "friend_request":
-        return <UserPlus className="w-5 h-5 text-amber-500" />;
-      case "achievement":
-        return <Award className="w-5 h-5 text-amber-500" />;
-      case "challenge":
-        return <Shield className="w-5 h-5 text-amber-500" />;
-      default:
-        return <Bell className="w-5 h-5 text-gray-400" />;
+  /* Helper para obtener imagen o icono */
+  const getNotificationMedia = (notif) => {
+    // 1. LOGROS: Buscar imagen por ID
+    if (notif.type === "achievement" && notif.related_id) {
+      const achievement = ACHIEVEMENTS_CONFIG.find(
+        (a) => a.id === notif.related_id,
+      );
+      if (achievement) {
+        return (
+          <div className="w-12 h-12 rounded-lg overflow-hidden border border-amber-500/30">
+            <img
+              src={`/achievements/${achievement.img}`}
+              alt={achievement.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        );
+      }
     }
+
+    // 2. XP GAIN: Icono de Rayo
+    if (notif.title.includes("Experiencia") || notif.title.includes("XP")) {
+      return (
+        <div className="w-12 h-12 rounded-lg bg-zinc-900 border border-purple-500/30 flex items-center justify-center">
+          <Zap className="w-6 h-6 text-purple-500" />
+        </div>
+      );
+    }
+
+    // 3. LEVEL UP: Icono de Trofeo
+    if (notif.type === "level_up") {
+      return (
+        <div className="w-12 h-12 rounded-lg bg-zinc-900 border border-cyan-500/30 flex items-center justify-center">
+          <Trophy className="w-6 h-6 text-cyan-500" />
+        </div>
+      );
+    }
+
+    // 4. Default Icons
+    const getIcon = (type) => {
+      switch (type) {
+        case "friend_request":
+          return <UserPlus className="w-6 h-6 text-amber-500" />;
+        case "challenge":
+          return <Shield className="w-6 h-6 text-amber-500" />;
+        default:
+          return <Bell className="w-6 h-6 text-gray-400" />;
+      }
+    };
+
+    return (
+      <div className="w-12 h-12 rounded-lg bg-zinc-900/50 border border-white/5 flex items-center justify-center">
+        {getIcon(notif.type)}
+      </div>
+    );
   };
 
   return (
@@ -83,25 +137,24 @@ export default function NotificationsPage() {
           notifications.map((notif) => (
             <div
               key={notif.id}
-              className={`flex items-start gap-4 p-5 rounded-2xl border transition-all ${
+              className={`flex items-start gap-4 p-4 rounded-xl border transition-all ${
                 notif.read
                   ? "bg-zinc-900/20 border-white/5 text-gray-500"
                   : "bg-zinc-900/60 border-amber-500/20 text-white shadow-[0_0_15px_rgba(245,158,11,0.05)]"
               }`}
             >
-              <div className="p-2 bg-black/40 rounded-xl">
-                {getIcon(notif.type)}
-              </div>
+              {/* MEDIA SECTION */}
+              <div className="flex-shrink-0">{getNotificationMedia(notif)}</div>
 
-              <div className="flex-1 space-y-1">
+              <div className="flex-1 space-y-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <h3
-                    className={`font-bold ${notif.read ? "text-gray-400" : "text-amber-100"}`}
+                    className={`font-bold truncate ${notif.read ? "text-gray-400" : "text-amber-100"}`}
                   >
                     {notif.title}
                   </h3>
                   {!notif.read && (
-                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse flex-shrink-0" />
                   )}
                 </div>
                 <p className="text-sm leading-relaxed">{notif.message}</p>
