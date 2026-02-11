@@ -5,7 +5,7 @@ import { useDojoData } from "../hooks/useDojoData";
 import { useProfileEditor } from "../hooks/useProfileEditor";
 import { storageService } from "../services/storage.service";
 import XPProgressBar from "../components/XPProgressBar";
-import { supabase } from "../../auth/supabase";
+import { supabase } from "../../../config/supabase";
 import {
   User,
   Mail,
@@ -20,6 +20,7 @@ import {
   Linkedin,
   Github,
   ArrowUpRight,
+  Lock,
 } from "lucide-react";
 
 export default function DojoSettings() {
@@ -309,23 +310,36 @@ export default function DojoSettings() {
                   )}
                   className="w-20 h-20 rounded-2xl border border-white/10 object-cover"
                   alt="Avatar"
+                  referrerPolicy="no-referrer"
                 />
                 <div className="flex flex-col gap-2">
-                  <label className="cursor-pointer px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all flex items-center gap-2 w-fit">
-                    {uploadingAvatar ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <Upload className="w-4 h-4" />
-                    )}
-                    Cambiar Avatar
-                    <input
-                      type="file"
-                      accept="image/jpeg,image/png,image/webp"
-                      onChange={handleAvatarUpload}
-                      className="hidden"
-                      disabled={uploadingAvatar}
-                    />
-                  </label>
+                  {profile?.level >= 2 ? (
+                    <label className="cursor-pointer px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all flex items-center gap-2 w-fit">
+                      {uploadingAvatar ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Upload className="w-4 h-4" />
+                      )}
+                      Cambiar Avatar
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        onChange={handleAvatarUpload}
+                        className="hidden"
+                        disabled={uploadingAvatar}
+                      />
+                    </label>
+                  ) : (
+                    <div
+                      className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg opacity-50 cursor-not-allowed w-fit"
+                      title="Necesitas Nivel 2 para subir imagen"
+                    >
+                      <Lock className="w-4 h-4 text-amber-500" />
+                      <span className="text-xs text-gray-400">
+                        Desbloquea en Nivel 2
+                      </span>
+                    </div>
+                  )}
 
                   {profile?.custom_avatar_url && (
                     <button
@@ -342,7 +356,9 @@ export default function DojoSettings() {
                 </div>
               </div>
               <p className="text-xs text-gray-500">
-                JPG, PNG o WEBP. Máximo 5MB.
+                {profile?.level >= 25
+                  ? "JPG, PNG o WEBP. Máximo 5MB."
+                  : "Sube de nivel para personalizar tu avatar."}
               </p>
             </div>
 
@@ -358,23 +374,41 @@ export default function DojoSettings() {
                   alt="Cover"
                 />
               )}
-              <label className="cursor-pointer px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all flex items-center gap-2 w-fit">
-                {uploadingCover ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Upload className="w-4 h-4" />
-                )}
-                {profile?.cover_photo_url ? "Cambiar Portada" : "Subir Portada"}
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={handleCoverUpload}
-                  className="hidden"
-                  disabled={uploadingCover}
-                />
-              </label>
+
+              {profile?.level >= 3 ? (
+                <label className="cursor-pointer px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all flex items-center gap-2 w-fit">
+                  {uploadingCover ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Upload className="w-4 h-4" />
+                  )}
+                  {profile?.cover_photo_url
+                    ? "Cambiar Portada"
+                    : "Subir Portada"}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleCoverUpload}
+                    className="hidden"
+                    disabled={uploadingCover}
+                  />
+                </label>
+              ) : (
+                <div
+                  className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg opacity-50 cursor-not-allowed w-fit"
+                  title="Necesitas Nivel 3 para subir portada"
+                >
+                  <Lock className="w-4 h-4 text-amber-500" />
+                  <span className="text-xs text-gray-400">
+                    Desbloquea en Nivel 3
+                  </span>
+                </div>
+              )}
+
               <p className="text-xs text-gray-500">
-                JPG, PNG o WEBP. Máximo 10MB. Ratio 16:9 recomendado.
+                {profile?.level >= 25
+                  ? "JPG, PNG o WEBP. Máximo 10MB. Ratio 16:9 recomendado."
+                  : "Sube de nivel para personalizar tu portada."}
               </p>
             </div>
           </div>

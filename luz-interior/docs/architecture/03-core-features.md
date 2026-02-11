@@ -141,15 +141,37 @@ Sin ellas, no hay sistema.
 
 Features que **mejoran** el sistema, pero no lo sostienen.
 
-### 7. Validación Comunitaria
+### 7. Validación Comunitaria (Evolución Social)
 
-- Usuarios validan logros de otros
-- Reduce fraude
-- Refuerza comunidad
+- **Objetivo**: Reemplazar la "prueba de imagen" obligatoria por validación social.
+- **Mecánica**:
+  - Usuarios de alto nivel (tutores/guerreros) validan el progreso de los iniciados.
+  - "Honor" como moneda social: dar feedback útil otorga XP al validador.
+- **Reduce fraude**: El ojo humano es mejor filtro que un script.
+- **Refuerza comunidad**: Crea mentores naturales.
 
 ---
 
-### 8. Notificaciones
+### 8. Mini-Juegos de Enfoque (Gamificación Saludable)
+
+**Concepto**
+Herramientas interactivas para entrenar la mente, no para perder el tiempo.
+
+**Ejemplos**
+
+1. **Zen Focus**: Mantener la pantalla sin tocar durante X minutos (meditación digital).
+2. **Katana Reflex**: Ejercicios de ritmo y reacción para activar el estado de flujo.
+3. **Respiración Consciente**: Guías visuales sincronizadas.
+
+**Propósito**
+
+- Ganar XP diario sin necesidad de subir contenido multimedia.
+- Entrenar la disciplina mental in-app.
+- Alternativa para usuarios que valoran la privacidad.
+
+---
+
+### 9. Notificaciones (Sistema Nervioso)
 
 **Canales**
 
@@ -164,7 +186,7 @@ Features que **mejoran** el sistema, pero no lo sostienen.
 
 ---
 
-### 9. Rankings (Opt-in)
+### 10. Rankings (Opt-in)
 
 - Por disciplina
 - Por constancia
@@ -173,7 +195,7 @@ Nunca por ego.
 
 ---
 
-### 10. Dojos / Equipos
+### 11. Dojos / Equipos
 
 - Grupos privados
 - Objetivos compartidos
@@ -185,7 +207,7 @@ Nunca por ego.
 
 Features que convierten la plataforma en un **ecosistema**.
 
-### 11. Mentorías
+### 12. Mentorías
 
 - Usuarios avanzados
 - Feedback estructurado
@@ -193,7 +215,7 @@ Features que convierten la plataforma en un **ecosistema**.
 
 ---
 
-### 12. Inteligencia Artificial
+### 13. Inteligencia Artificial
 
 - Análisis de journaling
 - Recomendaciones
@@ -201,14 +223,14 @@ Features que convierten la plataforma en un **ecosistema**.
 
 ---
 
-### 13. App Móvil
+### 14. App Móvil
 
 - Notificaciones push
 - Uso diario
 
 ---
 
-### 14. Integraciones Externas
+### 15. Integraciones Externas
 
 - WhatsApp
 - Instagram

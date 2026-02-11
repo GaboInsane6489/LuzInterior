@@ -103,6 +103,7 @@ const Navbar = () => {
                 )}
                 alt={profile?.full_name || user?.user_metadata?.full_name}
                 className="w-10 h-10 rounded-full border-2 border-amber-300 group-hover:scale-110 transition-transform"
+                referrerPolicy="no-referrer"
               />
               <span className="hidden lg:block text-xs font-bold uppercase tracking-widest">
                 Mi Dojo

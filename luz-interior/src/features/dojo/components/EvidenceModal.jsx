@@ -7,6 +7,7 @@ export default function EvidenceModal({
   onClose,
   onSubmit,
   challengeTitle,
+  requireEvidence = true,
 }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -48,7 +49,7 @@ export default function EvidenceModal({
   };
 
   const handleSubmit = async () => {
-    if (!selectedFile) {
+    if (requireEvidence && !selectedFile) {
       setError("Por favor selecciona un archivo.");
       return;
     }
@@ -57,7 +58,7 @@ export default function EvidenceModal({
     setError(null);
 
     try {
-      await onSubmit(selectedFile);
+      await onSubmit(selectedFile); // Puede ser null
       handleClose();
     } catch (err) {
       setError(err.message);
@@ -104,12 +105,31 @@ export default function EvidenceModal({
 
         {/* Upload Area */}
         <div className="space-y-4">
+          {!requireEvidence && !selectedFile && (
+            <div className="bg-amber-900/10 border border-amber-500/20 rounded-xl p-6 text-center space-y-2">
+              <Shield className="w-8 h-8 text-amber-500 mx-auto" />
+              <h4 className="text-amber-200 font-bold">
+                Sistema de Honor Activo
+              </h4>
+              <p className="text-sm text-gray-400">
+                Tu palabra es tu vínculo. No se requiere evidencia para este
+                nivel.
+                <br />
+                <span className="text-xs text-gray-500">
+                  (Puedes subir una opcionalmente si lo deseas)
+                </span>
+              </p>
+            </div>
+          )}
+
           {!selectedFile ? (
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-white/10 rounded-xl p-12 text-center cursor-pointer hover:border-amber-300/30 hover:bg-white/5 transition-all"
+              className={`border-2 border-dashed ${
+                requireEvidence ? "border-amber-500/30" : "border-white/10"
+              } rounded-xl p-8 text-center cursor-pointer hover:border-amber-300/30 hover:bg-white/5 transition-all`}
             >
-              <Upload className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+              <Upload className="w-8 h-8 text-gray-500 mx-auto mb-4" />
               <p className="text-white font-medium mb-2">
                 Haz clic para seleccionar un archivo
               </p>
@@ -186,7 +206,7 @@ export default function EvidenceModal({
           </button>
           <button
             onClick={handleSubmit}
-            disabled={!selectedFile || uploading}
+            disabled={requireEvidence && !selectedFile} // Solo bloquea si requiere evidencia
             className="flex-1 px-6 py-3 bg-amber-300 text-black rounded-xl hover:bg-amber-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-bold"
           >
             {uploading ? (

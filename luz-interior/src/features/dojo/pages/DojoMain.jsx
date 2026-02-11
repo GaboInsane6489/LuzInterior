@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useDojoData } from "../hooks/useDojoData";
 import { storageService } from "../services/storage.service";
+import { dojoService } from "../services/dojo.service";
 import EvidenceModal from "../components/EvidenceModal";
 import {
   ArrowUpRight,
@@ -99,16 +100,39 @@ export default function DojoMain() {
   };
 
   const handleSubmitEvidence = async (file) => {
-    const evidence = await storageService.uploadEvidence(
-      file,
-      profile.id,
-      evidenceModal.challengeId,
-    );
+    let evidenceUrl = null;
+
+    // Solo subir si hay archivo
+    if (file) {
+      const evidence = await storageService.uploadEvidence(
+        file,
+        profile.id,
+        evidenceModal.challengeId,
+      );
+      evidenceUrl = evidence.url;
+    }
+
     await completeChallenge(
       evidenceModal.challengeId,
       evidenceModal.xpReward,
-      evidence.url,
+      evidenceUrl, // Puede ser null
     );
+  };
+
+  const handleExploration = async (reason, amount) => {
+    // Evitar spam simple con localStorage diario
+    const key = `explo_${reason}_${new Date().toDateString()}`;
+    if (localStorage.getItem(key)) return;
+
+    try {
+      await dojoService.awardExplorationXp(profile.id, amount, reason);
+      localStorage.setItem(key, "true");
+      // Animación visual simple
+      setAnimatedXP((prev) => prev + amount);
+      alert(`¡Has descubierto un secreto! +${amount} XP`);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   /* =========================================================
@@ -150,7 +174,10 @@ export default function DojoMain() {
 
           {/* Mini Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            <div className="bg-zinc-900/60 border border-white/5 rounded-2xl p-6 text-center">
+            <div
+              onClick={() => handleExploration("Ignición de Racha", 50)}
+              className="bg-zinc-900/60 border border-white/5 rounded-2xl p-6 text-center cursor-pointer hover:border-amber-500/50 transition-colors"
+            >
               <Flame className="w-6 h-6 text-amber-400 mx-auto mb-2" />
               <p className="text-xs uppercase tracking-widest text-gray-500">
                 Racha
@@ -158,7 +185,10 @@ export default function DojoMain() {
               <p className="text-2xl font-bold">{streak}</p>
             </div>
 
-            <div className="bg-zinc-900/60 border border-white/5 rounded-2xl p-6 text-center">
+            <div
+              onClick={() => handleExploration("Sobrecarga de Energía", 25)}
+              className="bg-zinc-900/60 border border-white/5 rounded-2xl p-6 text-center cursor-pointer hover:border-amber-500/50 transition-colors"
+            >
               <Zap className="w-6 h-6 text-amber-400 mx-auto mb-2" />
               <p className="text-xs uppercase tracking-widest text-gray-500">
                 XP Hoy
@@ -166,7 +196,10 @@ export default function DojoMain() {
               <p className="text-2xl font-bold tabular-nums">{animatedXP}</p>
             </div>
 
-            <div className="bg-zinc-900/60 border border-white/5 rounded-2xl p-6 text-center">
+            <div
+              onClick={() => handleExploration("Ambición de Grandeza", 100)}
+              className="bg-zinc-900/60 border border-white/5 rounded-2xl p-6 text-center cursor-pointer hover:border-amber-500/50 transition-colors"
+            >
               <Trophy className="w-6 h-6 text-amber-400 mx-auto mb-2" />
               <p className="text-xs uppercase tracking-widest text-gray-500">
                 Nivel
@@ -258,6 +291,7 @@ export default function DojoMain() {
         onClose={handleCloseEvidenceModal}
         onSubmit={handleSubmitEvidence}
         challengeTitle={evidenceModal.challengeTitle}
+        requireEvidence={(profile?.level || 0) >= 25}
       />
     </>
   );

@@ -28,7 +28,12 @@ export default function Footer() {
         {/* COLUMNA 1: Marca */}
         <div className="col-span-1 md:col-span-2 space-y-6 flex flex-col items-center md:items-start">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-300" />
+            <img
+              src="/images/LogoDragonTrofeo.ico"
+              alt="Logo"
+              className="w-10 h-10 rounded-full border-2 border-amber-300 transition-all duration-300 hover:scale-110 hover:rotate-120 cursor-pointer"
+              onClick={() => (window.location.href = "/dojo")}
+            />
             <span className="text-xl font-bold tracking-widest uppercase">
               Luz Interior
             </span>
@@ -63,10 +68,13 @@ export default function Footer() {
           </h4>
           <ul className="space-y-4 text-sm text-white">
             {[
-              { label: "Manifiesto", href: "#" },
-              { label: "Recursos Gratuitos", href: "#" },
-              { label: "Historias Reales", href: "#" },
-              { label: "Contacto", href: "/contact" },
+              {
+                label: "Dojo Community",
+                href: "/dojo/community",
+              },
+              { label: "Dojo Achievements", href: "/dojo/achievements" },
+              { label: "Dojo Library", href: "/dojo/library" },
+              { label: "Dojo Settings", href: "/dojo/settings" },
             ].map((item) => (
               <li key={item.label}>
                 <a
@@ -104,7 +112,7 @@ export default function Footer() {
       <div className="border-t border-white/10 pt-8 text-center">
         <p className="text-gray-400 text-xs tracking-widest">
           © {new Date().getFullYear()} Luz Interior. Desarrollado por Gabriel
-          González / Senior Full Stack Developer.
+          González / Full Stack Developer.
         </p>
       </div>
     </footer>

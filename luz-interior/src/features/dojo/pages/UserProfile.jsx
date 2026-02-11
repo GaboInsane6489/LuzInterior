@@ -86,6 +86,7 @@ export default function UserProfile() {
             )}
             alt="Avatar"
             className="w-32 h-32 md:w-44 md:h-44 rounded-[2.5rem] border-2 border-amber-300/20 group-hover:border-amber-300 transition-all duration-500 object-cover shadow-2xl"
+            referrerPolicy="no-referrer"
           />
           <div className="absolute -bottom-2 -right-2 bg-amber-300 text-black px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter">
             Nivel {displayProfile?.level || 1}

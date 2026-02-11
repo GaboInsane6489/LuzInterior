@@ -98,6 +98,16 @@ export default function DojoCommunity() {
     }
   };
 
+  const rejectRequest = async (requestId) => {
+    if (!window.confirm("¿Seguro que deseas declinar esta alianza?")) return;
+    try {
+      await dojoService.rejectFriendRequest(requestId);
+      loadSocialData();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <div className="min-w-0 space-y-12 animate-in fade-in duration-700">
       {/* Header Section */}
@@ -186,6 +196,7 @@ export default function DojoCommunity() {
                         )}
                         alt={warrior.username}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-0 grayscale"
+                        referrerPolicy="no-referrer"
                       />
                     </div>
 
@@ -260,6 +271,7 @@ export default function DojoCommunity() {
                       )}
                       alt={resultUser.username}
                       className="w-10 h-10 rounded-lg bg-black flex-shrink-0"
+                      referrerPolicy="no-referrer"
                     />
                     <div className="min-w-0 flex-1">
                       <p className="font-bold text-white truncate">
@@ -307,7 +319,11 @@ export default function DojoCommunity() {
                       >
                         <Check className="w-5 h-5" />
                       </button>
-                      <button className="text-red-400 hover:text-red-300">
+                      <button
+                        onClick={() => rejectRequest(req.id)}
+                        className="text-red-400 hover:text-red-300"
+                        title="Declinar"
+                      >
                         <X className="w-5 h-5" />
                       </button>
                     </div>

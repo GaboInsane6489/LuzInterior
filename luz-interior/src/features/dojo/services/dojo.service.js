@@ -164,6 +164,16 @@ export const dojoService = {
       level: newLevel,
     });
 
+    // 5. Notificar si hubo subida de nivel
+    if (newLevel > (profile.level || 1)) {
+      await this.createNotification(
+        userId,
+        "level_up",
+        "¡Has subido de nivel!",
+        `¡Felicidades! Ahora eres Nivel ${newLevel}: ${this.getRankTitle(newLevel)}.`,
+      );
+    }
+
     return { newXp, newStreak, newLevel };
   },
 
@@ -216,6 +226,54 @@ export const dojoService = {
     } catch (err) {
       console.error("Error verificando logros:", err);
     }
+  },
+
+  /**
+   * Otorga XP por exploración o acciones especiales (Easter Eggs)
+   * Verifica localmente o en DB si ya se otorgó hoy para evitar spam
+   */
+  async awardExplorationXp(userId, amount, reason) {
+    // 1. Obtener perfil
+    const { data: profile, error } = await supabase
+      .from("profiles")
+      .select("xp, level")
+      .eq("id", userId)
+      .single();
+
+    if (error) throw error;
+
+    const newXp = (profile.xp || 0) + amount;
+    const newLevel = Math.floor(newXp / 1000) + 1;
+
+    // 2. Actualizar XP
+    await supabase
+      .from("profiles")
+      .update({
+        xp: newXp,
+        level: newLevel,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", userId);
+
+    // 3. Notificar
+    await this.createNotification(
+      userId,
+      "achievement", // Usamos icono de logro
+      "¡Experiencia Oculta!",
+      `Has ganado +${amount} XP: ${reason}`,
+    );
+
+    // 4. Notificar si hubo subida de nivel
+    if (newLevel > (profile.level || 1)) {
+      await this.createNotification(
+        userId,
+        "level_up",
+        "¡Has subido de nivel!",
+        `¡Felicidades! Ahora eres Nivel ${newLevel}: ${this.getRankTitle(newLevel)}.`,
+      );
+    }
+
+    return newXp;
   },
 
   /**
@@ -318,6 +376,47 @@ export const dojoService = {
 
     return true;
   },
+  /**
+   * Rechaza una solicitud de amistad (Elimina la relación y notifica)
+   * @param {string} requestId
+   */
+  async rejectFriendRequest(requestId) {
+    // 1. Obtener datos antes de borrar para notificar
+    const { data: request } = await supabase
+      .from("friendships")
+      .select("user_id_1, user_id_2")
+      .eq("id", requestId)
+      .single();
+
+    if (!request) throw new Error("Solicitud no encontrada");
+
+    // 2. Eliminar la solicitud
+    const { error } = await supabase
+      .from("friendships")
+      .delete()
+      .eq("id", requestId);
+
+    if (error) throw error;
+
+    // 3. Notificar al remitente (user_id_1) que fue rechazado
+    // Nota: user_id_2 es quien rechaza
+    const { data: rejector } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", request.user_id_2)
+      .single();
+
+    await this.createNotification(
+      request.user_id_1,
+      "friend_request_rejected",
+      "Solicitud declinada",
+      `${rejector?.username || "Un guerrero"} ha declinado tu solicitud de amistad.`,
+      request.user_id_2,
+    );
+
+    return true;
+  },
+
   /**
    * Acepta una solicitud de amistad pendiente
    */
