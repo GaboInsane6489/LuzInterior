@@ -1,13 +1,18 @@
 export const APP_CONFIG = {
-  Name: "Mi Luz Interior",
-  Version: "1.0.0",
+  Name: "EL NEXO DE LA VOLUNTAD",
+  Version: "ERA_DE_CENIZA.I",
   Description:
-    "Sistema operativo para la reconstrucción personal. Acción, disciplina y progreso.",
-  Author: "Mi Luz Interior",
-  License: "MIT",
-  Keywords: ["Mi Luz Interior", "Mi Luz Interior", "Mi Luz Interior"],
-  Repository: "Mi Luz Interior",
-  Homepage: "Mi Luz Interior",
+    "Grimorio digital para el ascenso del Latente. Transmuta el vacío en propósito mediante la disciplina del alma y el fuego de la acción.",
+  Author: "Los Guardianes del Fuego",
+  License: "Pacto de Libre Albedrío (MIT)",
+  Keywords: [
+    "Senda de la Llama",
+    "Pacto del Sol",
+    "Resonancia de Humanidad",
+    "Ascensión Personal",
+  ],
+  Repository: "El Archivo de las Almas",
+  Homepage: "El Trono del Renacido",
   URL_BASE: "https://luz-interior-three.vercel.app",
 };
 
