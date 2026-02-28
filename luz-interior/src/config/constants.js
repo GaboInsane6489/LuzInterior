@@ -1,24 +1,19 @@
 export const APP_CONFIG = {
-  Name: "EL NEXO DE LA VOLUNTAD",
-  Version: "ERA_DE_CENIZA.I",
+  Name: "NEXO",
+  Version: "CICLO_I",
   Description:
-    "Grimorio digital para el ascenso del Latente. Transmuta el vacío en propósito mediante la disciplina del alma y el fuego de la acción.",
-  Author: "Los Guardianes del Fuego",
+    "Grimorio para el ascenso del Latente. Transmuta el vacío en fuego y acción.",
+  Author: "Los Guardianes",
   License: "Pacto de Libre Albedrío (MIT)",
-  Keywords: [
-    "Senda de la Llama",
-    "Pacto del Sol",
-    "Resonancia de Humanidad",
-    "Ascensión Personal",
-  ],
-  Repository: "El Archivo de las Almas",
-  Homepage: "El Trono del Renacido",
+  Keywords: ["Senda de la Llama", "Pacto del Sol", "Resonancia de Humanidad"],
+  Repository: "Archivo de Almas",
+  Homepage: "Trono del Renacido",
   URL_BASE: "https://luz-interior-three.vercel.app",
 };
 
 export const NAV_LINKS = [
-  { href: "/", label: "Inicio" },
-  { href: "/about", label: "Sobre Nosotros" },
+  { href: "/", label: "El Nexo" },
+  { href: "/about", label: "Crónicas" },
 ];
 
 export const SOCIAL_LINKS = {
@@ -31,27 +26,33 @@ export const SOCIAL_LINKS = {
 
 export const SEO_DATA = {
   home: {
-    title: "Mi Luz Interior",
+    title: "NEXO | Desafía al Abismo",
     description:
-      "Sistema operativo para la reconstrucción personal. Acción, disciplina y progreso.",
-    keywords: ["Mi Luz Interior", "Mi Luz Interior", "Mi Luz Interior"],
-    author: "Mi Luz Interior",
+      "Grimorio para el ascenso del Latente. Transmuta el vacío en fuego y acción.",
+    keywords: ["Senda de la Llama", "Pacto del Sol", "Resonancia de Humanidad"],
+    author: "Los Guardianes",
     url: "https://luz-interior-three.vercel.app",
     image: "https://luz-interior-three.vercel.app/logo.png",
   },
   about: {
-    title: "Sobre Nosotros",
-    description: "Sobre Nosotros",
-    keywords: ["Sobre Nosotros", "Sobre Nosotros", "Sobre Nosotros"],
-    author: "Mi Luz Interior",
+    title: "Crónicas | Sobre el Pacto",
+    description:
+      "Historia de los Guardianes y los pilares de la reconstrucción personal.",
+    keywords: [
+      "Historia del Pacto",
+      "Linaje de Guerreros",
+      "Sabiduría Antigua",
+    ],
+    author: "Los Guardianes",
     url: "https://luz-interior-three.vercel.app/about",
     image: "https://luz-interior-three.vercel.app/logo.png",
   },
   contact: {
-    title: "Contacto",
-    description: "Contacto",
-    keywords: ["Contacto", "Contacto", "Contacto"],
-    author: "Mi Luz Interior",
+    title: "Petición de Gracia | Nexo",
+    description:
+      "Envía una señal al Nexo. Guía tu ascenso hacia la Luz Interior.",
+    keywords: ["Señal de Auxilio", "Unirse al Pacto", "Mensajería"],
+    author: "Los Guardianes",
     url: "https://luz-interior-three.vercel.app/contact",
     image: "https://luz-interior-three.vercel.app/logo.png",
   },
