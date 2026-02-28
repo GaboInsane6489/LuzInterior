@@ -9,11 +9,6 @@ import {
   ExternalLink,
 } from "lucide-react";
 
-/**
- * DojoHero - El Umbral a la Maestría Personal
- * Un diseño editorial de alto impacto que utiliza capas, tipografía expresiva
- * y micro-animaciones para elevar la percepción de marca.
- */
 export default function DojoHero() {
   const { user, login } = useAuth();
 

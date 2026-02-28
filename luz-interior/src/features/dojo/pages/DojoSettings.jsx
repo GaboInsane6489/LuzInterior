@@ -21,6 +21,11 @@ import {
   Github,
   ArrowUpRight,
   Lock,
+  Youtube,
+  Facebook,
+  Twitch,
+  MessageCircle, // WhatsApp
+  Gamepad2, // Kick placeholder
 } from "lucide-react";
 
 export default function DojoSettings() {
@@ -165,6 +170,12 @@ export default function DojoSettings() {
       twitter: `https://twitter.com/${cleanUser}`,
       linkedin: `https://linkedin.com/in/${cleanUser}`,
       github: `https://github.com/${cleanUser}`,
+      youtube: `https://youtube.com/@${cleanUser}`,
+      facebook: `https://facebook.com/${cleanUser}`,
+      twitch: `https://twitch.tv/${cleanUser}`,
+      kick: `https://kick.com/${cleanUser}`,
+      whatsapp: `https://wa.me/${cleanUser}`,
+      tiktok: `https://tiktok.com/${cleanUser}`,
     };
     return bases[platform] || "#";
   };
@@ -531,6 +542,72 @@ export default function DojoSettings() {
                   "url",
                   null,
                   "github",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <Linkedin className="w-5 h-5 text-blue-700" />
+                {renderEditableField(
+                  "social_linkedin",
+                  "LinkedIn",
+                  profile?.social_linkedin,
+                  "url",
+                  null,
+                  "linkedin",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <Youtube className="w-5 h-5 text-red-600" />
+                {renderEditableField(
+                  "social_youtube",
+                  "YouTube (@usuario)",
+                  profile?.social_youtube,
+                  "url",
+                  null,
+                  "youtube",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <Facebook className="w-5 h-5 text-blue-600" />
+                {renderEditableField(
+                  "social_facebook",
+                  "Facebook",
+                  profile?.social_facebook,
+                  "url",
+                  null,
+                  "facebook",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <MessageCircle className="w-5 h-5 text-green-500" />
+                {renderEditableField(
+                  "social_whatsapp",
+                  "WhatsApp (Número)",
+                  profile?.social_whatsapp,
+                  "tel",
+                  null,
+                  "whatsapp",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <Twitch className="w-5 h-5 text-purple-600" />
+                {renderEditableField(
+                  "social_twitch",
+                  "Twitch",
+                  profile?.social_twitch,
+                  "url",
+                  null,
+                  "twitch",
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <Gamepad2 className="w-5 h-5 text-green-400" />
+                {renderEditableField(
+                  "social_kick",
+                  "Kick",
+                  profile?.social_kick,
+                  "url",
+                  null,
+                  "kick",
                 )}
               </div>
             </div>
