@@ -4,7 +4,6 @@ import { useDojoData } from "../hooks/useDojoData";
 import { storageService } from "../services/storage.service";
 import { dojoService } from "../services/dojo.service";
 import EvidenceModal from "../components/EvidenceModal";
-import ZenFocusCard from "../components/ZenFocusCard";
 import AllianceWidget from "../components/AllianceWidget";
 import {
   Lock,
@@ -15,7 +14,8 @@ import {
   CheckCircle2,
   Shield,
   Activity,
-  ChevronDown,
+  ScrollText,
+  Sword,
 } from "lucide-react";
 
 function animateNumber({ from = 0, to = 0, duration = 800, onUpdate }) {
@@ -33,14 +33,12 @@ function animateNumber({ from = 0, to = 0, duration = 800, onUpdate }) {
 export default function DojoMain() {
   const { profile, challenges, todaysLogs, loading, completeChallenge } =
     useDojoData();
-
   const [evidenceModal, setEvidenceModal] = useState({
     isOpen: false,
     challengeId: null,
     challengeTitle: "",
     xpReward: 0,
   });
-
   const streak = profile?.streak ?? 0;
   const totalXP = profile?.xp || 0;
   const [displayXP, setDisplayXP] = useState(0);
@@ -103,69 +101,68 @@ export default function DojoMain() {
   return (
     <>
       <Helmet>
-        <title>Dojo | Protocolo Diario</title>
+        <title>Dojo | La Senda del Señor del Círculo</title>
       </Helmet>
 
-      <div className="min-h-screen text-white pt-24 pb-20 selection:bg-amber-500/40">
-        <div className="max-w-5xl mx-auto px-6 space-y-16">
-          {/* SECCIÓN 1: IDENTIDAD - COMPACTADA */}
-          <header className="relative space-y-8">
-            <div className="space-y-2">
+      <div className="min-h-screen text-white pt-6 pb-20 selection:bg-amber-500/40">
+        <div className="max-w-5xl mx-auto px-6 space-y-10">
+          {/* HEADER & STATS: LA HOGUERA DEL DESTINO */}
+          <header className="space-y-6">
+            <div className="space-y-1">
               <div className="flex items-center gap-3 animate-fade-in">
-                <div className="h-[2px] w-8 bg-amber-400"></div>
-                <span className="text-[10px] font-black uppercase tracking-[0.6em] text-amber-400">
-                  Estado del Guerrero
+                <Flame className="w-3 h-3 text-amber-500 animate-pulse" />
+                <span className="text-[9px] font-black uppercase tracking-[0.5em] text-amber-500/80">
+                  Gracia Perdida Reencontrada
                 </span>
               </div>
-              <h1 className="text-7xl md:text-8xl font-serif text-white tracking-tighter leading-none">
-                Dojo{" "}
-                <span className="italic font-light text-amber-400/30">
-                  Protocol
+              <h1 className="text-5xl md:text-7xl font-serif text-white tracking-tighter leading-none">
+                Círculo{" "}
+                <span className="italic font-light text-amber-400/40 text-4xl md:text-6xl">
+                  Primordial
                 </span>
               </h1>
             </div>
 
-            {/* Stats - Sin fondo, bordes sutiles y colores vivos */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-px border border-white/10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px border border-white/10 bg-white/5">
               {[
                 {
-                  label: "Racha",
-                  val: streak,
-                  sub: "Días activos",
+                  label: "Llama Interior",
+                  val: `${streak} Días`,
+                  sub: "Racha de Ascuas",
                   icon: Flame,
                   color: "text-orange-500",
                 },
                 {
-                  label: `Nivel ${currentLevel}`,
-                  val: dojoService.getRankTitle?.(currentLevel) || "Guerrero",
-                  sub: `${Math.floor((displayXP % 1000) / 10)}% sincronizado`,
+                  label: `Rango: ${dojoService.getRankTitle?.(currentLevel) || "Sinluz"}`,
+                  val: `LVL ${currentLevel}`,
+                  sub: "Poder acumulado",
                   icon: Trophy,
-                  color: "text-cyan-400",
+                  color: "text-amber-400",
                 },
                 {
-                  label: "XP Total",
+                  label: "Runas Obtenidas",
                   val: displayXP.toLocaleString(),
-                  sub: `Siguiente: ${Math.ceil((displayXP + 1) / 1000) * 1000}`,
+                  sub: "Total de Experiencia",
                   icon: Zap,
-                  color: "text-amber-400",
+                  color: "text-cyan-400",
                 },
               ].map((stat, i) => (
                 <div
                   key={i}
-                  className="p-6 group hover:bg-white/[0.03] transition-colors duration-500"
+                  className="p-5 bg-black/40 backdrop-blur-md group hover:bg-zinc-900/50 transition-all duration-300"
                 >
-                  <div className="flex justify-between items-center mb-2">
-                    <p className="text-[9px] uppercase tracking-[0.3em] text-zinc-400 font-bold">
+                  <div className="flex justify-between items-center mb-1">
+                    <p className="text-[8px] uppercase tracking-[0.3em] text-zinc-500 font-bold">
                       {stat.label}
                     </p>
                     <stat.icon
-                      className={`w-4 h-4 ${stat.color} opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all`}
+                      className={`w-3.5 h-3.5 ${stat.color} group-hover:scale-110 transition-transform`}
                     />
                   </div>
-                  <p className="text-3xl font-serif tracking-tight">
+                  <p className="text-2xl font-serif tracking-tight text-zinc-100">
                     {stat.val}
                   </p>
-                  <p className="text-[8px] uppercase tracking-widest text-zinc-500 font-medium">
+                  <p className="text-[7px] uppercase tracking-widest text-zinc-600 font-bold">
                     {stat.sub}
                   </p>
                 </div>
@@ -173,90 +170,139 @@ export default function DojoMain() {
             </div>
           </header>
 
-          {/* SECCIÓN 2: ENFOQUE (ZEN) - COMPACTA */}
-          <section className="relative py-4">
-            <ZenFocusCard />
-          </section>
-
-          {/* SECCIÓN 3: PROTOCOLO - ALTURA REDUCIDA */}
-          <section className="space-y-8">
-            <div className="flex items-end justify-between border-b border-white/10 pb-4">
-              <div className="space-y-1">
-                <h2 className="text-3xl font-serif italic text-white">
-                  Protocolo Diario
-                </h2>
-                <p className="text-zinc-400 text-xs font-medium tracking-wide">
-                  Transmutaciones obligatorias del ciclo.
+          {/* GALERÍA DE LOS REINOS: COLOR ORIGINAL DESDE EL INICIO */}
+          <section className="grid grid-cols-12 gap-3 h-[350px] md:h-[450px]">
+            <div className="col-span-8 overflow-hidden relative group border border-white/10 shadow-2xl">
+              <img
+                src="/images/DarkSoulsII6.webp"
+                alt="Majula"
+                className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 group-hover:brightness-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+              <div className="absolute bottom-6 left-6 max-w-sm">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-amber-400 font-bold mb-2">
+                  Tierras Intermedias
+                </p>
+                <p className="text-xs text-zinc-300 leading-relaxed font-medium italic">
+                  "Incluso en la oscuridad más profunda, la voluntad del
+                  guerrero brilla como una hoguera solitaria en la inmensidad de
+                  Majula."
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-amber-400">
-                <Activity className="w-3.5 h-3.5" />
-                <span>Sistema Activo</span>
-              </div>
             </div>
-
-            <div className="divide-y divide-white/5">
-              {challenges.map((challenge) => {
-                const isCompleted = todaysLogs.includes(challenge.id);
-                return (
-                  <div
-                    key={challenge.id}
-                    className="group flex items-center justify-between py-6 transition-all hover:translate-x-1"
-                  >
-                    <div className="flex items-center gap-6">
-                      <span className="text-[10px] font-bold text-amber-400/80 w-8">
-                        +{challenge.xp_reward}
-                      </span>
-                      <h3
-                        className={`text-lg md:text-xl font-medium tracking-tight ${isCompleted ? "text-zinc-600 line-through italic" : "text-zinc-100"}`}
-                      >
-                        {challenge.title}
-                      </h3>
-                    </div>
-                    {isCompleted ? (
-                      <CheckCircle2 className="w-5 h-5 text-amber-500/60" />
-                    ) : (
-                      <button
-                        onClick={() => handleOpenEvidenceModal(challenge)}
-                        className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase tracking-[0.2em] hover:bg-amber-400 transition-all"
-                      >
-                        Check-in
-                      </button>
-                    )}
-                  </div>
-                );
-              })}
+            <div className="col-span-4 flex flex-col gap-3">
+              <div className="h-1/2 overflow-hidden border border-white/10 group relative">
+                <img
+                  src="/images/DarkSoulsII10.webp"
+                  alt="Fortaleza"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+              </div>
+              <div className="h-1/2 overflow-hidden border border-white/10 group relative">
+                <img
+                  src="/images/DarkSoulsII11.webp"
+                  alt="Caballero"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+              </div>
             </div>
           </section>
 
-          {/* SECCIÓN 4: VANGUARDIA - COMPACTO */}
-          <section className="pt-12 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* PROTOCOLO DIARIO: LAS LEYES DE LA REGRESIÓN */}
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             <div className="lg:col-span-4 space-y-4">
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-400">
-                Vanguardia
-              </span>
-              <h2 className="text-4xl font-serif leading-none">
-                Círculo de Honor
-              </h2>
+              <div className="flex items-center gap-2 text-amber-500">
+                <Sword className="w-4 h-4" />
+                <h2 className="text-2xl font-serif italic">Senda del Deber</h2>
+              </div>
               <p className="text-zinc-400 text-xs leading-relaxed font-medium">
-                Hombres forjando su destino en disciplina.
+                No hay victoria sin sacrificio. Completa las transmutaciones
+                diarias para evitar que tu llama se extinga. Cada acción es un
+                paso más hacia el Trono del Círculo.
+              </p>
+              <div className="p-4 bg-zinc-900/50 border-l-2 border-amber-500/50">
+                <p className="text-[10px] text-zinc-500 italic">
+                  "Aquel que no tiene el valor de enfrentar su propia sombra,
+                  nunca podrá reclamar la corona."
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-8">
+              <div className="grid grid-cols-1 gap-2">
+                {challenges.map((challenge) => {
+                  const isCompleted = todaysLogs.includes(challenge.id);
+                  return (
+                    <div
+                      key={challenge.id}
+                      className={`group flex items-center justify-between p-4 rounded-sm border transition-all ${isCompleted ? "bg-zinc-950/50 border-white/5" : "bg-white/[0.02] border-white/10 hover:border-amber-500/30"}`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div
+                          className={`w-1.5 h-1.5 rounded-full ${isCompleted ? "bg-zinc-700" : "bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]"}`}
+                        />
+                        <div>
+                          <h3
+                            className={`text-sm font-bold tracking-wide uppercase ${isCompleted ? "text-zinc-600 line-through" : "text-zinc-200"}`}
+                          >
+                            {challenge.title}
+                          </h3>
+                          <span className="text-[9px] text-zinc-500 font-black">
+                            RECOMPENSA: {challenge.xp_reward} RUNAS
+                          </span>
+                        </div>
+                      </div>
+                      {isCompleted ? (
+                        <CheckCircle2 className="w-4 h-4 text-amber-600/40" />
+                      ) : (
+                        <button
+                          onClick={() => handleOpenEvidenceModal(challenge)}
+                          className="px-4 py-2 bg-amber-500 text-black text-[9px] font-black uppercase tracking-tighter hover:bg-white transition-all transform group-hover:translate-x-1"
+                        >
+                          Consumar
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* VANGUARDIA Y ALIANZAS */}
+          <section className="pt-8 border-t border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <ScrollText className="w-4 h-4 text-zinc-500" />
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">
+                  Tablilla de Honor
+                </span>
+              </div>
+              <h2 className="text-3xl font-serif">Pacto de Sangre</h2>
+              <p className="text-zinc-500 text-[11px] leading-relaxed font-medium">
+                Observa a tus hermanos de armas. En este mundo desolado, la
+                única certeza es la fuerza del pacto que nos une. No caminas
+                solo por el Valle de Niebla.
               </p>
             </div>
-            <div className="lg:col-span-8 border border-white/5 p-1">
+            <div className="lg:col-span-8 border border-white/5 p-1 bg-black/40 backdrop-blur-sm shadow-inner">
               <AllianceWidget />
             </div>
           </section>
 
-          {/* FOOTER COMPACTO */}
-          <footer className="pt-10 flex justify-center opacity-50">
-            <div className="flex items-center gap-4 px-8 py-6 border border-dashed border-white/10">
-              <Shield className="w-6 h-6 text-zinc-600" />
+          {/* FOOTER CINEMATOGRÁFICO */}
+          <footer className="pt-6 flex flex-col items-center gap-4 opacity-40">
+            <div className="h-px w-24 bg-gradient-to-r from-transparent via-zinc-500 to-transparent" />
+            <div className="flex items-center gap-4 px-6 py-4 border border-white/5 bg-zinc-950/50">
+              <Shield className="w-5 h-5 text-amber-600" />
               <div className="text-left">
-                <p className="text-[9px] text-zinc-400 uppercase tracking-[0.4em] font-black">
-                  Operaciones de Combate
+                <p className="text-[8px] text-zinc-400 uppercase tracking-[0.4em] font-black">
+                  Restaurando Orden Dorado
                 </p>
                 <p className="text-[7px] text-zinc-600 uppercase italic">
-                  Próximo despliegue
+                  Tu voluntad es la ley de este reino
                 </p>
               </div>
             </div>
