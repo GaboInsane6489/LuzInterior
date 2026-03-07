@@ -11,7 +11,6 @@ import {
   Shield,
   ShieldPlus,
 } from "lucide-react";
-
 import {
   FaDiscord,
   FaInstagram,
@@ -27,20 +26,18 @@ export default function DojoCommunity() {
 
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
-  const sanitizeAvatarUrl = (url) => {
-    if (!url) return url;
-    if (url.includes("googleusercontent.com")) {
-      return url.replace(/=s\d+(-c)?/, "=s400-c");
-    }
-    return url;
-  };
   const [isSearching, setIsSearching] = useState(false);
-
   const [friends, setFriends] = useState([]);
   const [requests, setRequests] = useState([]);
   const [communityUsers, setCommunityUsers] = useState([]);
   const [loadingSocial, setLoadingSocial] = useState(true);
+
+  const sanitizeAvatarUrl = (url) => {
+    if (!url) return url;
+    if (url.includes("googleusercontent.com"))
+      return url.replace(/=s\d+(-c)?/, "=s400-c");
+    return url;
+  };
 
   const loadSocialData = React.useCallback(async () => {
     try {
@@ -61,9 +58,7 @@ export default function DojoCommunity() {
   }, [user]);
 
   useEffect(() => {
-    if (user?.id) {
-      loadSocialData();
-    }
+    if (user?.id) loadSocialData();
   }, [user, loadSocialData]);
 
   const handleSearch = async (e) => {
@@ -83,7 +78,7 @@ export default function DojoCommunity() {
   const sendRequest = async (targetUserId) => {
     try {
       await dojoService.sendFriendRequest(user.id, targetUserId);
-      alert("¡Solicitud enviada con honor!");
+      alert("¡Señal de invocación enviada con honor!");
     } catch (error) {
       alert(error.message);
     }
@@ -109,121 +104,101 @@ export default function DojoCommunity() {
   };
 
   return (
-    <div className="min-w-0 space-y-12 animate-in fade-in duration-700">
-      {/* Header Section */}
-      <div className="min-w-0 space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-4xl md:text-6xl font-serif">Comunidad</h1>
+    <div className="min-w-0 space-y-6 animate-in fade-in duration-500 pb-4">
+      {/* Header Section - Compacto */}
+      <div className="min-w-0 space-y-1">
+        <div className="flex items-center justify-between border-b border-amber-600/50 pb-1">
+          <h1 className="text-3xl md:text-5xl font-serif font-black text-white tracking-tight italic">
+            Santuario Social
+          </h1>
           {loadingSocial && (
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-amber-300"></div>
+            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-amber-400"></div>
           )}
         </div>
-        <p className="text-gray-400 max-w-2xl">
-          Encuentra guerreros de ideas afines. Forja alianzas indestructibles.
+        <p className="text-amber-200/60 text-xs md:text-sm italic">
+          Encuentra latentes de la misma fe. Forja pactos inquebrantables en la
+          niebla.
         </p>
 
-        {/* Video Hero Section */}
-        <div className="relative w-full h-[600px] rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl group">
+        {/* Video Hero Section - Altura reducida */}
+        <div className="relative w-full h-[350px] mt-4 rounded-xl overflow-hidden border-2 border-amber-600 shadow-[0_0_25px_rgba(217,119,6,0.2)] group">
           <video
             src="/videos/Knight-Templar-Sunset-Field-Moewalls-Com.mp4"
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
 
-          <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-            <h2 className="text-3xl md:text-4xl font-serif text-white mb-2 drop-shadow-lg">
-              Temporada de Caza
+          <div className="absolute bottom-0 left-0 p-5 w-full bg-black/40 backdrop-blur-sm border-t border-amber-600/30">
+            <h2 className="text-2xl md:text-3xl font-serif text-amber-400 font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+              Temporada de Caza: Cenizas del Dojo
             </h2>
-            <p className="text-gray-200 max-w-xl text-base md:text-lg mb-4 md:mb-6 drop-shadow-md">
-              La bestia interior nunca duerme. Domínala junto a tus hermanos de
-              armas. Nuevos retos cooperativos disponibles.
-            </p>
-            <div className="flex items-center gap-2 justify-start">
-              <ShieldPlus className="w-6 h-6 text-amber-500" />
-              <p className="text-gray-200 max-w-xl text-base md:text-lg drop-shadow-md">
-                Mejoras en el desarrollo de la comunidad.
-              </p>
+            <div className="flex flex-col gap-0.5 mt-1 mb-3">
+              <div className="flex items-center gap-2">
+                <ShieldPlus className="w-4 h-4 text-amber-500" />
+                <p className="text-gray-100 text-xs md:text-sm font-medium drop-shadow-md">
+                  Nuevos desafíos cooperativos ante la Gran Bestia.
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <ShieldPlus className="w-4 h-4 text-amber-500" />
+                <p className="text-gray-100 text-xs md:text-sm font-medium drop-shadow-md">
+                  Mejoras en el desarrollo de la Orden.
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-2 justify-start">
-              <ShieldPlus className="w-6 h-6 text-amber-500" />
-              <p className="text-gray-200 max-w-xl text-base md:text-lg drop-shadow-md">
-                Nuevos desafíos cooperativos disponibles.
-              </p>
-            </div>
-            <div className="flex items-center gap-2 justify-start">
-              <ShieldPlus className="w-6 h-6 text-amber-500" />
-              <p className="text-gray-200 max-w-xl text-base md:text-lg drop-shadow-md">
-                Implementación de nuevas funcionalidades.
-              </p>
-            </div>
-            <button className="px-6 md:px-8 py-2 md:py-3 mt-4 hover:cursor-pointer bg-amber-500 text-black font-bold uppercase tracking-widest rounded-full hover:bg-amber-400 transition-colors shadow-lg shadow-amber-500/20 text-sm md:text-base">
-              Unirse a la Cacería
+            <button className="px-6 py-2 bg-amber-600 text-black font-black uppercase tracking-tighter rounded-sm hover:bg-amber-400 transition-all border border-amber-300 shadow-xl text-xs md:text-sm active:scale-95">
+              Unirse a la Invocación
             </button>
           </div>
         </div>
 
-        {/* User Carousel Section */}
-        <div className="min-w-0 space-y-4 pt-8">
-          <h3 className="text-2xl font-serif text-amber-100 flex items-center gap-2">
-            <Shield className="w-6 h-6 text-amber-500" />
-            Vanguardia del Dojo
+        {/* User Carousel Section - Padding reducido */}
+        <div className="min-w-0 space-y-2 pt-4">
+          <h3 className="text-lg font-serif text-amber-400 flex items-center gap-2 font-bold uppercase tracking-widest">
+            <Shield className="w-5 h-5 text-amber-500 fill-amber-500/20" />
+            Vanguardia de la Llama
           </h3>
 
-          {/* Carousel Container with Proper Overflow Control */}
           <div className="w-full overflow-hidden">
-            <div
-              className="overflow-x-auto overflow-y-hidden scrollbar-hide overscroll-x-contain"
-              style={{ width: "100%", contain: "layout" }}
-            >
-              <div className="flex gap-4 px-4 sm:px-6 md:px-8 pb-4 mt-4">
+            <div className="overflow-x-auto overflow-y-hidden scrollbar-hide overscroll-x-contain">
+              <div className="flex gap-3 pb-3">
                 {communityUsers.map((warrior) => (
                   <div
                     key={warrior.id}
-                    className="flex-none w-72 md:w-80 group relative overflow-hidden rounded-xl border-2 border-zinc-800 bg-zinc-900 transition-all duration-300 hover:border-amber-500 hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:-translate-y-1"
+                    className="flex-none w-56 md:w-64 group relative overflow-hidden rounded-lg border-2 border-zinc-800 bg-black transition-all duration-300 hover:border-amber-500 hover:shadow-[0_0_15px_rgba(217,119,6,0.4)]"
                   >
-                    {/* Background Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-
-                    {/* Avatar Image (Full Cover) */}
-                    <div className="h-80 w-full overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+                    <div className="h-64 w-full overflow-hidden">
                       <img
                         src={sanitizeAvatarUrl(
                           warrior.custom_avatar_url || warrior.avatar_url,
                         )}
                         alt={warrior.username}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-0 grayscale"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[0.5] group-hover:grayscale-0"
                         referrerPolicy="no-referrer"
                       />
                     </div>
-
-                    {/* Content Layer */}
-                    <div className="absolute bottom-0 left-0 w-full p-5 z-20">
-                      {/* Level Badge */}
-                      <div className="mb-2 inline-flex items-center gap-1.5 rounded bg-amber-500 px-2 py-0.5 text-xs font-black uppercase tracking-wider text-black">
-                        <Shield className="h-3 w-3 fill-black" />
+                    <div className="absolute bottom-0 left-0 w-full p-3 z-20">
+                      <div className="mb-1 inline-flex items-center gap-1 rounded bg-amber-600 px-1.5 py-0.5 text-[10px] font-black uppercase text-black">
                         Lvl {warrior.level}
                       </div>
-
-                      {/* Name & Handle */}
-                      <div className="space-y-1">
-                        <h4 className="font-serif text-2xl font-bold uppercase tracking-wide text-white drop-shadow-lg group-hover:text-amber-400 transition-colors">
+                      <div className="space-y-0">
+                        <h4 className="font-serif text-lg font-bold uppercase text-white leading-tight group-hover:text-amber-400 transition-colors truncate">
                           {warrior.full_name}
                         </h4>
-                        <p className="font-mono text-xs text-zinc-400 uppercase tracking-widest group-hover:text-zinc-200">
+                        <p className="font-mono text-[10px] text-amber-200/50 uppercase tracking-tighter">
                           @{warrior.username}
                         </p>
                       </div>
-
-                      {/* Action Button (Hidden until hover) */}
                       <a
                         href={`/dojo/profile/${warrior.username}`}
-                        className="mt-4 block w-full translate-y-8 rounded border-l-4 border-amber-500 bg-zinc-800/80 p-2 text-center text-xs font-bold uppercase tracking-widest text-amber-500 opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-amber-500 hover:text-black group-hover:translate-y-0 group-hover:opacity-100"
+                        className="mt-2 block w-full py-1.5 border border-amber-600/50 bg-zinc-900/80 text-center text-[10px] font-black uppercase tracking-widest text-amber-500 hover:bg-amber-600 hover:text-black transition-all"
                       >
-                        Inspeccionar
+                        Inspeccionar Alma
                       </a>
                     </div>
                   </div>
@@ -234,60 +209,58 @@ export default function DojoCommunity() {
         </div>
       </div>
 
-      {/* Search and Social Grid */}
-      <div className="min-w-0 grid lg:grid-cols-3 gap-6 lg:gap-8">
+      {/* Search and Social Grid - Gaps reducidos */}
+      <div className="min-w-0 grid lg:grid-cols-3 gap-4">
         {/* Search Column */}
-        <div className="min-w-0 lg:col-span-2 space-y-8">
-          <div className="bg-zinc-900/40 border border-white/5 rounded-2xl p-6 backdrop-blur-sm">
+        <div className="min-w-0 lg:col-span-2 space-y-4">
+          <div className="bg-zinc-900/60 border-2 border-zinc-800 rounded-xl p-4 backdrop-blur-md">
             <form onSubmit={handleSearch} className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-600 w-4 h-4" />
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Buscar por nombre o usuario..."
-                className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-white focus:outline-none focus:border-amber-300/50 transition-colors"
+                placeholder="Rastrear guerrero por nombre..."
+                className="w-full bg-black/60 border border-amber-900/50 rounded-lg py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-amber-500 transition-colors"
               />
             </form>
 
-            <div className="mt-6 space-y-4">
+            <div className="mt-4 space-y-2">
               {isSearching && (
-                <p className="text-gray-500 animate-pulse">
-                  Buscando guerreros...
+                <p className="text-amber-500 text-xs animate-pulse italic">
+                  Invocando resultados...
                 </p>
               )}
-
               {searchResults.map((resultUser) => (
                 <div
                   key={resultUser.id}
-                  className="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/5 gap-4"
+                  className="flex items-center justify-between bg-black/40 p-2 rounded-lg border border-amber-900/30 gap-3"
                 >
-                  <div className="flex items-center gap-4 min-w-0 flex-1">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
                     <img
                       src={sanitizeAvatarUrl(
                         resultUser.custom_avatar_url ||
                           resultUser.avatar_url ||
                           `https://api.dicebear.com/7.x/avataaars/svg?seed=${resultUser.username}`,
                       )}
-                      alt={resultUser.username}
-                      className="w-10 h-10 rounded-lg bg-black flex-shrink-0"
+                      alt=""
+                      className="w-8 h-8 rounded border border-amber-600"
                       referrerPolicy="no-referrer"
                     />
                     <div className="min-w-0 flex-1">
-                      <p className="font-bold text-white truncate">
+                      <p className="font-bold text-sm text-white truncate leading-none">
                         {resultUser.full_name}
                       </p>
-                      <p className="text-xs text-gray-500 truncate">
+                      <p className="text-[10px] text-amber-500/70 truncate uppercase font-mono">
                         @{resultUser.username} • Lvl {resultUser.level}
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={() => sendRequest(resultUser.id)}
-                    className="flex-shrink-0 p-2 bg-amber-300 text-black rounded-lg hover:bg-amber-400 transition-colors"
-                    title="Enviar Solicitud"
+                    className="p-2 bg-amber-600 text-black rounded hover:bg-white transition-all shadow-lg shadow-amber-900/20"
                   >
-                    <UserPlus className="w-5 h-5" />
+                    <UserPlus className="w-4 h-4" />
                   </button>
                 </div>
               ))}
@@ -296,35 +269,33 @@ export default function DojoCommunity() {
         </div>
 
         {/* Friends & Requests Column */}
-        <div className="min-w-0 space-y-6">
-          {/* Friend Requests */}
+        <div className="min-w-0 space-y-4">
           {requests.length > 0 && (
-            <div className="bg-amber-900/10 border border-amber-500/20 rounded-2xl p-6">
-              <h3 className="text-amber-500 font-bold mb-4 flex items-center gap-2">
-                <Shield className="w-4 h-4" /> Solicitudes
+            <div className="bg-amber-950/20 border-2 border-amber-600/50 rounded-xl p-3 shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
+              <h3 className="text-amber-500 text-xs font-black mb-2 flex items-center gap-2 uppercase tracking-tighter">
+                <Shield className="w-3 h-3" /> Peticiones de Unión
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {requests.map((req) => (
                   <div
                     key={req.id}
-                    className="flex items-center justify-between gap-2"
+                    className="flex items-center justify-between gap-2 bg-black/40 p-1.5 rounded border border-amber-900/20"
                   >
-                    <span className="font-bold text-sm truncate flex-1">
-                      {req.sender.username}
+                    <span className="font-bold text-[11px] text-white truncate flex-1">
+                      @{req.sender.username}
                     </span>
-                    <div className="flex gap-2 flex-shrink-0">
+                    <div className="flex gap-2">
                       <button
                         onClick={() => acceptRequest(req.id)}
-                        className="text-green-400 hover:text-green-300"
+                        className="text-emerald-500 hover:text-white transition-colors"
                       >
-                        <Check className="w-5 h-5" />
+                        <Check className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => rejectRequest(req.id)}
-                        className="text-red-400 hover:text-red-300"
-                        title="Declinar"
+                        className="text-rose-500 hover:text-white transition-colors"
                       >
-                        <X className="w-5 h-5" />
+                        <X className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
@@ -333,26 +304,26 @@ export default function DojoCommunity() {
             </div>
           )}
 
-          {/* Friends List */}
-          <div className="bg-zinc-900/40 border border-white/5 rounded-2xl p-6">
-            <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-              <Users className="w-4 h-4 text-gray-500" /> Aliados (
+          <div className="bg-zinc-900/60 border-2 border-zinc-800 rounded-xl p-4">
+            <h3 className="text-white text-xs font-black mb-3 flex items-center gap-2 uppercase tracking-tighter border-b border-zinc-800 pb-1">
+              <Users className="w-3 h-3 text-amber-600" /> Pactos de Sangre (
               {friends.length})
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-2 max-h-40 overflow-y-auto scrollbar-hide">
               {friends.length === 0 ? (
-                <p className="text-gray-600 text-sm">
-                  Tu círculo está vacío aún.
+                <p className="text-zinc-600 text-[10px] italic font-serif">
+                  Aún no has forjado alianzas...
                 </p>
               ) : (
                 friends.map((friend) => (
-                  <div key={friend.id} className="flex items-center gap-3">
+                  <div
+                    key={friend.id}
+                    className="flex items-center gap-2 group cursor-default"
+                  >
                     <div
-                      className={`w-2 h-2 rounded-full flex-shrink-0 ${
-                        friend.role === "admin" ? "bg-red-500" : "bg-green-500"
-                      }`}
+                      className={`w-1.5 h-1.5 rounded-full ${friend.role === "admin" ? "bg-rose-600 shadow-[0_0_5px_rgba(225,29,72,0.8)]" : "bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.8)]"}`}
                     ></div>
-                    <p className="text-gray-300 text-sm truncate">
+                    <p className="text-zinc-300 text-[11px] truncate font-bold group-hover:text-amber-400 transition-colors">
                       {friend.full_name}
                     </p>
                   </div>
@@ -362,88 +333,59 @@ export default function DojoCommunity() {
           </div>
         </div>
       </div>
-      <div className="bg-zinc-900/40 border border-white/5 rounded-3xl p-8 backdrop-blur-md relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
-          <div className="space-y-6">
-            <h3 className="text-3xl font-serif text-white flex items-center gap-3">
-              <Shield className="w-8 h-8 text-amber-500" />
-              <span className="bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
-                Manifiesto de la Comunidad
+      {/* Manifiesto Section - Altura y padding reducidos */}
+      <div className="bg-black/80 border-2 border-amber-600 rounded-2xl p-5 relative overflow-hidden group shadow-2xl">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,119,6,0.1),transparent)]"></div>
+        <div className="grid lg:grid-cols-2 gap-6 items-center relative z-10">
+          <div className="space-y-3">
+            <h3 className="text-2xl font-serif text-white flex items-center gap-2">
+              <Shield className="w-6 h-6 text-amber-500 fill-amber-500/10" />
+              <span className="bg-gradient-to-r from-amber-400 to-amber-100 bg-clip-text text-transparent font-black italic">
+                El Código de Ceniza
               </span>
             </h3>
-
-            <div className="space-y-4 text-gray-300 leading-relaxed">
-              <p>
-                Este es un santuario para el crecimiento. Aquí, los guerreros
-                comparten sabiduría, no toxicidad. Forjamos alianzas basadas en
-                el respeto mutuo y la búsqueda incansable de la excelencia.
+            <div className="space-y-2 text-zinc-300 text-xs md:text-sm leading-snug">
+              <p className="italic border-l-2 border-amber-700 pl-3">
+                Santuario de crecimiento. Aquí, los latentes comparten
+                sabiduría, no ponzoña.
               </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-amber-100/80">
-                  <Check className="w-4 h-4 text-green-500" /> Apoyo
-                  incondicional entre hermanos de armas.
+              <ul className="grid grid-cols-1 gap-1">
+                <li className="flex items-center gap-2 text-amber-100/70">
+                  <Check className="w-3 h-3 text-emerald-500" /> Lealtad entre
+                  hermanos de armas.
                 </li>
-                <li className="flex items-center gap-2 text-amber-100/80">
-                  <Check className="w-4 h-4 text-green-500" /> Respeto absoluto
-                  por el camino de cada guerrero.
-                </li>
-                <li className="flex items-center gap-2 text-amber-100/80">
-                  <Check className="w-4 h-4 text-green-500" /> Inspiración para
-                  alcanzar nuestra mejor versión.
+                <li className="flex items-center gap-2 text-amber-100/70">
+                  <Check className="w-3 h-3 text-emerald-500" /> Respeto
+                  absoluto al camino ajeno.
                 </li>
               </ul>
             </div>
-
-            <div className="pt-6 border-t border-white/10">
-              <h4 className="text-sm uppercase tracking-widest text-gray-500 mb-4 font-bold">
-                Conecta con el Dojo
-              </h4>
-              <div className="flex gap-4">
-                <a
-                  href="#"
-                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
-                >
-                  <FaDiscord className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
-                </a>
-                <a
-                  href="#"
-                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
-                >
-                  <FaInstagram className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
-                </a>
-                <a
-                  href="#"
-                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
-                >
-                  <FaLinkedin className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
-                </a>
-                <a
-                  href="#"
-                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
-                >
-                  <FaGithub className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
-                </a>
-                <a
-                  href="#"
-                  className="group/icon p-3 bg-white/5 rounded-full hover:bg-amber-500 hover:text-black transition-all duration-300"
-                >
-                  <FaTwitter className="w-6 h-6 grayscale group-hover/icon:grayscale-0 transition-all opacity-70 group-hover/icon:opacity-100" />
-                </a>
+            <div className="pt-3 border-t border-amber-900/30 flex items-center gap-4">
+              <div className="flex gap-3">
+                {[FaDiscord, FaInstagram, FaLinkedin, FaGithub, FaTwitter].map(
+                  (Icon, i) => (
+                    <a
+                      key={i}
+                      href="#"
+                      className="p-2 bg-zinc-900 border border-zinc-800 rounded-full text-zinc-400 hover:text-amber-500 hover:border-amber-500 transition-all shadow-lg"
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  ),
+                )}
               </div>
             </div>
           </div>
-
-          <div className="relative h-full min-h-[300px] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+          <div className="relative h-44 rounded-lg overflow-hidden border border-amber-600/50">
             <img
               src="/images/Redencion.webp"
-              alt="Redención"
-              className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
-            <div className="absolute bottom-0 left-0 p-6">
-              <blockquote className="text-amber-100 italic border-l-2 border-amber-500 pl-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-4">
+              <blockquote className="text-amber-200 text-xs italic font-serif leading-tight">
                 "La verdadera fuerza no reside en vencer a otros, sino en
                 conquistarse a uno mismo."
               </blockquote>

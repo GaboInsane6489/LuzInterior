@@ -1,150 +1,135 @@
 import React from "react";
 import { ArrowUpRight, Sparkles, User, ExternalLink } from "lucide-react";
 
-/**
- * LooksMaxxing — Optimización Estética
- * Adaptado al lenguaje Dojo:
- * jerarquía editorial, ritual visual y micro‑interacciones
- * manteniendo fondo blanco como excepción consciente.
- */
 export default function LooksMaxxing() {
   return (
-    <section className="relative w-full bg-white text-black py-28 lg:py-48 overflow-hidden border-t border-black/5">
-      {/* MARCA DE AGUA EDITORIAL */}
+    // Reducción de padding vertical drástica de py-48 a py-12
+    <section className="relative w-full bg-white text-black py-12 lg:py-16 overflow-hidden border-t border-black/5">
+      {/* MARCA DE AGUA - Reducida para no distraer */}
       <div className="absolute top-10 -left-24 pointer-events-none select-none hidden 2xl:block">
-        <span className="text-[20rem] font-serif font-black text-black/[0.03] leading-none uppercase tracking-tighter">
-          Estética
+        <span className="text-[12rem] font-serif font-black text-black/[0.02] leading-none uppercase tracking-tighter">
+          Dojo Souls
         </span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28 items-start">
-          {/* NARRATIVA */}
-          <div className="space-y-14 lg:sticky lg:top-32">
-            <div className="space-y-8">
-              <div className="flex items-center gap-4">
-                <div className="h-[1px] w-12 bg-amber-500" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.6em] text-amber-600">
-                  Sistema Estético
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* NARRATIVA - Espaciado compactado */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="h-[1px] w-10 bg-amber-500" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.5em] text-amber-600">
+                  La Senda del Caballero
                 </span>
               </div>
 
-              <h2 className="text-6xl md:text-8xl font-serif tracking-tighter leading-[0.9]">
-                Looks
-                <br />
+              <h2 className="text-5xl md:text-6xl font-serif tracking-tighter leading-[0.9]">
+                Los enemigos <br />
                 <span className="italic font-light text-neutral-400">
-                  Maxxing
+                  son el espejo.
                 </span>
               </h2>
             </div>
 
-            <div className="space-y-10 max-w-xl">
-              <p className="text-xl md:text-2xl font-light leading-relaxed">
-                La belleza no es vanidad.
-                <br />
-                Es una{" "}
-                <span className="font-medium italic underline decoration-amber-500 decoration-4 underline-offset-8">
-                  infraestructura de respeto
+            <div className="space-y-6 max-w-xl">
+              <p className="text-lg md:text-xl font-light leading-snug">
+                En el caos de Drangleic, la estética no es vanidad, es{" "}
+                <span className="font-medium italic border-b-2 border-amber-500/30">
+                  armadura emocional.
                 </span>
-                .
               </p>
 
-              <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-500 font-bold">
-                Presencia. Dominio. Coherencia visual.
+              <p className="text-sm text-neutral-600 leading-relaxed">
+                Estudiamos los movimientos de maestros como{" "}
+                <span className="text-black font-bold">MkIceAndFire</span>. No
+                solo es gameplay; es el estudio de la paciencia, el timing y la
+                resiliencia ante el fracaso constante.
               </p>
 
-              <p className="text-neutral-700 leading-loose">
-                Cada rasgo comunica jerarquía. Cada decisión estética proyecta
-                orden interno. LooksMaxxing no busca aprobación: construye una
-                presencia que no puede ser ignorada.
-              </p>
+              <div className="flex items-center gap-4">
+                <h3 className="text-xl font-serif border-l-4 border-amber-500 pl-4">
+                  Cátedra de Supervivencia
+                </h3>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.youtube.com/@MKIceAndFire"
+                  className="hover:text-amber-500 transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
             </div>
 
-            {/* PROTOCOLOS */}
-            <div className="pt-10 grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="group flex items-center gap-5 border border-black/5 px-6 py-5 hover:border-black transition-all cursor-default">
-                <div className="p-3 bg-black text-white rounded-full transition-transform group-hover:rotate-12">
-                  <User className="w-5 h-5" />
+            {/* PROTOCOLOS - Grid más apretado */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="group flex items-center gap-4 border border-black/5 p-4 hover:border-amber-500/40 transition-all">
+                <div className="p-2 bg-black text-white rounded-sm">
+                  <User className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest">
-                    Protocolo Facial
+                  <p className="text-[9px] font-bold uppercase tracking-widest">
+                    El Despertar
                   </p>
-                  <p className="text-neutral-500 text-xs">
-                    Estructura ósea & piel
+                  <p className="text-neutral-500 text-[10px]">
+                    Fortaleza en la locura.
                   </p>
                 </div>
               </div>
 
-              <div className="group flex items-center gap-5 border border-black/5 px-6 py-5 hover:border-black transition-all cursor-default">
-                <div className="p-3 bg-amber-400 text-black rounded-full transition-transform group-hover:rotate-12">
-                  <Sparkles className="w-5 h-5" />
+              <div className="group flex items-center gap-4 border border-black/5 p-4 hover:border-amber-500/40 transition-all">
+                <div className="p-2 bg-amber-500 text-black rounded-sm">
+                  <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest">
-                    Aura & Estilo
+                  <p className="text-[9px] font-bold uppercase tracking-widest">
+                    La Victoria
                   </p>
-                  <p className="text-neutral-500 text-xs">
-                    Presencia proyectada
+                  <p className="text-neutral-500 text-[10px]">
+                    Morir es aprender.
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* VISUAL */}
-          <div className="space-y-28">
-            {/* IMAGEN EDITORIAL */}
-            <div className="relative group">
-              <div className="absolute -inset-6 border border-black/10 -z-10 translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-1000" />
-
+          {/* VISUAL - Eliminado el space-y-28 excesivo */}
+          <div className="space-y-8">
+            {/* IMAGEN EDITORIAL - Escala reducida */}
+            <div className="relative group max-w-md ml-auto">
+              <div className="absolute -inset-3 border border-black/10 -z-10 translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700" />
               <div className="relative overflow-hidden">
                 <img
-                  src="/images/DesarrolloPersonal.webp"
-                  alt="Dominio de la Imagen"
-                  className="w-full h-auto transition-transform duration-[2000ms] group-hover:scale-105"
+                  src="/images/DarkSoulsII2.webp"
+                  alt="Dominio"
+                  className="w-full h-auto grayscale-[0.3] group-hover:grayscale-0 transition-all duration-1000"
                 />
-
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-end p-10">
-                  <p className="text-amber-400 text-[10px] uppercase tracking-widest font-bold mb-3">
-                    Estado Visual
-                  </p>
-                  <p className="text-white font-serif italic text-lg">
-                    “El orden interno siempre se revela.”
-                  </p>
-                </div>
               </div>
             </div>
 
-            {/* LA BÓVEDA */}
-            <div className="bg-black px-8 py-14 md:px-14 space-y-12 shadow-[0_60px_120px_rgba(0,0,0,0.25)]">
-              <div className="flex justify-between items-center border-b border-white/10 pb-8">
+            {/* LA BÓVEDA - Reducción de padding interno */}
+            <div className="bg-black p-6 md:p-8 space-y-6 shadow-2xl">
+              <div className="flex justify-between items-end border-b border-white/10 pb-4">
                 <div>
-                  <h3 className="text-white text-3xl font-serif">La Bóveda</h3>
-                  <p className="text-neutral-500 text-[10px] uppercase tracking-[0.4em] mt-2">
-                    Conocimiento reservado
+                  <h3 className="text-white text-2xl font-serif">La Bóveda</h3>
+                  <p className="text-amber-500/70 text-[8px] uppercase tracking-[0.4em] mt-1">
+                    Archivos del Latente
                   </p>
                 </div>
-                <ExternalLink className="w-6 h-6 text-amber-400 hidden sm:block" />
+                <button className="text-[9px] text-white/50 uppercase tracking-widest hover:text-amber-400 transition-colors">
+                  Ver Guía
+                </button>
               </div>
 
-              <div className="relative aspect-video overflow-hidden group">
-                <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none" />
+              <div className="relative aspect-video overflow-hidden rounded-sm ring-1 ring-white/10">
                 <iframe
-                  className="w-full h-full rounded-sm"
-                  src="https://www.youtube-nocookie.com/embed/0Ub3KgX9LUI"
-                  title="LooksMaxxing — Estética Estratégica"
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/jsYsBADkqUY"
+                  title="Tutorial"
                   loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
-              </div>
-
-              <div className="flex justify-end">
-                <button className="group flex items-center gap-4 text-white text-[10px] uppercase tracking-[0.4em] font-bold border border-white/20 px-10 py-4 hover:bg-white hover:text-black transition-all">
-                  Explorar Guía
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </button>
               </div>
             </div>
           </div>

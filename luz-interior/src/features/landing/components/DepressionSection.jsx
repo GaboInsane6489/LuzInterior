@@ -1,81 +1,81 @@
 import React from "react";
 import { Skull, Scroll, Zap, ArrowUpRight } from "lucide-react";
 
-const SOULS_IMAGE = "/images/aestheticPaisaje.webp";
+const SOULS_IMAGE = "/images/DarkSoulsII4.webp";
 
 export default function SoulsWisdomSection() {
   return (
-    <section className="relative w-full bg-[#fdfdfd] text-black py-24 lg:py-40">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          {/* VISUAL: El Retrato del Latente */}
-          <div className="relative group order-2 lg:order-1">
-            {/* El marco desplazado da una sensación de inestabilidad controlada */}
-            <div className="absolute top-0 right-0 w-full h-full border-[1px] border-black/10 transform translate-x-6 translate-y-6 transition-transform duration-700 group-hover:translate-x-3 group-hover:translate-y-3"></div>
+    // Reducción de padding vertical de py-40 a py-12/16
+    <section className="relative w-full bg-[#fdfdfd] text-black py-12 lg:py-16 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* VISUAL: El Retrato del Latente - Reducción de escala */}
+          <div className="relative group order-2 lg:order-1 max-w-sm mx-auto lg:max-w-none">
+            <div className="absolute top-0 right-0 w-full h-full border-[1px] border-black/10 transform translate-x-3 translate-y-3 transition-transform duration-700 group-hover:translate-x-1 group-hover:translate-y-1"></div>
 
-            <div className="relative w-full aspect-[3/4] overflow-hidden border-[1px] border-black shadow-2xl">
+            <div className="relative w-full aspect-[4/5] overflow-hidden border-[1px] border-black shadow-xl">
               <img
                 src={SOULS_IMAGE}
                 alt="Paisaje de ceniza y luz"
-                className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110 grayscale-[0.5] group-hover:grayscale-0"
+                className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105 grayscale-[0.6] group-hover:grayscale-0"
               />
-              {/* Overlay sutil de grano para textura de papel antiguo */}
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
             </div>
           </div>
 
-          {/* NARRATIVA: El Conocimiento Prohibido */}
-          <article className="order-1 lg:order-2 space-y-12">
-            <div className="flex items-center gap-4">
-              <div className="h-[1px] w-12 bg-amber-600"></div>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-400">
-                Fragmento de Memoria II
+          {/* NARRATIVA: El Conocimiento Prohibido - Espaciado reducido */}
+          <article className="order-1 lg:order-2 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="h-[1px] w-8 bg-amber-700/60"></div>
+              <span className="text-[9px] font-black uppercase tracking-[0.3em] text-neutral-400">
+                Memoria de Ceniza II
               </span>
             </div>
 
-            <h2 className="text-5xl md:text-7xl font-serif leading-[1] tracking-tighter">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-[0.95] tracking-tighter">
               La muerte <br />
-              <span className="italic font-light text-neutral-500">
-                es solo un checkpoint.
+              <span className="italic font-light text-neutral-400">
+                es solo una hoguera.
               </span>
             </h2>
 
-            <p className="text-base md:text-xl leading-relaxed text-neutral-700 font-light max-w-lg">
-              En las Tierras Entre la Depresión y el Propósito, caer no es
-              fracasar. Validamos tu fatiga como el desgaste natural de un
-              guerrero que ha luchado contra jefes invisibles. Aquí,
-              transmutamos tu
-              <span className="font-medium text-black italic"> "Vacío" </span>
-              en poder acumulado.
+            <p className="text-sm md:text-base leading-relaxed text-neutral-600 font-light max-w-md">
+              En el nexo entre la{" "}
+              <span className="text-black font-normal">
+                Depresión y el Propósito
+              </span>
+              , caer es el rito de iniciación. No eres un "Hollow" (hueco); eres
+              un latente recolectando su propia humanidad.
             </p>
 
-            <ul className="grid grid-cols-1 gap-8 pt-4">
+            {/* Lista de Atributos - Más compacta */}
+            <ul className="grid grid-cols-1 gap-4 pt-2">
               {[
                 {
                   icon: Skull,
                   title: "Análisis del Hollow",
-                  desc: "Identifica los patrones que drenan tu humanidad.",
+                  desc: "Mapea los patrones que drenan tu estamina mental.",
                 },
                 {
                   icon: Scroll,
                   title: "Leyes del Pacto",
-                  desc: "Contratos de disciplina grabados en piedra.",
+                  desc: "Disciplina inquebrantable grabada en ceniza.",
                 },
                 {
                   icon: Zap,
-                  title: "Resonancia de Alma",
-                  desc: "Entrenamiento mental de alta intensidad.",
+                  title: "Refuerzo de Alma",
+                  desc: "Transmuta el trauma en poder de ataque real.",
                 },
               ].map((item, idx) => (
-                <li key={idx} className="flex gap-6 group cursor-default">
-                  <div className="flex-shrink-0 w-12 h-12 border border-black/5 flex items-center justify-center group-hover:border-amber-500 transition-all duration-500">
-                    <item.icon className="w-5 h-5 text-neutral-400 group-hover:text-amber-600 group-hover:rotate-12 transition-all" />
+                <li key={idx} className="flex gap-4 group cursor-default">
+                  <div className="flex-shrink-0 w-10 h-10 border border-black/5 flex items-center justify-center group-hover:border-amber-600 transition-all duration-500">
+                    <item.icon className="w-4 h-4 text-neutral-400 group-hover:text-amber-700 group-hover:rotate-12 transition-all" />
                   </div>
-                  <div className="space-y-1">
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-black">
+                  <div className="space-y-0.5">
+                    <h4 className="text-[10px] font-bold uppercase tracking-widest text-black">
                       {item.title}
                     </h4>
-                    <p className="text-sm text-neutral-500 font-light">
+                    <p className="text-xs text-neutral-500 font-light leading-snug">
                       {item.desc}
                     </p>
                   </div>
@@ -83,11 +83,11 @@ export default function SoulsWisdomSection() {
               ))}
             </ul>
 
-            <div className="pt-10">
-              <button className="group relative flex items-center gap-4 text-xs font-black uppercase tracking-[0.3em] transition-all">
-                <span className="relative z-10">Leer las Runas</span>
-                <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:w-full group-hover:bg-black group-hover:text-white transition-all duration-500">
-                  <ArrowUpRight className="w-4 h-4" />
+            <div className="pt-4">
+              <button className="group relative flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all">
+                <span className="relative z-10">Restaurar Humanidad</span>
+                <div className="w-7 h-7 rounded-full border border-black/10 flex items-center justify-center group-hover:w-32 group-hover:bg-black group-hover:text-white transition-all duration-500 overflow-hidden">
+                  <ArrowUpRight className="w-3 h-3 flex-shrink-0" />
                 </div>
               </button>
             </div>
