@@ -12,9 +12,10 @@ export default function DojoLibrary() {
       <section className="space-y-10">
         <div className="flex items-center justify-between border-b border-white/5 pb-6">
           <div className="space-y-2">
-            <h3 className="text-3xl font-serif">Biblioteca de Conocimiento</h3>
+            <h3 className="text-3xl font-serif">NEXO DE CONOCIMIENTOS</h3>
             <p className="text-gray-500 text-sm">
-              Recursos para tu transformación.
+              No hay mejor manera de entender el mundo que a travez de una
+              historia llena de sufrimiento y la caída de reinos y reyes.
             </p>
           </div>
         </div>
@@ -28,8 +29,8 @@ export default function DojoLibrary() {
           <div className="space-y-4 max-w-md">
             <h4 className="text-2xl font-serif text-white/80">Próximamente</h4>
             <p className="text-gray-500 leading-relaxed">
-              Esta sección contendrá artículos, guías, videos y recursos
-              educativos para potenciar tu desarrollo personal.
+              Esta sección contendrá historias, guías, videos y recursos para
+              poder sobrevivir a la locura que nos rodea.
             </p>
           </div>
 
